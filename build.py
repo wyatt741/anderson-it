@@ -123,7 +123,7 @@ def footer():
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
     <span>Arizona & California</span></div>
 </div></footer>
-<script src="app.js"></script>
+<script src="app.js?v=1"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
