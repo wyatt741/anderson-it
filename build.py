@@ -471,7 +471,6 @@ contact = (head(
      <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
      <input type="hidden" name="_captcha" value="false">
      <input type="hidden" name="_template" value="table">
-     <input type="hidden" name="_cc" value="wyatt741@gmail.com">
      <input type="hidden" name="_next" value="{SITE}/thanks.html">
      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
      <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
