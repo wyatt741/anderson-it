@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=4"
+CSSV = "styles.css?v=5"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"
@@ -129,6 +129,21 @@ def footer():
 def svc_card(icon,title,desc):
     return f'<div class="svc reveal"><div class="ic">{ic(icon)}</div><h3>{title}</h3><p>{desc}</p></div>'
 
+STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.77 6.12 20.87l1.12-6.55L2.48 8.92l6.58-.96z"/></svg>'
+# OWNER-INPUT: real customer reviews ONLY. No fabricated testimonials (FTC-illegal + destroys trust).
+# Each entry: dict(quote="...", name="Jane D.", loc="Chandler, AZ", stars=5)
+REVIEWS = []
+def reviews_section():
+    if not REVIEWS: return ""   # nothing renders until real reviews exist
+    cards = "".join(f'''<div class="review reveal"><div class="stars">{STAR*int(r.get("stars",5))}</div>
+        <blockquote>"{r["quote"]}"</blockquote>
+        <div class="who"><div class="av">{r["name"][:1].upper()}</div><div><b>{r["name"]}</b><span>{r.get("loc","")}</span></div></div></div>''' for r in REVIEWS)
+    return f'''
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Reviews</span><h2>What our clients say</h2></div>
+   <div class="reviews">{cards}</div>
+ </div></section>'''
+
 def write(name, html):
     with open(os.path.join(ROOT,name),"w",encoding="utf-8",newline="\n") as f: f.write(html)
     print("wrote",name)
@@ -187,6 +202,7 @@ home = (head(
      <p>Whether you run a business or just want your home tech to behave, there is a clear path for you.</p></div>
    <div class="tracks">
      <div class="track reveal">
+       <div class="track-media"><img src="assets/it-business.jpg" alt="Technician managing network and server hardware" loading="lazy" width="1200" height="800"></div>
        <span class="tag">For business</span>
        <h3>Managed IT</h3>
        <p>We become your outsourced IT department: proactive, secure, and always a call away, so your team can focus on the work that matters.</p>
@@ -199,6 +215,7 @@ home = (head(
        <a href="business.html" class="btn btn-primary">Explore managed IT {ARROW}</a>
      </div>
      <div class="track ondemand reveal d1">
+       <div class="track-media"><img src="assets/it-repair.jpg" alt="Technician repairing a desktop computer" loading="lazy" width="1200" height="800"></div>
        <span class="tag">For home & small office</span>
        <h3>Home & Office Support</h3>
        <p>Something broken, slow, or confusing? Get expert help when you need it, with no contract and no runaround.</p>
@@ -241,7 +258,7 @@ home = (head(
      <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
    </div>
  </div></section>
-
+ {reviews_section()}
  {cta()}
  </main>''' + footer())
 write("index.html", home)
@@ -353,6 +370,7 @@ about = (head(
  </div></section>
 
  <section class="section"><div class="wrap" style="max-width:760px">
+   <div class="about-photo reveal"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
    <div class="reveal">
      <p class="lead" style="color:var(--body);margin-bottom:20px">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
      <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
