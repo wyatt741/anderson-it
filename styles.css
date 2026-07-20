@@ -358,3 +358,17 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .ai-media img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:900px){.ai-band{grid-template-columns:1fr}.ai-media{order:-1;max-width:480px}}
 [data-theme="dark"] .ai-band{background:linear-gradient(160deg,rgba(76,141,255,.12),rgba(255,255,255,.02));border-color:rgba(255,255,255,.09)}
+
+/* ===== Contact form: file upload + inline status ===== */
+.hint{display:block;margin-top:7px;font-size:.82rem;color:var(--muted);line-height:1.45}
+.field input[type=file]{width:100%;padding:11px 13px;border:1px dashed var(--line);border-radius:12px;
+  background:var(--surface);color:var(--body);font:inherit;cursor:pointer}
+.field input[type=file]::file-selector-button{margin-right:12px;padding:9px 15px;border:0;border-radius:9px;
+  background:var(--brand);color:#fff;font-weight:600;cursor:pointer;font-family:inherit}
+.field input[type=file]:hover{border-color:var(--brand)}
+.form-status{margin-top:16px;padding:13px 16px;border-radius:14px;background:var(--brand-050);
+  border:1px solid var(--line);border-left:4px solid var(--brand);color:var(--ink);font-weight:500;line-height:1.5}
+.form-status.err{background:#fef2f2;border-color:#fecaca;border-left-color:#dc2626;color:#b91c1c}
+[data-theme="dark"] .form-status{background:rgba(76,141,255,.12);border-color:rgba(255,255,255,.1);color:var(--ink)}
+[data-theme="dark"] .form-status.err{background:rgba(220,38,38,.14);border-color:rgba(248,113,113,.35);color:#fca5a5}
+[data-theme="dark"] .field input[type=file]{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)}

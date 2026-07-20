@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=6"
+CSSV = "styles.css?v=7"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"
@@ -125,7 +125,7 @@ def footer():
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
     <span>Arizona & California</span></div>
 </div></footer>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=2"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
@@ -466,10 +466,11 @@ contact = (head(
      <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
      <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
    </div>
-   <form action="https://formsubmit.co/{EMAIL}" method="POST" class="reveal d1">
+   <form action="https://formsubmit.co/{EMAIL}" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
      <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
      <input type="hidden" name="_captcha" value="false">
      <input type="hidden" name="_template" value="table">
+     <input type="hidden" name="_cc" value="wyatt741@gmail.com">
      <input type="hidden" name="_next" value="{SITE}/thanks.html">
      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
      <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
@@ -483,8 +484,13 @@ contact = (head(
          <option>Something else</option>
        </select></div>
      <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+     <div class="field"><label for="photos">Add photos (optional)</label>
+       <input id="photos" type="file" name="attachment" accept="image/*" multiple>
+       <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
      <button type="submit" class="btn btn-primary">Send message {ARROW}</button>
+     <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
    </form>
+   <iframe name="fs_iframe" id="fs_iframe" title="Form submission target" style="display:none" aria-hidden="true"></iframe>
  </div></section>
  </main>''' + footer())
 write("contact.html", contact)

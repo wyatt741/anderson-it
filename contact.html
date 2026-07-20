@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 <script>(function(){try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -59,10 +59,11 @@
      <div class="info-card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
      <div class="info-card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
    </div>
-   <form action="https://formsubmit.co/info@andersontechsupport.com" method="POST" class="reveal d1">
+   <form action="https://formsubmit.co/info@andersontechsupport.com" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
      <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
      <input type="hidden" name="_captcha" value="false">
      <input type="hidden" name="_template" value="table">
+     <input type="hidden" name="_cc" value="wyatt741@gmail.com">
      <input type="hidden" name="_next" value="https://andersontechsupport.com/thanks.html">
      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
      <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
@@ -76,8 +77,13 @@
          <option>Something else</option>
        </select></div>
      <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+     <div class="field"><label for="photos">Add photos (optional)</label>
+       <input id="photos" type="file" name="attachment" accept="image/*" multiple>
+       <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
      <button type="submit" class="btn btn-primary">Send message <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+     <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
    </form>
+   <iframe name="fs_iframe" id="fs_iframe" title="Form submission target" style="display:none" aria-hidden="true"></iframe>
  </div></section>
  </main><footer><div class="wrap">
   <div class="foot-grid">
@@ -102,5 +108,5 @@
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
     <span>Arizona & California</span></div>
 </div></footer>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=2"></script>
 </body></html>
