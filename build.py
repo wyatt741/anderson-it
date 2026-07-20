@@ -118,6 +118,7 @@ def footer():
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
       <a href="tel:+18053408055">California {PHONE_CA}</a>
+      <a href="sms:+14802874190">Text {PHONE_AZ}</a>
       <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a>
     </div>
   </div>
@@ -486,6 +487,7 @@ contact = (head(
      <div class="reveal">
        <div class="info-card"><div class="ic">{ic("phone")}</div><div><b>Call us</b>
          <a href="tel:+14802874190">Arizona {PHONE_AZ}</a><br><a href="tel:+18053408055">California {PHONE_CA}</a></div></div>
+       <div class="info-card"><div class="ic">{ic("chat")}</div><div><b>Text us</b><a href="sms:+14802874190">Text {PHONE_AZ}</a></div></div>
        <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a></div></div>
        <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
        <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
