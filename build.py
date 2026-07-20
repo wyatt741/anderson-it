@@ -73,7 +73,7 @@ def nav(active=""):
   <nav class="nav-links" aria-label="Main">
     {a("index.html","Home")}
     {a("business.html","Business IT")}
-    {a("support.html","On-Demand")}
+    {a("support.html","Home & Office")}
     {a("about.html","About")}
     {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
@@ -83,7 +83,7 @@ def nav(active=""):
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html">Home</a>
   <a href="business.html">Business IT</a>
-  <a href="support.html">On-Demand Support</a>
+  <a href="support.html">Home & Office Support</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Get a free quote</a>
@@ -104,13 +104,13 @@ def footer():
   <div class="foot-grid">
     <div class="foot-brand">
       <img src="assets/logo-dark.png" alt="Anderson Technologies" style="filter:brightness(0) invert(1)">
-      <p>Managed IT and on-demand technology support for businesses and households across Arizona and California.</p>
+      <p>Managed IT and as-needed tech support for businesses and households across Arizona and California.</p>
     </div>
     <div class="foot-col"><h5>For Business</h5>
       <a href="business.html">Managed IT</a><a href="business.html#helpdesk">Helpdesk</a>
       <a href="business.html#security">Cybersecurity</a><a href="business.html#cloud">Cloud & Microsoft 365</a>
     </div>
-    <div class="foot-col"><h5>On-Demand</h5>
+    <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
       <a href="support.html#smart">Smart Home & Office</a><a href="about.html">About</a>
     </div>
@@ -148,12 +148,12 @@ demand_services = [
  ("shield","Virus & Malware Removal","Cleanup, protection, and a clear explanation of how to stay out of trouble next time."),
  ("drive","Data Recovery","Lost files, failing drives, accidental deletions. We work to get your important data back."),
  ("home","Smart Home & Office","Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything just works together."),
- ("bulb","Tech Advice","Not sure what to buy or how to fix something? Get honest, plain-English guidance before you spend."),
+ ("bulb","Tech Advice","Not sure what to buy or how to fix something? Get honest, jargon-free guidance before you spend."),
 ]
 
 home = (head(
- "Managed IT & On-Demand Tech Support | Anderson Technologies",
- "Anderson Technologies provides managed IT for businesses and on-demand computer support for homes and small offices across Arizona and California. Local, responsive, jargon-free.",
+ "Managed IT & Computer Support | Anderson Technologies",
+ "Anderson Technologies provides managed IT for businesses and as-needed computer support for homes and small offices across Arizona and California. Local, responsive, jargon-free.",
  "index.html")
  + nav("Home")
  + f'''<main id="main">
@@ -161,7 +161,7 @@ home = (head(
    <div>
      <span class="eyebrow reveal">Arizona & California IT Support</span>
      <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
-     <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to on-demand help when something breaks. Local, responsive, and refreshingly free of jargon.</p>
+     <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly free of jargon.</p>
      <div class="hero-cta reveal d3">
        <a href="contact.html" class="btn btn-primary">Get a free quote {ARROW}</a>
        <a href="#what" class="btn btn-ghost">See what we do</a>
@@ -169,14 +169,14 @@ home = (head(
    </div>
    <div class="hero-panel reveal d2">
      <div class="row"><div class="ic">{ic("headset")}</div><div><b>Managed IT for business</b><span>Proactive support, security, and cloud</span></div></div>
-     <div class="row"><div class="ic mint">{ic("wrench")}</div><div><b>On-demand help</b><span>Repairs and setup, no contract needed</span></div></div>
+     <div class="row"><div class="ic mint">{ic("wrench")}</div><div><b>Home and office help</b><span>Repairs and setup, no contract needed</span></div></div>
      <div class="row"><div class="ic amber">{ic("clock")}</div><div><b>Reply within one business day</b><span>Clear next steps, every time</span></div></div>
    </div>
  </div></section>
 
  <div class="trust"><div class="wrap trust-in">
    <div class="trust-item">{ic("pin")}Local to AZ & CA</div>
-   <div class="trust-item">{ic("chat")}Plain-English support</div>
+   <div class="trust-item">{ic("chat")}Jargon-free support</div>
    <div class="trust-item">{ic("users")}Business & home</div>
    <div class="trust-item">{ic("check")}Honest, upfront pricing</div>
  </div></div>
@@ -200,7 +200,7 @@ home = (head(
      </div>
      <div class="track ondemand reveal d1">
        <span class="tag">For home & small office</span>
-       <h3>On-Demand Support</h3>
+       <h3>Home & Office Support</h3>
        <p>Something broken, slow, or confusing? Get expert help when you need it, with no contract and no runaround.</p>
        <ul>
          <li>{ic("check")}Computer and network repair</li>
@@ -208,7 +208,7 @@ home = (head(
          <li>{ic("check")}Virus removal and cleanup</li>
          <li>{ic("check")}Data recovery and smart home</li>
        </ul>
-       <a href="support.html" class="btn btn-ghost">Explore on-demand {ARROW}</a>
+       <a href="support.html" class="btn btn-ghost">Explore home and office {ARROW}</a>
      </div>
    </div>
  </div></section>
@@ -227,7 +227,7 @@ home = (head(
      <h2>Support that treats you like a person</h2></div>
    <div class="feat">
      <div class="f reveal"><div class="n">{ic("pin")}Local & responsive</div><p>Based in Arizona and California, so you get real people who know your area and answer quickly.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}Plain English</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}No jargon</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
      <div class="f reveal d2"><div class="n">{ic("users")}Right-sized</div><p>From a single laptop to a whole office network, we scale the help to fit what you actually need.</p></div>
      <div class="f reveal d3"><div class="n">{ic("check")}Honest pricing</div><p>Clear quotes and no surprise fees. You always know what you are paying for before we start.</p></div>
    </div>
@@ -304,16 +304,16 @@ write("business.html", business)
 
 # ============================ ON-DEMAND ============================
 support = (head(
- "On-Demand Computer & Tech Support | Anderson Technologies",
- "On-demand computer repair, setup, virus removal, data recovery, and smart home support for homes and small offices in Arizona and California. No contract required.",
+ "Home & Office Tech Support | Anderson Technologies",
+ "As-needed computer repair, setup, virus removal, data recovery, and smart home support for homes and small offices in Arizona and California. No contract required.",
  "support.html")
- + nav("On-Demand")
+ + nav("Home & Office")
  + f'''<main id="main">
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow mint reveal">For home & small office</span>
    <h1 class="reveal d1">Help when you need it, no contract</h1>
    <p class="reveal d2">Broken, slow, or confusing technology is stressful. Get honest, expert help you can book as you need it, at home or at the office.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=On-Demand Support" class="btn btn-primary">Book support {ARROW}</a></div>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
  </div></section>
 
  <section class="section"><div class="wrap">
@@ -329,11 +329,11 @@ support = (head(
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow mint">How it works</span><h2>Simple, honest, no contract</h2></div>
    <div class="steps">
-     <div class="step reveal"><h3>Tell us what is wrong</h3><p>Describe it in plain words. No need to know the technical terms.</p></div>
+     <div class="step reveal"><h3>Tell us what is wrong</h3><p>Describe it in your own words. No need to know the technical terms.</p></div>
      <div class="step reveal d1"><h3>Get an honest quote</h3><p>We tell you what it will take and what it will cost before any work starts.</p></div>
      <div class="step reveal d2"><h3>We fix it</h3><p>Remote or in person, we solve it and make sure you know how to avoid it next time.</p></div>
    </div>
-   <div class="center u-mt reveal"><a href="contact.html?service=On-Demand Support" class="btn btn-primary">Book support {ARROW}</a></div>
+   <div class="center u-mt reveal"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
  </div></section>
  {cta("Something not working? Let's fix it.","Send a quick note about what is going on. We reply within one business day with a plan and a price.")}
  </main>''' + footer())
@@ -342,7 +342,7 @@ write("support.html", support)
 # ============================ ABOUT ============================
 about = (head(
  "About | Anderson Technologies IT Support",
- "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, plain-English technology support.",
+ "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, jargon-free technology support.",
  "about.html")
  + nav("About")
  + f'''<main id="main">
@@ -355,12 +355,12 @@ about = (head(
  <section class="section"><div class="wrap" style="max-width:760px">
    <div class="reveal">
      <p class="lead" style="color:var(--body);margin-bottom:20px">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
-     <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in plain language, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
+     <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
      <p>No jargon. No pressure. No surprise fees. Just honest, responsive help from people who live and work where you do.</p>
    </div>
    <div class="feat u-mt" style="margin-top:44px">
      <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}Plain-spoken</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}Straightforward</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
      <div class="f reveal d2"><div class="n">{ic("check")}Honest</div><p>Clear quotes, fair pricing, and advice that puts your needs first.</p></div>
      <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
    </div>
@@ -372,7 +372,7 @@ write("about.html", about)
 # ============================ CONTACT ============================
 contact = (head(
  "Contact | Anderson Technologies IT Support",
- "Contact Anderson Technologies for managed IT or on-demand computer support in Arizona and California. Call, email, or send the form for a free quote.",
+ "Contact Anderson Technologies for managed IT or as-needed computer support in Arizona and California. Call, email, or send the form for a free quote.",
  "contact.html")
  + nav("Contact")
  + f'''<main id="main">
@@ -401,7 +401,7 @@ contact = (head(
      <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
      <div class="field"><label for="service">What do you need?</label>
        <select id="service" name="service">
-         <option>Managed IT</option><option>On-Demand Support</option>
+         <option>Managed IT</option><option>Home & Office Support</option>
          <option>Computer Repair</option><option>Cybersecurity</option>
          <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
          <option>Something else</option>
