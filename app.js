@@ -61,7 +61,7 @@ document.querySelectorAll('.theme-toggle').forEach(btn => {
       if (total > MAX - MARGIN){
         e.preventDefault();
         var mb = (total/1048576).toFixed(1);
-        show('Those photos total ' + mb + ' MB, over the 10 MB limit. Remove or compress a few and try again, or email them to info@andersontechsupport.com.', true);
+        show('Those photos total ' + mb + ' MB, over the 10 MB limit. Remove or compress a few and try again, or email them to Info@AndersonTechSupport.com.', true);
         return;
       }
     }
@@ -80,7 +80,7 @@ document.querySelectorAll('.theme-toggle').forEach(btn => {
         show('Thanks. Your message is on its way and we reply within one business day. Prefer to talk now? Call (480) 287-4190.', false);
         form.reset();
       } else {
-        show('Something went wrong sending that. Please email info@andersontechsupport.com or call (480) 287-4190.', true);
+        show('Something went wrong sending that. Please email Info@AndersonTechSupport.com or call (480) 287-4190.', true);
       }
     });
   }
