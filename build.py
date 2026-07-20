@@ -319,9 +319,10 @@ support = (head(
  <section class="section"><div class="wrap">
    <div class="sec-head reveal"><span class="eyebrow mint">What we fix</span><h2>One call for whatever is going wrong</h2></div>
    <div class="grid-svc">
-     {"".join(svc_card(*s) for s in demand_services[:4])}
+     {"".join(svc_card(*s) for s in demand_services[:3])}
      <div class="svc reveal" id="recovery"><div class="ic">{ic("drive")}</div><h3>Data Recovery</h3><p>Lost files, failing drives, or accidental deletions. We work to recover what matters most to you.</p></div>
      <div class="svc reveal" id="smart"><div class="ic">{ic("home")}</div><h3>Smart Home & Office</h3><p>Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything works together.</p></div>
+     {svc_card(*demand_services[5])}
    </div>
  </div></section>
 
