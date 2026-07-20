@@ -1,0 +1,437 @@
+#!/usr/bin/env python3
+"""Emit the Anderson Technologies IT-support site (light, friendly theme).
+Static output, shared nav/footer, no build framework. Run: py build.py
+No em dashes. No fabricated stats/testimonials/certifications/pricing.
+OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
+import os
+ROOT = os.path.dirname(os.path.abspath(__file__))
+CSSV = "styles.css?v=1"
+SITE = "https://andersontechsupport.com"
+PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
+EMAIL = "info@andersontechsupport.com"
+
+# ---- inline line icons (stroke=currentColor) ----
+I = {
+ "headset":'<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14a2 2 0 0 1 2-2h1v6H6a2 2 0 0 1-2-2v-2Zm16 0a2 2 0 0 0-2-2h-1v6h1a2 2 0 0 0 2-2v-2Z"/><path d="M18 18v1a3 3 0 0 1-3 3h-3"/>',
+ "wifi":'<path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><path d="M12 19.5h.01"/>',
+ "shield":'<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/><path d="M9.5 12l1.8 1.8L15 10"/>',
+ "cloud":'<path d="M7 18a4 4 0 0 1 0-8 5.5 5.5 0 0 1 10.6 1.5A3.5 3.5 0 0 1 17 18H7Z"/>',
+ "backup":'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
+ "wrench":'<path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L4 17v3h3l5.5-5.5a4 4 0 0 0 5.2-5.2l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5Z"/>',
+ "drive":'<rect x="3" y="13" width="18" height="6" rx="2"/><path d="M6 8l1.5-3h9L18 8"/><path d="M6 8h12"/><path d="M8 16h.01M11 16h.01"/>',
+ "home":'<path d="M4 11l8-6 8 6"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-5h4v5"/>',
+ "bulb":'<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3Z"/>',
+ "monitor":'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+ "check":'<path d="M5 12.5l4 4L19 7"/>',
+ "arrow":'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ "phone":'<path d="M5 4h4l1.5 5-2 1.5a11 11 0 0 0 5 5l1.5-2 5 1.5v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/>',
+ "mail":'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/>',
+ "clock":'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ "pin":'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+ "bolt":'<path d="M13 3L4 14h6l-1 7 9-11h-6l1-7Z"/>',
+ "chat":'<path d="M4 5h16v11H9l-4 3v-3H4V5Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/>',
+ "users":'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 6a3 3 0 0 1 0 6M15 20a6 6 0 0 0-1-3.4"/>',
+}
+def ic(name): return f'<svg viewBox="0 0 24 24" aria-hidden="true">{I[name]}</svg>'
+ARROW = f'<svg viewBox="0 0 24 24" aria-hidden="true">{I["arrow"]}</svg>'
+
+def head(title, desc, canon, og_desc=None):
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{SITE}/{canon}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{SITE}/{canon}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{og_desc or desc}">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{CSSV}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+'''
+
+def nav(active=""):
+    def a(href,label):
+        c=' class="active"' if active==label else ''
+        return f'<a href="{href}"{c}>{label}</a>'
+    return f'''<header class="nav"><div class="wrap nav-in">
+  <a href="index.html" aria-label="Anderson Technologies home"><img class="nav-logo" src="assets/logo-dark.png" alt="Anderson Technologies" width="935" height="205"></a>
+  <nav class="nav-links" aria-label="Main">
+    {a("index.html","Home")}
+    {a("business.html","Business IT")}
+    {a("support.html","On-Demand")}
+    {a("about.html","About")}
+    <a href="contact.html" class="btn btn-primary">Get a free quote</a>
+  </nav>
+  <button class="burger" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="business.html">Business IT</a>
+  <a href="support.html">On-Demand Support</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a free quote</a>
+</div>
+'''
+
+def cta(h="Let's get your technology working for you.", p="Tell us what you need. We reply within one business day with clear next steps, no pressure and no jargon."):
+    return f'''<section class="section"><div class="wrap"><div class="cta reveal">
+  <h2>{h}</h2><p>{p}</p>
+  <div class="hero-cta">
+    <a href="contact.html" class="btn btn-white">Get a free quote {ARROW}</a>
+    <a href="tel:+14802874190" class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">Call {PHONE_AZ}</a>
+  </div></div></div></section>'''
+
+def footer():
+    return f'''<footer><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="assets/logo-dark.png" alt="Anderson Technologies" style="filter:brightness(0) invert(1)">
+      <p>Managed IT and on-demand technology support for businesses and households across Arizona and California.</p>
+    </div>
+    <div class="foot-col"><h5>For Business</h5>
+      <a href="business.html">Managed IT</a><a href="business.html#helpdesk">Helpdesk</a>
+      <a href="business.html#security">Cybersecurity</a><a href="business.html#cloud">Cloud & Microsoft 365</a>
+    </div>
+    <div class="foot-col"><h5>On-Demand</h5>
+      <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="about.html">About</a>
+    </div>
+    <div class="foot-col"><h5>Contact</h5>
+      <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
+      <a href="tel:+18053408055">California {PHONE_CA}</a>
+      <a href="mailto:{EMAIL}">{EMAIL}</a>
+    </div>
+  </div>
+  <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
+    <span>Arizona & California</span></div>
+</div></footer>
+<script src="app.js"></script>
+</body></html>'''
+
+def svc_card(icon,title,desc):
+    return f'<div class="svc reveal"><div class="ic">{ic(icon)}</div><h3>{title}</h3><p>{desc}</p></div>'
+
+def write(name, html):
+    with open(os.path.join(ROOT,name),"w",encoding="utf-8",newline="\n") as f: f.write(html)
+    print("wrote",name)
+
+# ============================ HOME ============================
+biz_services = [
+ ("headset","Helpdesk & Support","Friendly help by phone, email, or remote session when your team hits a snag. Real answers, not ticket limbo."),
+ ("wifi","Networks & Wi-Fi","Reliable wired and wireless networks, set up and maintained so everyone stays connected and secure."),
+ ("shield","Cybersecurity","Layered protection: antivirus, firewalls, email filtering, and safe-habit training that fits how you work."),
+ ("cloud","Cloud & Microsoft 365","Email, files, and apps in the cloud, configured cleanly and managed so they stay fast and organized."),
+ ("backup","Backup & Recovery","Automatic backups you never have to think about, tested so your data is actually there when you need it."),
+ ("monitor","Monitoring & Maintenance","We watch your systems in the background and fix small issues before they become downtime."),
+]
+demand_services = [
+ ("wrench","Computer Repair","PC and Mac diagnostics and repair, hardware upgrades, and tune-ups that bring slow machines back to life."),
+ ("bolt","Setup & Installation","New computers, printers, networks, and software set up right the first time, at home or at the office."),
+ ("shield","Virus & Malware Removal","Cleanup, protection, and a clear explanation of how to stay out of trouble next time."),
+ ("drive","Data Recovery","Lost files, failing drives, accidental deletions. We work to get your important data back."),
+ ("home","Smart Home & Office","Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything just works together."),
+ ("bulb","Tech Advice","Not sure what to buy or how to fix something? Get honest, plain-English guidance before you spend."),
+]
+
+home = (head(
+ "Managed IT & On-Demand Tech Support | Anderson Technologies",
+ "Anderson Technologies provides managed IT for businesses and on-demand computer support for homes and small offices across Arizona and California. Local, responsive, jargon-free.",
+ "index.html")
+ + nav("Home")
+ + f'''<main id="main">
+ <section class="hero"><div class="wrap hero-grid">
+   <div>
+     <span class="eyebrow reveal">Arizona & California IT Support</span>
+     <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
+     <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to on-demand help when something breaks. Local, responsive, and refreshingly free of jargon.</p>
+     <div class="hero-cta reveal d3">
+       <a href="contact.html" class="btn btn-primary">Get a free quote {ARROW}</a>
+       <a href="#what" class="btn btn-ghost">See what we do</a>
+     </div>
+   </div>
+   <div class="hero-panel reveal d2">
+     <div class="row"><div class="ic">{ic("headset")}</div><div><b>Managed IT for business</b><span>Proactive support, security, and cloud</span></div></div>
+     <div class="row"><div class="ic mint">{ic("wrench")}</div><div><b>On-demand help</b><span>Repairs and setup, no contract needed</span></div></div>
+     <div class="row"><div class="ic amber">{ic("clock")}</div><div><b>Reply within one business day</b><span>Clear next steps, every time</span></div></div>
+   </div>
+ </div></section>
+
+ <div class="trust"><div class="wrap trust-in">
+   <div class="trust-item">{ic("pin")}Local to AZ & CA</div>
+   <div class="trust-item">{ic("chat")}Plain-English support</div>
+   <div class="trust-item">{ic("users")}Business & home</div>
+   <div class="trust-item">{ic("check")}Honest, upfront pricing</div>
+ </div></div>
+
+ <section class="section" id="what"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Two ways we help</span>
+     <h2>Pick the support that fits you</h2>
+     <p>Whether you run a business or just want your home tech to behave, there is a clear path for you.</p></div>
+   <div class="tracks">
+     <div class="track reveal">
+       <span class="tag">For business</span>
+       <h3>Managed IT</h3>
+       <p>We become your outsourced IT department: proactive, secure, and always a call away, so your team can focus on the work that matters.</p>
+       <ul>
+         <li>{ic("check")}Helpdesk and remote support</li>
+         <li>{ic("check")}Networks, Wi-Fi, and hardware</li>
+         <li>{ic("check")}Cybersecurity and backup</li>
+         <li>{ic("check")}Cloud and Microsoft 365</li>
+       </ul>
+       <a href="business.html" class="btn btn-primary">Explore managed IT {ARROW}</a>
+     </div>
+     <div class="track ondemand reveal d1">
+       <span class="tag">For home & small office</span>
+       <h3>On-Demand Support</h3>
+       <p>Something broken, slow, or confusing? Get expert help when you need it, with no contract and no runaround.</p>
+       <ul>
+         <li>{ic("check")}Computer and network repair</li>
+         <li>{ic("check")}Setup and installation</li>
+         <li>{ic("check")}Virus removal and cleanup</li>
+         <li>{ic("check")}Data recovery and smart home</li>
+       </ul>
+       <a href="support.html" class="btn btn-ghost">Explore on-demand {ARROW}</a>
+     </div>
+   </div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow">What we do</span>
+     <h2>Everything your technology needs, in one place</h2></div>
+   <div class="grid-svc">
+     {"".join(svc_card(*s) for s in biz_services[:3]+demand_services[:3])}
+   </div>
+   <div class="center u-mt reveal"><a href="business.html" class="btn btn-ghost">See all services {ARROW}</a></div>
+ </div></section>
+
+ <section class="section"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Why Anderson</span>
+     <h2>Support that treats you like a person</h2></div>
+   <div class="feat">
+     <div class="f reveal"><div class="n">{ic("pin")}Local & responsive</div><p>Based in Arizona and California, so you get real people who know your area and answer quickly.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}Plain English</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
+     <div class="f reveal d2"><div class="n">{ic("users")}Right-sized</div><p>From a single laptop to a whole office network, we scale the help to fit what you actually need.</p></div>
+     <div class="f reveal d3"><div class="n">{ic("check")}Honest pricing</div><p>Clear quotes and no surprise fees. You always know what you are paying for before we start.</p></div>
+   </div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Getting help is simple</h2></div>
+   <div class="steps">
+     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what is going on in your own words.</p></div>
+     <div class="step reveal d1"><h3>We assess</h3><p>We figure out the real problem and give you a clear plan and an honest quote.</p></div>
+     <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
+   </div>
+ </div></section>
+
+ {cta()}
+ </main>''' + footer())
+write("index.html", home)
+
+# ============================ BUSINESS ============================
+plans = [
+ ("Essential","Small teams getting organized",[
+   "Remote helpdesk during business hours","Antivirus and email security","Automatic cloud backup",
+   "Patch and update management","Monthly check-in"],False),
+ ("Business","Growing teams that depend on IT",[
+   "Everything in Essential","Priority helpdesk, phone and remote","Proactive monitoring and maintenance",
+   "Network and Wi-Fi management","Microsoft 365 administration","Quarterly technology review"],True),
+ ("Complete","Offices that want it all handled",[
+   "Everything in Business","On-site support visits","Advanced security and training",
+   "Vendor and hardware management","Backup testing and recovery drills","Dedicated technology roadmap"],False),
+]
+def plan_card(name,who,feats,feat):
+    lis="".join(f'<li>{ic("check")}{f}</li>' for f in feats)
+    cls=" featured" if feat else ""
+    return f'''<div class="plan{cls} reveal"><h3>{name}</h3><p class="who">{who}</p>
+      <div class="price">Custom quote<br><span>Priced to your team size and needs</span></div>
+      <ul>{lis}</ul>
+      <a href="contact.html?service=Managed IT" class="btn {'btn-primary' if feat else 'btn-ghost'}">Get a quote</a></div>'''
+
+business = (head(
+ "Managed IT for Business | Anderson Technologies",
+ "Managed IT services for small and medium businesses in Arizona and California: helpdesk, cybersecurity, networks, cloud, Microsoft 365, backup, and proactive monitoring.",
+ "business.html")
+ + nav("Business IT")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">For business</span>
+   <h1 class="reveal d1">Your outsourced IT department</h1>
+   <p class="reveal d2">Proactive, secure, and always a call away. We handle the technology so your team can focus on running the business, with predictable support and no surprises.</p>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Managed IT" class="btn btn-primary">Get a free assessment {ARROW}</a></div>
+ </div></section>
+
+ <section class="section"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow">Managed services</span><h2>Fully managed, proactively maintained</h2></div>
+   <div class="grid-svc">
+     <div class="svc reveal" id="helpdesk"><div class="ic">{ic("headset")}</div><h3>Helpdesk & Support</h3><p>Fast help by phone, email, or remote session. Your team gets real answers instead of waiting in a queue.</p></div>
+     {svc_card("wifi","Networks & Wi-Fi","Design, setup, and management of reliable wired and wireless networks that keep everyone connected.")}
+     <div class="svc reveal" id="security"><div class="ic">{ic("shield")}</div><h3>Cybersecurity</h3><p>Antivirus, firewalls, email filtering, and staff training layered to protect your business without slowing it down.</p></div>
+     <div class="svc reveal" id="cloud"><div class="ic">{ic("cloud")}</div><h3>Cloud & Microsoft 365</h3><p>Email, files, and apps set up cleanly and managed so they stay fast, secure, and organized.</p></div>
+     {svc_card("backup","Backup & Recovery","Automatic, tested backups so a mistake, outage, or ransomware attack never means losing your data.")}
+     {svc_card("monitor","Monitoring & Maintenance","We watch your systems around the clock and resolve small issues before they cause downtime.")}
+   </div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Managed IT plans</span>
+     <h2>Simple plans, priced to fit</h2>
+     <p>Every business is different, so we build a plan around your team and quote it clearly. Here is how the tiers compare.</p></div>
+   <div class="plans">{"".join(plan_card(*p) for p in plans)}</div>
+   <p class="center u-mt" style="color:var(--muted);font-size:.9rem">Not sure which fits? Get a free assessment and we will recommend the right level, no obligation.</p>
+ </div></section>
+ {cta("Ready for IT that runs itself?","Book a free, no-pressure assessment. We will review your setup and show you exactly where we can help.")}
+ </main>''' + footer())
+write("business.html", business)
+
+# ============================ ON-DEMAND ============================
+support = (head(
+ "On-Demand Computer & Tech Support | Anderson Technologies",
+ "On-demand computer repair, setup, virus removal, data recovery, and smart home support for homes and small offices in Arizona and California. No contract required.",
+ "support.html")
+ + nav("On-Demand")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow mint reveal">For home & small office</span>
+   <h1 class="reveal d1">Help when you need it, no contract</h1>
+   <p class="reveal d2">Broken, slow, or confusing technology is stressful. Get honest, expert help you can book as you need it, at home or at the office.</p>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=On-Demand Support" class="btn btn-primary">Book support {ARROW}</a></div>
+ </div></section>
+
+ <section class="section"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow mint">What we fix</span><h2>One call for whatever is going wrong</h2></div>
+   <div class="grid-svc">
+     {"".join(svc_card(*s) for s in demand_services[:4])}
+     <div class="svc reveal" id="recovery"><div class="ic">{ic("drive")}</div><h3>Data Recovery</h3><p>Lost files, failing drives, or accidental deletions. We work to recover what matters most to you.</p></div>
+     <div class="svc reveal" id="smart"><div class="ic">{ic("home")}</div><h3>Smart Home & Office</h3><p>Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything works together.</p></div>
+   </div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow mint">How it works</span><h2>Simple, honest, no contract</h2></div>
+   <div class="steps">
+     <div class="step reveal"><h3>Tell us what is wrong</h3><p>Describe it in plain words. No need to know the technical terms.</p></div>
+     <div class="step reveal d1"><h3>Get an honest quote</h3><p>We tell you what it will take and what it will cost before any work starts.</p></div>
+     <div class="step reveal d2"><h3>We fix it</h3><p>Remote or in person, we solve it and make sure you know how to avoid it next time.</p></div>
+   </div>
+   <div class="center u-mt reveal"><a href="contact.html?service=On-Demand Support" class="btn btn-primary">Book support {ARROW}</a></div>
+ </div></section>
+ {cta("Something not working? Let's fix it.","Send a quick note about what is going on. We reply within one business day with a plan and a price.")}
+ </main>''' + footer())
+write("support.html", support)
+
+# ============================ ABOUT ============================
+about = (head(
+ "About | Anderson Technologies IT Support",
+ "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, plain-English technology support.",
+ "about.html")
+ + nav("About")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">About us</span>
+   <h1 class="reveal d1">Local IT you can actually reach</h1>
+   <p class="reveal d2">Anderson Technologies helps businesses and households across Arizona and California get more out of their technology, with less stress.</p>
+ </div></section>
+
+ <section class="section"><div class="wrap" style="max-width:760px">
+   <div class="reveal">
+     <p class="lead" style="color:var(--body);margin-bottom:20px">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
+     <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in plain language, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
+     <p>No jargon. No pressure. No surprise fees. Just honest, responsive help from people who live and work where you do.</p>
+   </div>
+   <div class="feat u-mt" style="margin-top:44px">
+     <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}Plain-spoken</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
+     <div class="f reveal d2"><div class="n">{ic("check")}Honest</div><p>Clear quotes, fair pricing, and advice that puts your needs first.</p></div>
+     <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
+   </div>
+ </div></section>
+ {cta()}
+ </main>''' + footer())
+write("about.html", about)
+
+# ============================ CONTACT ============================
+contact = (head(
+ "Contact | Anderson Technologies IT Support",
+ "Contact Anderson Technologies for managed IT or on-demand computer support in Arizona and California. Call, email, or send the form for a free quote.",
+ "contact.html")
+ + nav("Contact")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">Contact</span>
+   <h1 class="reveal d1">Let's talk about your technology</h1>
+   <p class="reveal d2">Tell us what you need and we will reply within one business day with clear next steps. No pressure, no jargon.</p>
+ </div></section>
+
+ <section class="section" style="padding-top:0"><div class="wrap contact-grid">
+   <div class="reveal">
+     <div class="info-card"><div class="ic">{ic("phone")}</div><div><b>Call us</b>
+       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a><br><a href="tel:+18053408055">California {PHONE_CA}</a></div></div>
+     <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL}">{EMAIL}</a></div></div>
+     <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
+     <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
+   </div>
+   <form action="https://formsubmit.co/{EMAIL}" method="POST" class="reveal d1">
+     <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
+     <input type="hidden" name="_captcha" value="false">
+     <input type="hidden" name="_template" value="table">
+     <input type="hidden" name="_next" value="{SITE}/thanks.html">
+     <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+     <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
+     <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
+     <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
+     <div class="field"><label for="service">What do you need?</label>
+       <select id="service" name="service">
+         <option>Managed IT</option><option>On-Demand Support</option>
+         <option>Computer Repair</option><option>Cybersecurity</option>
+         <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
+         <option>Something else</option>
+       </select></div>
+     <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+     <button type="submit" class="btn btn-primary">Send message {ARROW}</button>
+   </form>
+ </div></section>
+ </main>''' + footer())
+write("contact.html", contact)
+
+# ============================ THANKS ============================
+thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We will reply within one business day.","thanks.html")
+ + nav()
+ + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
+   <div class="svc" style="width:64px;height:64px;margin:0 auto 24px;display:grid;place-items:center;border-radius:20px">
+     <div class="ic" style="margin:0;width:auto;height:auto;background:none;color:var(--mint)"><svg viewBox="0 0 24 24" style="width:34px;height:34px" aria-hidden="true">{I["check"]}</svg></div></div>
+   <h1>Thanks, we got it</h1>
+   <p>Your message is on its way to our team. We reply within one business day with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
+   <div class="hero-cta" style="justify-content:center;margin-top:26px"><a href="index.html" class="btn btn-primary">Back to home {ARROW}</a></div>
+ </div></section></main>''' + footer())
+write("thanks.html", thanks)
+
+# ============================ 404 ============================
+nf = (head("Page not found | Anderson Technologies","That page could not be found.","404.html")
+ + nav()
+ + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
+   <h1 style="font-size:var(--step-4)">404</h1><p>That page could not be found. It may have moved.</p>
+   <div class="hero-cta" style="justify-content:center;margin-top:26px"><a href="index.html" class="btn btn-primary">Back to home {ARROW}</a></div>
+ </div></section></main>''' + footer())
+write("404.html", nf)
+
+# ============================ sitemap + robots ============================
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("about.html","0.7"),("contact.html","0.8")]
+sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
+sm+='</urlset>\n'
+write("sitemap.xml", sm)
+write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+
+print("done: IT support site")
