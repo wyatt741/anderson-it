@@ -426,11 +426,15 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
- dict(name="Albert", role="Technician"),
+ dict(name="Albert", role="Operations Manager"),  # photo pending: uploaded image looks AI/stock, confirm it is really Albert before adding img="albert.jpg"
  dict(name="Alex", role="Technician"),
  dict(name="Nico", role="Technician"),
  dict(name="Josh", role="Technician"),
  dict(name="Carolina", role="Technician"),
+ dict(name="Dakota", role="Technician"),
+ dict(name="Edwardo", role="Technician"),
+ dict(name="Keanu", role="Technician"),
+ dict(name="Alejandro", role="Technician"),
 ]
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
