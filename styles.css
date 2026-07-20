@@ -312,3 +312,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 [data-theme="dark"] .step::before{box-shadow:0 8px 22px -6px rgba(76,141,255,.6)}
 [data-theme="dark"] .plan.featured{border-color:var(--brand)}
 [data-theme="dark"] h1 .hl{color:var(--sky)}
+/* nav + mobile CTA are <a> inside a colored-link container; force white text over the blue button
+   (fixes low-contrast grey text in light theme; specificity 0,2,1 beats .nav-links a / .mobile-menu a) */
+.nav-links a.btn-primary,.nav-links a.btn-primary:hover,
+.mobile-menu a.btn-primary,.mobile-menu a.btn-primary:hover{color:#fff}
