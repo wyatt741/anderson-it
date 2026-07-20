@@ -306,6 +306,7 @@ home = (head(
      <div class="ai-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
    </div>
  </div></section>
+ {reviews_section(3, see_all=True)}
  {cta()}
  </main>''' + footer())
 write("index.html", home)
