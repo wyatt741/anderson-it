@@ -91,7 +91,7 @@ def nav(active=""):
 </div>
 '''
 
-def cta(h="Let's get your technology working for you.", p="Tell us what you need. We reply within one business day with clear next steps, no pressure and no jargon."):
+def cta(h="Let's get your technology working for you.", p="Tell us what you need. We reply within one business day with clear next steps, no pressure and no runaround."):
     return f'''<section class="section"><div class="wrap"><div class="cta reveal">
   <h2>{h}</h2><p>{p}</p>
   <div class="hero-cta">
@@ -148,12 +148,12 @@ demand_services = [
  ("shield","Virus & Malware Removal","Cleanup, protection, and a clear explanation of how to stay out of trouble next time."),
  ("drive","Data Recovery","Lost files, failing drives, accidental deletions. We work to get your important data back."),
  ("home","Smart Home & Office","Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything just works together."),
- ("bulb","Tech Advice","Not sure what to buy or how to fix something? Get honest, jargon-free guidance before you spend."),
+ ("bulb","Tech Advice","Not sure what to buy or how to fix something? Get honest, straightforward guidance before you spend."),
 ]
 
 home = (head(
  "Managed IT & Computer Support | Anderson Technologies",
- "Anderson Technologies provides managed IT for businesses and as-needed computer support for homes and small offices across Arizona and California. Local, responsive, jargon-free.",
+ "Anderson Technologies provides managed IT for businesses and as-needed computer support for homes and small offices across Arizona and California. Local, responsive, and easy to work with.",
  "index.html")
  + nav("Home")
  + f'''<main id="main">
@@ -161,7 +161,7 @@ home = (head(
    <div>
      <span class="eyebrow reveal">Arizona & California IT Support</span>
      <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
-     <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly free of jargon.</p>
+     <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly easy to deal with.</p>
      <div class="hero-cta reveal d3">
        <a href="contact.html" class="btn btn-primary">Get a free quote {ARROW}</a>
        <a href="#what" class="btn btn-ghost">See what we do</a>
@@ -342,7 +342,7 @@ write("support.html", support)
 # ============================ ABOUT ============================
 about = (head(
  "About | Anderson Technologies IT Support",
- "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, jargon-free technology support.",
+ "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, down-to-earth technology support.",
  "about.html")
  + nav("About")
  + f'''<main id="main">
@@ -356,7 +356,7 @@ about = (head(
    <div class="reveal">
      <p class="lead" style="color:var(--body);margin-bottom:20px">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
      <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
-     <p>No jargon. No pressure. No surprise fees. Just honest, responsive help from people who live and work where you do.</p>
+     <p>No pressure. No surprise fees. No runaround. Just honest, responsive help from people who live and work where you do.</p>
    </div>
    <div class="feat u-mt" style="margin-top:44px">
      <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
@@ -379,7 +379,7 @@ contact = (head(
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
    <h1 class="reveal d1">Let's talk about your technology</h1>
-   <p class="reveal d2">Tell us what you need and we will reply within one business day with clear next steps. No pressure, no jargon.</p>
+   <p class="reveal d2">Tell us what you need and we will reply within one business day with clear next steps. No pressure, no runaround.</p>
  </div></section>
 
  <section class="section" style="padding-top:0"><div class="wrap contact-grid">
