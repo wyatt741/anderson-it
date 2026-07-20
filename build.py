@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=5"
+CSSV = "styles.css?v=6"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"
@@ -74,6 +74,7 @@ def nav(active=""):
     {a("index.html","Home")}
     {a("business.html","Business IT")}
     {a("support.html","Home & Office")}
+    {a("ai.html","AI")}
     {a("about.html","About")}
     {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
@@ -84,6 +85,7 @@ def nav(active=""):
   <a href="index.html">Home</a>
   <a href="business.html">Business IT</a>
   <a href="support.html">Home & Office Support</a>
+  <a href="ai.html">AI</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Get a free quote</a>
@@ -289,6 +291,22 @@ home = (head(
      <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
    </div>
  </div></section>
+ <section class="section"><div class="wrap">
+   <div class="ai-band reveal">
+     <div>
+       <span class="eyebrow">We specialize in AI</span>
+       <h2>Put AI to work, without the hype</h2>
+       <p>AI can genuinely save your team hours a week, when it is set up around how you actually work.</p>
+       <ul>
+         <li>{ic("check")}Practical AI strategy, no buzzwords</li>
+         <li>{ic("check")}Automate the repetitive, time-draining tasks</li>
+         <li>{ic("check")}Copilot and business AI tools, set up securely</li>
+       </ul>
+       <a href="ai.html" class="btn btn-primary">Explore AI solutions {ARROW}</a>
+     </div>
+     <div class="ai-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
+   </div>
+ </div></section>
  {reviews_section(6, see_all=True)}
  {cta()}
  </main>''' + footer())
@@ -326,6 +344,7 @@ business = (head(
    <p class="reveal d2">Proactive, secure, and always a call away. We handle the technology so your team can focus on running the business, with predictable support and no surprises.</p>
    <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Managed IT" class="btn btn-primary">Get a free assessment {ARROW}</a></div>
  </div></section>
+ <div class="wrap"><div class="page-photo reveal"><img src="assets/it-business.jpg" alt="Managing business networks and server hardware" loading="lazy" width="1200" height="800"></div></div>
 
  <section class="section"><div class="wrap">
    <div class="sec-head reveal"><span class="eyebrow">Managed services</span><h2>Fully managed, proactively maintained</h2></div>
@@ -336,6 +355,9 @@ business = (head(
      <div class="svc reveal" id="cloud"><div class="ic">{ic("cloud")}</div><h3>Cloud & Microsoft 365</h3><p>Email, files, and apps set up cleanly and managed so they stay fast, secure, and organized.</p></div>
      {svc_card("backup","Backup & Recovery","Automatic, tested backups so a mistake, outage, or ransomware attack never means losing your data.")}
      {svc_card("monitor","Monitoring & Maintenance","We watch your systems around the clock and resolve small issues before they cause downtime.")}
+     {svc_card("phone","VoIP & Business Phones","Modern phone systems that follow your team anywhere, without the old hardware or the tangled wiring closet.")}
+     {svc_card("users","Procurement & Vendors","We source the right hardware and software and deal with the vendors, so you get one number to call for all of it.")}
+     {svc_card("check","Compliance & Documentation","Clear records and support for the security standards your clients and industry expect, without the paperwork headache.")}
    </div>
  </div></section>
 
@@ -363,6 +385,7 @@ support = (head(
    <p class="reveal d2">Broken, slow, or confusing technology is stressful. Get honest, expert help you can book as you need it, at home or at the office.</p>
    <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
  </div></section>
+ <div class="wrap"><div class="page-photo reveal"><img src="assets/it-repair.jpg" alt="Repairing and setting up a computer" loading="lazy" width="1200" height="800"></div></div>
 
  <section class="section"><div class="wrap">
    <div class="sec-head reveal"><span class="eyebrow mint">What we fix</span><h2>One call for whatever is going wrong</h2></div>
@@ -371,6 +394,9 @@ support = (head(
      <div class="svc reveal" id="recovery"><div class="ic">{ic("drive")}</div><h3>Data Recovery</h3><p>Lost files, failing drives, or accidental deletions. We work to recover what matters most to you.</p></div>
      <div class="svc reveal" id="smart"><div class="ic">{ic("home")}</div><h3>Smart Home & Office</h3><p>Cameras, Wi-Fi, TVs, and smart devices installed and connected so everything works together.</p></div>
      {svc_card(*demand_services[5])}
+     {svc_card("wifi","Wi-Fi & Networking","Fast, reliable Wi-Fi with the dead zones gone, wired up right for the whole house or office.")}
+     {svc_card("monitor","Printers & Devices","Printers, scanners, monitors, and smart devices set up and connected so they finally cooperate.")}
+     {svc_card("backup","Backup & Cloud Storage","Your photos, files, and documents backed up automatically, so a lost phone or a dead drive is never a disaster.")}
    </div>
  </div></section>
 
@@ -430,6 +456,7 @@ contact = (head(
    <h1 class="reveal d1">Let's talk about your technology</h1>
    <p class="reveal d2">Tell us what you need and we will reply within one business day with clear next steps. No pressure, no runaround.</p>
  </div></section>
+ <div class="wrap"><div class="page-photo reveal"><img src="assets/it-support.jpg" alt="Friendly support, ready to help" loading="lazy" width="800" height="1200"></div></div>
 
  <section class="section" style="padding-top:0"><div class="wrap contact-grid">
    <div class="reveal">
@@ -450,7 +477,7 @@ contact = (head(
      <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
      <div class="field"><label for="service">What do you need?</label>
        <select id="service" name="service">
-         <option>Managed IT</option><option>Home & Office Support</option>
+         <option>Managed IT</option><option>AI Solutions</option><option>Home & Office Support</option>
          <option>Computer Repair</option><option>Cybersecurity</option>
          <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
          <option>Something else</option>
@@ -461,6 +488,48 @@ contact = (head(
  </div></section>
  </main>''' + footer())
 write("contact.html", contact)
+
+# ============================ AI ============================
+ai_services = [
+ ("bulb","AI Consulting & Strategy","We help you find where AI genuinely saves time or money, and just as important, where it does not. You get a practical plan, not a buzzword deck."),
+ ("bolt","Workflow Automation","Automate the repetitive, error-prone work, data entry, scheduling, quotes, document handling, so your team spends its time on what actually matters."),
+ ("chat","Copilot & AI Assistants","Roll out tools like Microsoft Copilot and business AI chat the right way: configured, secured, and with training your team will actually use."),
+ ("cloud","Custom AI Integrations","Connect AI to the systems you already run, email, CRM, files, so it fits your workflow instead of becoming one more app to check."),
+ ("shield","Secure & Responsible AI","Guardrails and clear policies so your team gets the benefit of AI without leaking sensitive company or customer data to public models."),
+ ("monitor","AI-Assisted Support","We use AI in our own toolkit too: faster diagnostics, smarter monitoring, and quicker fixes, so your problems get solved sooner."),
+]
+ai_cards = "".join(svc_card(*s) for s in ai_services)
+ai = (head(
+ "AI Solutions for Business | Anderson Technologies",
+ "Practical AI for businesses in Arizona and California: AI strategy, workflow automation, Microsoft Copilot setup, custom integrations, and secure, responsible AI adoption.",
+ "ai.html")
+ + nav("AI")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">AI Solutions</span>
+   <h1 class="reveal d1">Put AI to work, without the hype</h1>
+   <p class="reveal d2">Everyone is talking about AI. We help you actually use it, in ways that save your business real time and money, and we are honest about where it is not worth the trouble.</p>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
+ </div></section>
+ <div class="wrap"><div class="page-photo reveal"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div></div>
+
+ <section class="section"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow">What we do with AI</span><h2>AI that fits how you work</h2></div>
+   <div class="grid-svc">{ai_cards}</div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">How we approach it</span><h2>Useful first, impressive second</h2></div>
+   <div class="steps">
+     <div class="step reveal"><h3>Start with the problem</h3><p>We look at where your team loses time, not at what is trending. If AI is not the right tool, we will tell you.</p></div>
+     <div class="step reveal d1"><h3>Build it around you</h3><p>We set up and connect the tools to your real workflow and data, with security and privacy built in from the start.</p></div>
+     <div class="step reveal d2"><h3>Train and support</h3><p>Your team learns to actually use it, and we stay on to tune it as your needs change.</p></div>
+   </div>
+   <div class="center u-mt reveal"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
+ </div></section>
+ {cta("Curious where AI could help you?","Tell us what your team spends too much time on. We will show you honestly where AI fits, and where it does not.")}
+ </main>''' + footer())
+write("ai.html", ai)
 
 # ============================ THANKS ============================
 thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We will reply within one business day.","thanks.html")
@@ -500,7 +569,7 @@ reviews_page = (head("Reviews | Anderson Technologies IT Support",
  </main>''' + footer())
 write("reviews.html", reviews_page)
 
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("reviews.html","0.7"),("about.html","0.7"),("contact.html","0.8")]
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("reviews.html","0.7"),("about.html","0.7"),("contact.html","0.8")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'

@@ -10,3 +10,5 @@
 
 Rules: real licensed photos only, viewed before placing, no AI renders.
 Reviews/testimonials: REAL customers only, never fabricated (FTC).
+| assets/it-support.jpg | Pexels photo 8681897 | Pexels License | Contact page |
+| assets/it-ai.jpg | Pexels photo 12902862 | Pexels License | AI page / home AI section |
