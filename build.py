@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=7"
+CSSV = "styles.css?v=8"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -76,7 +76,6 @@ def nav(active=""):
     {a("business.html","Business IT")}
     {a("support.html","Home & Office")}
     {a("ai.html","AI")}
-    {a("about.html","About")}
     {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   </nav>
@@ -87,7 +86,6 @@ def nav(active=""):
   <a href="business.html">Business IT</a>
   <a href="support.html">Home & Office Support</a>
   <a href="ai.html">AI</a>
-  <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   {TOGGLE}
@@ -115,7 +113,7 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="about.html">About</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="contact.html#about">About</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
@@ -308,7 +306,6 @@ home = (head(
      <div class="ai-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
    </div>
  </div></section>
- {reviews_section(6, see_all=True)}
  {cta()}
  </main>''' + footer())
 write("index.html", home)
@@ -414,24 +411,55 @@ support = (head(
  </main>''' + footer())
 write("support.html", support)
 
-# ============================ ABOUT ============================
-about = (head(
- "About | Anderson Technologies IT Support",
- "Anderson Technologies is a local IT partner for businesses and households across Arizona and California, focused on responsive, down-to-earth technology support.",
- "about.html")
- + nav("About")
+# ============================ ABOUT -> folded into Contact ============================
+# Keep about.html as a redirect so old links/bookmarks do not 404.
+write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url={SITE}/contact.html#about">
+<link rel="canonical" href="{SITE}/contact.html#about">
+<meta name="robots" content="noindex"><title>About | Anderson Technologies</title></head>
+<body>Redirecting to <a href="{SITE}/contact.html#about">our About section</a>.</body></html>''')
+
+# Meet the team. Wyatt has a real photo; teammates are name + role cards (monogram avatars)
+# until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
+team = [
+ dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
+ dict(name="Albert", role="Technician"),
+ dict(name="Alex", role="Technician"),
+ dict(name="Nico", role="Technician"),
+ dict(name="Josh", role="Technician"),
+ dict(name="Carolina", role="Technician"),
+]
+def team_card(m):
+    initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
+    if m.get("img"):
+        inner, cls = f'<img src="assets/{m["img"]}" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
+    else:
+        inner, cls = f'<span>{initials}</span>', "team-av mono"
+    return f'<div class="team-card reveal"><div class="{cls}">{inner}</div><h3>{m["name"]}</h3><p>{m["role"]}</p></div>'
+
+# ============================ CONTACT ============================
+contact = (head(
+ "Contact & About | Anderson Technologies IT Support",
+ "Contact Anderson Technologies for managed IT, AI, or as-needed computer support in Arizona and California. Meet the team, read reviews, call, email, or send the form for a free quote.",
+ "contact.html")
+ + nav("Contact")
  + f'''<main id="main">
  <section class="page-hero"><div class="wrap">
-   <span class="eyebrow reveal">About us</span>
-   <h1 class="reveal d1">Local IT you can actually reach</h1>
-   <p class="reveal d2">Anderson Technologies helps businesses and households across Arizona and California get more out of their technology, with less stress.</p>
+   <span class="eyebrow reveal">Contact</span>
+   <h1 class="reveal d1">Let's talk about your technology</h1>
+   <p class="reveal d2">Tell us what you need and we will reply within one business day. No pressure, no runaround.</p>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px">
+     <a href="#form" class="btn btn-primary">Send a message {ARROW}</a>
+     <a href="tel:+14802874190" class="btn btn-ghost">Call {PHONE_AZ}</a>
+   </div>
  </div></section>
 
- <section class="section"><div class="wrap" style="max-width:760px">
-   <div class="about-photo reveal"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
-   <div class="reveal">
-     <p class="lead" style="color:var(--body);margin-bottom:20px">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
-     <p style="margin-bottom:20px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
+ <section class="section" id="about"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow">About us</span><h2>Local IT you can actually reach</h2></div>
+   <div class="about-body reveal">
+     <div class="about-photo"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
+     <p class="lead" style="color:var(--body);margin:22px 0">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
+     <p style="margin-bottom:18px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
      <p>No pressure. No surprise fees. No runaround. Just honest, responsive help from people who live and work where you do.</p>
    </div>
    <div class="feat u-mt" style="margin-top:44px">
@@ -441,56 +469,51 @@ about = (head(
      <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
    </div>
  </div></section>
- {cta()}
- </main>''' + footer())
-write("about.html", about)
 
-# ============================ CONTACT ============================
-contact = (head(
- "Contact | Anderson Technologies IT Support",
- "Contact Anderson Technologies for managed IT or as-needed computer support in Arizona and California. Call, email, or send the form for a free quote.",
- "contact.html")
- + nav("Contact")
- + f'''<main id="main">
- <section class="page-hero"><div class="wrap">
-   <span class="eyebrow reveal">Contact</span>
-   <h1 class="reveal d1">Let's talk about your technology</h1>
-   <p class="reveal d2">Tell us what you need and we will reply within one business day with clear next steps. No pressure, no runaround.</p>
+ <section class="section" id="team" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2>The local people behind Anderson Technologies</h2>
+     <p>Real people you can reach, not a call center. When you call, you get us.</p></div>
+   <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
  </div></section>
- <div class="wrap"><div class="page-photo reveal"><img src="assets/it-support.jpg" alt="Friendly support, ready to help" loading="lazy" width="800" height="1200"></div></div>
 
- <section class="section" style="padding-top:0"><div class="wrap contact-grid">
-   <div class="reveal">
-     <div class="info-card"><div class="ic">{ic("phone")}</div><div><b>Call us</b>
-       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a><br><a href="tel:+18053408055">California {PHONE_CA}</a></div></div>
-     <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a></div></div>
-     <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
-     <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
+ {reviews_section(6, see_all=True)}
+
+ <section class="section" id="form"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Get in touch</span><h2>Send us a message</h2>
+     <p>Tell us what you need and we will reply within one business day.</p></div>
+   <div class="contact-grid">
+     <div class="reveal">
+       <div class="info-card"><div class="ic">{ic("phone")}</div><div><b>Call us</b>
+         <a href="tel:+14802874190">Arizona {PHONE_AZ}</a><br><a href="tel:+18053408055">California {PHONE_CA}</a></div></div>
+       <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a></div></div>
+       <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
+       <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Arizona and Southern California, remote support nationwide</span></div></div>
+     </div>
+     <form action="https://formsubmit.co/{EMAIL}" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
+       <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
+       <input type="hidden" name="_captcha" value="false">
+       <input type="hidden" name="_template" value="table">
+       <input type="hidden" name="_next" value="{SITE}/thanks.html">
+       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+       <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
+       <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
+       <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
+       <div class="field"><label for="service">What do you need?</label>
+         <select id="service" name="service">
+           <option>Managed IT</option><option>AI Solutions</option><option>Home & Office Support</option>
+           <option>Computer Repair</option><option>Cybersecurity</option>
+           <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
+           <option>Something else</option>
+         </select></div>
+       <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+       <div class="field"><label for="photos">Add photos (optional)</label>
+         <input id="photos" type="file" name="attachment" accept="image/*" multiple>
+         <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
+       <button type="submit" class="btn btn-primary">Send message {ARROW}</button>
+       <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
+     </form>
+     <iframe name="fs_iframe" id="fs_iframe" title="Form submission target" style="display:none" aria-hidden="true"></iframe>
    </div>
-   <form action="https://formsubmit.co/{EMAIL}" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
-     <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
-     <input type="hidden" name="_captcha" value="false">
-     <input type="hidden" name="_template" value="table">
-     <input type="hidden" name="_next" value="{SITE}/thanks.html">
-     <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
-     <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
-     <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
-     <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
-     <div class="field"><label for="service">What do you need?</label>
-       <select id="service" name="service">
-         <option>Managed IT</option><option>AI Solutions</option><option>Home & Office Support</option>
-         <option>Computer Repair</option><option>Cybersecurity</option>
-         <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
-         <option>Something else</option>
-       </select></div>
-     <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
-     <div class="field"><label for="photos">Add photos (optional)</label>
-       <input id="photos" type="file" name="attachment" accept="image/*" multiple>
-       <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
-     <button type="submit" class="btn btn-primary">Send message {ARROW}</button>
-     <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
-   </form>
-   <iframe name="fs_iframe" id="fs_iframe" title="Form submission target" style="display:none" aria-hidden="true"></iframe>
  </div></section>
  </main>''' + footer())
 write("contact.html", contact)
@@ -575,7 +598,7 @@ reviews_page = (head("Reviews | Anderson Technologies IT Support",
  </main>''' + footer())
 write("reviews.html", reviews_page)
 
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("reviews.html","0.7"),("about.html","0.7"),("contact.html","0.8")]
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("contact.html","0.8"),("reviews.html","0.7")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'
