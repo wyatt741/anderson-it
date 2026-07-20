@@ -372,3 +372,16 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 [data-theme="dark"] .form-status{background:rgba(76,141,255,.12);border-color:rgba(255,255,255,.1);color:var(--ink)}
 [data-theme="dark"] .form-status.err{background:rgba(220,38,38,.14);border-color:rgba(248,113,113,.35);color:#fca5a5}
 [data-theme="dark"] .field input[type=file]{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)}
+
+/* ===== Meet the team ===== */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:28px 20px;max-width:900px;margin:0 auto}
+.team-card{text-align:center}
+.team-av{width:118px;height:118px;border-radius:50%;overflow:hidden;margin:0 auto 14px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.team-av img{width:100%;height:100%;object-fit:cover;display:block}
+.team-av.mono{display:flex;align-items:center;justify-content:center;background:var(--brand-050)}
+.team-av.mono span{font-size:2.25rem;font-weight:700;color:var(--brand);letter-spacing:.02em}
+.team-card h3{font-size:1.05rem;margin-bottom:2px}
+.team-card p{color:var(--muted);font-size:.9rem}
+[data-theme="dark"] .team-av.mono{background:rgba(76,141,255,.14)}
+/* About block folded into Contact */
+.about-body{max-width:760px;margin:0 auto}
