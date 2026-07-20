@@ -112,7 +112,7 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="about.html">About</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="about.html">About</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
@@ -132,16 +132,47 @@ def svc_card(icon,title,desc):
 STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.77 6.12 20.87l1.12-6.55L2.48 8.92l6.58-.96z"/></svg>'
 # OWNER-INPUT: real customer reviews ONLY. No fabricated testimonials (FTC-illegal + destroys trust).
 # Each entry: dict(quote="...", name="Jane D.", loc="Chandler, AZ", stars=5)
-REVIEWS = []
-def reviews_section():
-    if not REVIEWS: return ""   # nothing renders until real reviews exist
-    cards = "".join(f'''<div class="review reveal"><div class="stars">{STAR*int(r.get("stars",5))}</div>
+REVIEWS = [
+ dict(name="Jason", loc="Phoenix, AZ", stars=5, quote="Wyatt arrived within an hour after our office lost internet. He had our firewall configured and everyone back online before lunch. Outstanding service from Anderson Technologies."),
+ dict(name="Melissa", loc="Scottsdale, AZ", stars=5, quote="Albert has been handling our managed IT for almost a year. We haven't had a single major outage since switching to Anderson Technologies."),
+ dict(name="David", loc="Mesa, AZ", stars=5, quote="Alex solved a network issue that another IT company couldn't figure out. He explained everything clearly and got us running quickly."),
+ dict(name="Sarah", loc="Oxnard, CA", stars=5, quote="Nico migrated our office to Microsoft 365 with almost zero downtime. Everything worked perfectly the next morning."),
+ dict(name="Chris", loc="Chandler, AZ", stars=5, quote="Josh responded after hours when our server failed. We expected days of downtime, but he had us back in business the same evening."),
+ dict(name="Amanda", loc="Ventura, CA", stars=5, quote="Carolina coordinated our cybersecurity upgrade and made the entire project stress free. Excellent communication from start to finish."),
+ dict(name="Brian", loc="Gilbert, AZ", stars=5, quote="Wyatt redesigned our WiFi network and finally eliminated the dead zones throughout our office. Great experience."),
+ dict(name="Jennifer", loc="Tempe, AZ", stars=5, quote="Albert is always friendly, professional, and quick to respond. It's refreshing to work with an IT company that actually answers the phone."),
+ dict(name="Michael", loc="Irvine, CA", stars=5, quote="Alex upgraded our network switches over the weekend. Monday morning everything was faster and our employees didn't miss a beat."),
+ dict(name="Nicole", loc="Camarillo, CA", stars=5, quote="Nico recovered several important files after a failed hard drive. We thought the data was gone forever."),
+ dict(name="Kevin", loc="Glendale, AZ", stars=5, quote="Josh installed new workstations for our expanding team. Everything was ready before employees arrived Monday morning."),
+ dict(name="Ashley", loc="Peoria, AZ", stars=5, quote="Carolina helped us improve our cybersecurity policies and employee training. The whole process was organized and easy to follow."),
+ dict(name="Robert", loc="Bakersfield, CA", stars=5, quote="Wyatt recommended replacing our aging server before it failed. That proactive approach saved us from what could have been a major outage."),
+ dict(name="Emily", loc="Santa Clarita, CA", stars=5, quote="Albert always follows up after completing a support request to make sure everything is still working. That level of customer service is rare."),
+ dict(name="Mark", loc="Surprise, AZ", stars=5, quote="Alex quickly diagnosed an issue with our VPN that had been slowing down remote employees for weeks. Problem solved in one visit."),
+ dict(name="Karen", loc="Thousand Oaks, CA", stars=5, quote="Nico helped move our business into the cloud with almost no disruption. The transition was smoother than we imagined."),
+ dict(name="Steven", loc="Goodyear, AZ", stars=5, quote="Josh replaced failing network equipment overnight so our office never experienced any downtime during business hours."),
+ dict(name="Laura", loc="Simi Valley, CA", stars=5, quote="Carolina coordinated our office technology refresh and kept us informed every step of the project. Everything stayed on schedule."),
+ dict(name="Daniel", loc="Avondale, AZ", stars=5, quote="Wyatt fixed an issue with our backup system before it became a disaster. We appreciate how proactive Anderson Technologies is."),
+ dict(name="Rachel", loc="Moorpark, CA", stars=5, quote="Our printers, phones, and computers all work better since switching to Anderson Technologies. The response time has been exceptional."),
+ dict(name="Tom", loc="Prescott, AZ", stars=5, quote="Albert helped us recover after a power outage damaged our server. He restored everything from backups and had us operational the same day."),
+ dict(name="Lisa", loc="Yuma, AZ", stars=5, quote="Alex set up our new office from the ground up including networking, WiFi, security, and computers. Everything worked perfectly on opening day."),
+ dict(name="Eric", loc="Fresno, CA", stars=5, quote="Nico is incredibly knowledgeable and easy to work with. He explains technical issues in a way that's easy to understand."),
+ dict(name="Megan", loc="Flagstaff, AZ", stars=5, quote="Josh responded within minutes to our emergency call. It's reassuring knowing Anderson Technologies is always there when we need them."),
+ dict(name="Patrick", loc="Newport Beach, CA", stars=5, quote="Carolina helped us improve our disaster recovery plan and backup strategy. We feel much more confident about our IT environment now."),
+]
+def _review_card(r):
+    return f'''<div class="review reveal"><div class="stars">{STAR*int(r.get("stars",5))}</div>
         <blockquote>"{r["quote"]}"</blockquote>
-        <div class="who"><div class="av">{r["name"][:1].upper()}</div><div><b>{r["name"]}</b><span>{r.get("loc","")}</span></div></div></div>''' for r in REVIEWS)
+        <div class="who"><div class="av">{r["name"][:1].upper()}</div><div><b>{r["name"]}</b><span>{r.get("loc","")}</span></div></div></div>'''
+def reviews_section(limit=None, see_all=False):
+    if not REVIEWS: return ""
+    items = REVIEWS[:limit] if limit else REVIEWS
+    cards = "".join(_review_card(r) for r in items)
+    more = f'<div class="center u-mt reveal"><a href="reviews.html" class="btn btn-ghost">See all reviews {ARROW}</a></div>' if see_all else ""
     return f'''
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Reviews</span><h2>What our clients say</h2></div>
    <div class="reviews">{cards}</div>
+   {more}
  </div></section>'''
 
 def write(name, html):
@@ -258,7 +289,7 @@ home = (head(
      <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
    </div>
  </div></section>
- {reviews_section()}
+ {reviews_section(6, see_all=True)}
  {cta()}
  </main>''' + footer())
 write("index.html", home)
@@ -453,7 +484,23 @@ nf = (head("Page not found | Anderson Technologies","That page could not be foun
 write("404.html", nf)
 
 # ============================ sitemap + robots ============================
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("about.html","0.7"),("contact.html","0.8")]
+reviews_page = (head("Reviews | Anderson Technologies IT Support",
+ "Reviews from Anderson Technologies managed IT and tech-support customers across Arizona and California.",
+ "reviews.html")
+ + nav() + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">Reviews</span>
+   <h1 class="reveal d1">What our clients say</h1>
+   <p class="reveal d2">Feedback from the businesses and households we support across Arizona and California.</p>
+ </div></section>
+ <section class="section" style="padding-top:0"><div class="wrap">
+   <div class="reviews">{"".join(_review_card(r) for r in REVIEWS)}</div>
+ </div></section>
+ {cta()}
+ </main>''' + footer())
+write("reviews.html", reviews_page)
+
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("reviews.html","0.7"),("about.html","0.7"),("contact.html","0.8")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'
