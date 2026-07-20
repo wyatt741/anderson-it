@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=1"
+CSSV = "styles.css?v=2"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"
@@ -34,6 +34,10 @@ I = {
 }
 def ic(name): return f'<svg viewBox="0 0 24 24" aria-hidden="true">{I[name]}</svg>'
 ARROW = f'<svg viewBox="0 0 24 24" aria-hidden="true">{I["arrow"]}</svg>'
+SUN = '<svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4"/></svg>'
+MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>'
+TOGGLE = f'<button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">{SUN}{MOON}</button>'
+FOUC = '<script>(function(){try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>'
 
 def head(title, desc, canon, og_desc=None):
     return f'''<!DOCTYPE html>
@@ -54,6 +58,7 @@ def head(title, desc, canon, og_desc=None):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{CSSV}">
+{FOUC}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -70,6 +75,7 @@ def nav(active=""):
     {a("business.html","Business IT")}
     {a("support.html","On-Demand")}
     {a("about.html","About")}
+    {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   </nav>
   <button class="burger" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
@@ -81,6 +87,7 @@ def nav(active=""):
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Get a free quote</a>
+  {TOGGLE}
 </div>
 '''
 
