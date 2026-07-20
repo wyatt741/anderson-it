@@ -1,2 +1,9 @@
 wrapcheck*.png
 preview-*.png
+# Internal working docs — local only, never published (this is a PUBLIC Pages repo)
+docs/
+Backups/
+# Scratch render/preview copies
+__pv_*.html
+__s_*.html
+__shot_*.html
