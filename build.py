@@ -446,43 +446,13 @@ contact = (head(
  "contact.html")
  + nav("Contact")
  + f'''<main id="main">
- <section class="page-hero"><div class="wrap">
+ <section class="page-hero" style="padding-bottom:6px"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
-   <h1 class="reveal d1">Let's talk about your technology</h1>
-   <p class="reveal d2">Tell us what you need and we will reply within one business day. No pressure, no runaround.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px">
-     <a href="#form" class="btn btn-primary">Send a message {ARROW}</a>
-     <a href="tel:+14802874190" class="btn btn-ghost">Call {PHONE_AZ}</a>
-   </div>
+   <h1 class="reveal d1">Tell us what you need</h1>
+   <p class="reveal d2">Fill out the quick form below and we will reply within one business day. Prefer to talk? Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
  </div></section>
 
- <section class="section" id="about"><div class="wrap">
-   <div class="sec-head reveal"><span class="eyebrow">About us</span><h2>Local IT you can actually reach</h2></div>
-   <div class="about-body reveal">
-     <div class="about-photo"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
-     <p class="lead" style="color:var(--body);margin:22px 0">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
-     <p style="margin-bottom:18px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
-     <p>No pressure. No surprise fees. No runaround. Just honest, responsive help from people who live and work where you do.</p>
-   </div>
-   <div class="feat u-mt" style="margin-top:44px">
-     <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}Straightforward</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
-     <div class="f reveal d2"><div class="n">{ic("check")}Honest</div><p>Clear quotes, fair pricing, and advice that puts your needs first.</p></div>
-     <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
-   </div>
- </div></section>
-
- <section class="section" id="team" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2>The local people behind Anderson Technologies</h2>
-     <p>Real people you can reach, not a call center. When you call, you get us.</p></div>
-   <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
- </div></section>
-
- {reviews_section(6, see_all=True)}
-
- <section class="section" id="form"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Get in touch</span><h2>Send us a message</h2>
-     <p>Tell us what you need and we will reply within one business day.</p></div>
+ <section class="section" id="form" style="padding-top:26px"><div class="wrap">
    <div class="contact-grid">
      <div class="reveal">
        <div class="info-card"><div class="ic">{ic("phone")}</div><div><b>Call us</b>
@@ -501,14 +471,15 @@ contact = (head(
        <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
        <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
        <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
-       <div class="field"><label for="service">What do you need?</label>
+       <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+       <div class="field"><label for="service">What do you need? (optional)</label>
          <select id="service" name="service">
+           <option value="">Not sure yet, just point me the right way</option>
            <option>Managed IT</option><option>AI Solutions</option><option>Home & Office Support</option>
            <option>Computer Repair</option><option>Cybersecurity</option>
            <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
            <option>Something else</option>
          </select></div>
-       <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
        <div class="field"><label for="photos">Add photos (optional)</label>
          <input id="photos" type="file" name="attachment" accept="image/*" multiple>
          <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
@@ -518,6 +489,30 @@ contact = (head(
      <iframe name="fs_iframe" id="fs_iframe" title="Form submission target" style="display:none" aria-hidden="true"></iframe>
    </div>
  </div></section>
+
+ <section class="section" id="about" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head reveal"><span class="eyebrow">About us</span><h2>Local IT you can actually reach</h2></div>
+   <div class="about-body reveal">
+     <div class="about-photo"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
+     <p class="lead" style="color:var(--body);margin:22px 0">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
+     <p style="margin-bottom:18px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
+     <p>No pressure. No surprise fees. No runaround. Just honest, responsive help from people who live and work where you do.</p>
+   </div>
+   <div class="feat u-mt" style="margin-top:44px">
+     <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}Straightforward</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
+     <div class="f reveal d2"><div class="n">{ic("check")}Honest</div><p>Clear quotes, fair pricing, and advice that puts your needs first.</p></div>
+     <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
+   </div>
+ </div></section>
+
+ <section class="section" id="team"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2>The local people behind Anderson Technologies</h2>
+     <p>Real people you can reach, not a call center. When you call, you get us.</p></div>
+   <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
+ </div></section>
+
+ {reviews_section(6, see_all=True)}
  </main>''' + footer())
 write("contact.html", contact)
 
