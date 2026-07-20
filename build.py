@@ -176,7 +176,7 @@ home = (head(
 
  <div class="trust"><div class="wrap trust-in">
    <div class="trust-item">{ic("pin")}Local to AZ & CA</div>
-   <div class="trust-item">{ic("chat")}Jargon-free support</div>
+   <div class="trust-item">{ic("chat")}Helpful support</div>
    <div class="trust-item">{ic("users")}Business & home</div>
    <div class="trust-item">{ic("check")}Honest, upfront pricing</div>
  </div></div>
@@ -227,7 +227,7 @@ home = (head(
      <h2>Support that treats you like a person</h2></div>
    <div class="feat">
      <div class="f reveal"><div class="n">{ic("pin")}Local & responsive</div><p>Based in Arizona and California, so you get real people who know your area and answer quickly.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}No jargon</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
+     <div class="f reveal d1"><div class="n">{ic("chat")}Easy to understand</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
      <div class="f reveal d2"><div class="n">{ic("users")}Right-sized</div><p>From a single laptop to a whole office network, we scale the help to fit what you actually need.</p></div>
      <div class="f reveal d3"><div class="n">{ic("check")}Honest pricing</div><p>Clear quotes and no surprise fees. You always know what you are paying for before we start.</p></div>
    </div>
