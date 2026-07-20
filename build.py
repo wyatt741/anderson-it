@@ -426,7 +426,7 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
- dict(name="Albert", role="Operations Manager"),  # photo pending: uploaded image looks AI/stock, confirm it is really Albert before adding img="albert.jpg"
+ dict(name="Albert", role="Operations Manager", img="albert.jpg"),  # owner-confirmed real photo
  dict(name="Alex", role="Technician"),
  dict(name="Nico", role="Technician"),
  dict(name="Josh", role="Technician"),
