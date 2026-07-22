@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=12"
+CSSV = "styles.css?v=13"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -237,9 +237,9 @@ home = (head(
  </div></div>
 
  <section class="section" id="what"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Two ways we help</span>
-     <h2>Pick the support that fits you</h2>
-     <p>Whether you run a business or just want your home tech to behave, there is a clear path for you.</p></div>
+   <div class="sec-head center reveal"><span class="eyebrow">How we help</span>
+     <h2>Everything your technology needs</h2>
+     <p>Managed IT, home and office support, and AI, all from one local team.</p></div>
    <div class="tracks">
      <div class="track reveal">
        <div class="track-media"><img src="assets/it-business.jpg" alt="Technician managing network and server hardware" loading="lazy" width="1200" height="800"></div>
@@ -267,43 +267,21 @@ home = (head(
        </ul>
        <a href="support.html" class="btn btn-primary">Explore home and office {ARROW}</a>
      </div>
-   </div>
- </div></section>
-
- <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head reveal"><span class="eyebrow">What we do</span>
-     <h2>Everything your technology needs, in one place</h2></div>
-   <div class="grid-svc">
-     {"".join(svc_card(*s) for s in biz_services[:3]+demand_services[:3])}
-   </div>
-   <div class="center u-mt reveal"><a href="business.html" class="btn btn-ghost">See all services {ARROW}</a></div>
- </div></section>
-
- <section class="section"><div class="wrap">
-   <div class="ai-band reveal">
-     <div>
-       <span class="eyebrow">We specialize in AI</span>
-       <h2>Put AI to work, without the hype</h2>
-       <p>AI can genuinely save your team hours a week, when it's set up around how you actually work.</p>
+     <div class="track reveal d2">
+       <div class="track-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
+       <span class="tag">AI</span>
+       <h3>AI Solutions</h3>
+       <p>Put AI to work without the hype. We find where it genuinely saves your team time and set it up around how you actually work.</p>
        <ul>
          <li>{ic("check")}Practical AI strategy, no buzzwords</li>
-         <li>{ic("check")}Automate the repetitive, time-draining tasks</li>
-         <li>{ic("check")}Copilot and business AI tools, set up securely</li>
+         <li>{ic("check")}Automate repetitive, time-draining tasks</li>
+         <li>{ic("check")}Copilot and business AI, set up securely</li>
        </ul>
        <a href="ai.html" class="btn btn-primary">Explore AI solutions {ARROW}</a>
      </div>
-     <div class="ai-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
    </div>
  </div></section>
 
- <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Getting help is simple</h2></div>
-   <div class="steps">
-     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what's going on in your own words.</p></div>
-     <div class="step reveal d1"><h3>We assess</h3><p>We figure out the real problem and give you a clear plan and an honest quote.</p></div>
-     <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
-   </div>
- </div></section>
  {reviews_section(3, see_all=True)}
  {cta()}
  </main>''' + footer())
