@@ -432,7 +432,7 @@ team = [
  dict(name="Josh", role="Technician"),
  dict(name="Carolina", role="Technician"),
  dict(name="Dakota", role="Technician"),
- dict(name="Edwardo", role="Technician"),
+ dict(name="Eduardo", role="Technician"),
  dict(name="Keanu", role="Technician"),
  dict(name="Alejandro", role="Technician"),
 ]
