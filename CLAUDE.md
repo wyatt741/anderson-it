@@ -19,7 +19,7 @@ destined for andersoncx.com). Do not conflate the two.
 
 ## Conventions
 - No em dashes anywhere. No fabricated stats / pricing / testimonials / certs. Reviews render only owner-supplied real ones.
-- Light theme is the default; dark theme via toggle (Ethereal Glass), respects OS on first visit, persists choice.
+- Dark theme is the default (Ethereal Glass); light via toggle, persists choice (FOUC script defaults to dark, no longer OS-based).
 - Bump `?v=N` for BOTH `styles.css` (`CSSV`) and `app.js` on any CSS/JS change (caching bit us once).
 - Deploy = `git push origin master`. Repo is **PUBLIC** (Pages) — never commit internal notes or personal emails.
 - Contact form uses FormSubmit.co -> info@andersontechsupport.com. The endpoint **MUST stay lowercase**
