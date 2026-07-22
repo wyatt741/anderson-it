@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=15"
+CSSV = "styles.css?v=16"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -101,6 +101,29 @@ def cta(h="Let's get your technology working for you.", p="Tell us what you need
     <a href="tel:+14802874190" class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">Call {PHONE_AZ}</a>
   </div></div></div></section>'''
 
+def chat_widget():
+    # Floating AI assistant. Hidden by CSS until chat.js confirms the Worker URL is configured.
+    return f'''<div class="cw" id="cw" aria-hidden="true">
+  <button class="cw-bubble" id="cw-bubble" type="button" aria-label="Open the Anderson Technologies assistant" aria-expanded="false" aria-controls="cw-panel">
+    <svg class="cw-i cw-i-chat" viewBox="0 0 24 24" aria-hidden="true">{I["chat"]}</svg>
+    <svg class="cw-i cw-i-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="cw-panel" id="cw-panel" role="dialog" aria-modal="false" aria-labelledby="cw-title" hidden>
+    <div class="cw-head">
+      <span class="cw-dot" aria-hidden="true"></span>
+      <div class="cw-head-t"><strong id="cw-title">Anderson Technologies</strong><span class="cw-sub">Ask about IT, home &amp; office, or AI</span></div>
+      <button class="cw-x-btn" id="cw-close" type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="cw-log" id="cw-log" role="log" aria-live="polite" aria-label="Chat messages"></div>
+    <form class="cw-form" id="cw-form" autocomplete="off">
+      <label for="cw-input" class="sr-only">Type your message</label>
+      <input id="cw-input" class="cw-input" type="text" placeholder="Type your message..." maxlength="1500" autocomplete="off">
+      <button class="cw-send" id="cw-send" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <p class="cw-note">AI assistant, so double-check anything important. Don't share passwords or card numbers.</p>
+  </div>
+</div>'''
+
 def footer():
     return f'''<footer><div class="wrap">
   <div class="foot-grid">
@@ -127,7 +150,9 @@ def footer():
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
     <span>Arizona & California</span></div>
 </div></footer>
+{chat_widget()}
 <script src="app.js?v=3"></script>
+<script src="chat.js?v=1"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
