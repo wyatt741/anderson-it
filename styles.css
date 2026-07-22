@@ -232,7 +232,6 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
   .grid-svc,.steps{grid-template-columns:1fr 1fr}
   .feat{grid-template-columns:1fr 1fr}
   .plans{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
-  .plan.featured{order:-1}
   .contact-grid{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
