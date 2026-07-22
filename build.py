@@ -435,6 +435,7 @@ team = [
  dict(name="Eduardo", role="Technician"),  # no Eduardo.jpg in Headshots (folder has Brandon.jpg instead) - confirm with owner
  dict(name="Keanu", role="Technician", img="keanu.jpg"),
  dict(name="Alejandro", role="Technician", img="alejandro.jpg"),
+ dict(name="Brandon", role="Technician", img="brandon.jpg"),
 ]
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
