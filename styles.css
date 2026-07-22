@@ -260,8 +260,9 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .theme-toggle .sun{display:none}.theme-toggle .moon{display:block}
 [data-theme="dark"] .theme-toggle .moon{display:none}
 [data-theme="dark"] .theme-toggle .sun{display:block}
-.mobile-menu .theme-toggle{width:auto;padding:12px 18px;gap:10px;justify-content:flex-start;border-radius:14px}
-.mobile-menu .theme-toggle::after{content:"Toggle theme";font-family:var(--sans);font-weight:600;font-size:1rem}
+.mobile-menu .theme-toggle{align-self:flex-start;width:auto;height:auto;display:inline-flex;align-items:center;gap:12px;padding:16px 0;border:0;border-radius:0;background:none;color:var(--body)}
+.mobile-menu .theme-toggle svg{width:22px;height:22px}
+.mobile-menu .theme-toggle::after{content:"Toggle theme";font-family:var(--sans);font-weight:600;font-size:1.15rem;color:var(--body)}
 
 :root[data-theme="dark"]{
   --bg:#06070b; --surface:#0d0f16; --surface-2:#11141c;
@@ -396,3 +397,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 /* Inline logo inside a heading (Meet the team) */
 .inline-logo{height:2em;width:auto;display:inline-block;margin-top:.28em}
 [data-theme="dark"] .inline-logo{filter:brightness(0) invert(1)}
+
+/* Mobile-only "Contact us" button beside the hamburger */
+.nav-cta-m{display:none}
+@media (max-width:600px){.nav-in{gap:12px}.nav-logo{height:25px}.nav .nav-cta-m{display:inline-flex;margin-left:auto;padding:8px 13px;font-size:.8rem;white-space:nowrap;flex-shrink:0}.nav-cta-m + .burger{margin-left:2px;flex-shrink:0}}
