@@ -278,7 +278,7 @@ home = (head(
      <div>
        <span class="eyebrow">We specialize in AI</span>
        <h2>Put AI to work, without the hype</h2>
-       <p>AI can genuinely save your team hours a week, when it is set up around how you actually work.</p>
+       <p>AI can genuinely save your team hours a week, when it's set up around how you actually work.</p>
        <ul>
          <li>{ic("check")}Practical AI strategy, no buzzwords</li>
          <li>{ic("check")}Automate the repetitive, time-draining tasks</li>
@@ -293,7 +293,7 @@ home = (head(
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Getting help is simple</h2></div>
    <div class="steps">
-     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what is going on in your own words.</p></div>
+     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what's going on in your own words.</p></div>
      <div class="step reveal d1"><h3>We assess</h3><p>We figure out the real problem and give you a clear plan and an honest quote.</p></div>
      <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
    </div>
@@ -306,14 +306,16 @@ write("index.html", home)
 # ============================ BUSINESS ============================
 plans = [
  ("Essential","Small teams getting organized",[
-   "Remote helpdesk during business hours","Antivirus and email security","Automatic cloud backup",
+   "Remote helpdesk during business hours","Endpoint protection and email security","Automatic cloud backup",
    "Patch and update management","Monthly check-in"],False),
  ("Business","Growing teams that depend on IT",[
    "Everything in Essential","Priority helpdesk, phone and remote","Proactive monitoring and maintenance",
-   "Network and Wi-Fi management","Microsoft 365 administration","Quarterly technology review"],True),
+   "Network, Wi-Fi, and firewall management","Microsoft 365 administration","VoIP and business phone support",
+   "Quarterly technology review"],True),
  ("Complete","Offices that want it all handled",[
-   "Everything in Business","On-site support visits","Advanced security and training",
-   "Vendor and hardware management","Backup testing and recovery drills","Dedicated technology roadmap"],False),
+   "Everything in Business","On-site support visits","Advanced security: compliance, incident response, and training",
+   "Backup testing and disaster recovery drills","Vendor, hardware, and procurement management",
+   "Dedicated technology roadmap and account manager"],False),
 ]
 def plan_card(name,who,feats,feat):
     lis="".join(f'<li>{ic("check")}{f}</li>' for f in feats)
@@ -355,11 +357,11 @@ business = (head(
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Managed IT plans</span>
      <h2>Simple plans, priced to fit</h2>
-     <p>Every business is different, so we build a plan around your team and quote it clearly. Here is how the tiers compare.</p></div>
+     <p>Every business is different, so we build a plan around your team and quote it clearly. Here's how the tiers compare.</p></div>
    <div class="plans">{"".join(plan_card(*p) for p in plans)}</div>
-   <p class="center u-mt" style="color:var(--muted);font-size:.9rem">Not sure which fits? Get a free assessment and we will recommend the right level, no obligation.</p>
+   <p class="center u-mt" style="color:var(--muted);font-size:.9rem">Not sure which fits? Get a free assessment and we'll recommend the right level, no obligation.</p>
  </div></section>
- {cta("Ready for IT that runs itself?","Book a free, no-pressure assessment. We will review your setup and show you exactly where we can help.")}
+ {cta("Ready for IT that runs itself?","Book a free, no-pressure assessment. We'll review your setup and show you exactly where we can help.")}
  </main>''' + footer())
 write("business.html", business)
 
@@ -394,18 +396,18 @@ support = (head(
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow mint">How it works</span><h2>Simple, honest, no contract</h2></div>
    <div class="steps">
-     <div class="step reveal"><h3>Tell us what is wrong</h3><p>Describe it in your own words. No need to know the technical terms.</p></div>
+     <div class="step reveal"><h3>Tell us what's wrong</h3><p>Describe it in your own words. No need to know the technical terms.</p></div>
      <div class="step reveal d1"><h3>Get an honest quote</h3><p>We tell you what it will take and what it will cost before any work starts.</p></div>
      <div class="step reveal d2"><h3>We fix it</h3><p>Remote or in person, we solve it and make sure you know how to avoid it next time.</p></div>
    </div>
    <div class="center u-mt reveal"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
  </div></section>
- {cta("Something not working? Let's fix it.","Send a quick note about what is going on and we will get you a plan and a price.")}
+ {cta("Something not working? Let's fix it.","Send a quick note about what's going on and we'll get you a plan and a price.")}
  </main>''' + footer())
 write("support.html", support)
 
 # ============================ ABOUT -> folded into Contact ============================
-# Keep about.html as a redirect so old links/bookmarks do not 404.
+# Keep about.html as a redirect so old links/bookmarks don't 404.
 write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <meta http-equiv="refresh" content="0; url={SITE}/contact.html#team">
 <link rel="canonical" href="{SITE}/contact.html#team">
@@ -445,7 +447,7 @@ contact = (head(
  <section class="page-hero" style="padding-bottom:6px"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
    <h1 class="reveal d1">Tell us what you need</h1>
-   <p class="reveal d2">Fill out the quick form below and we will be in touch. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
+   <p class="reveal d2">Fill out the quick form below and we'll be in touch. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
  </div></section>
 
  <section class="section" id="form" style="padding-top:26px"><div class="wrap">
@@ -468,7 +470,7 @@ contact = (head(
        <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
        <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
        <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
-       <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what is going on in your own words." required></textarea></div>
+       <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what's going on in your own words." required></textarea></div>
        <div class="field"><label for="service">What do you need? (optional)</label>
          <select id="service" name="service">
            <option value="">Not sure yet, just point me the right way</option>
@@ -499,7 +501,7 @@ write("contact.html", contact)
 
 # ============================ AI ============================
 ai_services = [
- ("bulb","AI Consulting & Strategy","We help you find where AI genuinely saves time or money, and just as important, where it does not. You get a practical plan, not a buzzword deck."),
+ ("bulb","AI Consulting & Strategy","We help you find where AI genuinely saves time or money, and just as important, where it doesn't. You get a practical plan, not a buzzword deck."),
  ("bolt","Workflow Automation","Automate the repetitive, error-prone work, data entry, scheduling, quotes, document handling, so your team spends its time on what actually matters."),
  ("chat","Copilot & AI Assistants","Roll out tools like Microsoft Copilot and business AI chat the right way: configured, secured, and with training your team will actually use."),
  ("cloud","Custom AI Integrations","Connect AI to the systems you already run, email, CRM, files, so it fits your workflow instead of becoming one more app to check."),
@@ -516,7 +518,7 @@ ai = (head(
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow reveal">AI Solutions</span>
    <h1 class="reveal d1">Put AI to work, without the hype</h1>
-   <p class="reveal d2">Everyone is talking about AI. We help you actually use it, in ways that save your business real time and money, and we are honest about where it is not worth the trouble.</p>
+   <p class="reveal d2">Everyone is talking about AI. We help you actually use it, in ways that save your business real time and money, and we're honest about where it isn't worth the trouble.</p>
    <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
  </div></section>
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div></div>
@@ -529,24 +531,24 @@ ai = (head(
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">How we approach it</span><h2>Useful first, impressive second</h2></div>
    <div class="steps">
-     <div class="step reveal"><h3>Start with the problem</h3><p>We look at where your team loses time, not at what is trending. If AI is not the right tool, we will tell you.</p></div>
+     <div class="step reveal"><h3>Start with the problem</h3><p>We look at where your team loses time, not at what's trending. If AI isn't the right tool, we'll tell you.</p></div>
      <div class="step reveal d1"><h3>Build it around you</h3><p>We set up and connect the tools to your real workflow and data, with security and privacy built in from the start.</p></div>
      <div class="step reveal d2"><h3>Train and support</h3><p>Your team learns to actually use it, and we stay on to tune it as your needs change.</p></div>
    </div>
    <div class="center u-mt reveal"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
  </div></section>
- {cta("Curious where AI could help you?","Tell us what your team spends too much time on. We will show you honestly where AI fits, and where it does not.")}
+ {cta("Curious where AI could help you?","Tell us what your team spends too much time on. We'll show you honestly where AI fits, and where it doesn't.")}
  </main>''' + footer())
 write("ai.html", ai)
 
 # ============================ THANKS ============================
-thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We will be in touch soon.","thanks.html")
+thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We'll be in touch soon.","thanks.html")
  + nav()
  + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
    <div class="svc" style="width:64px;height:64px;margin:0 auto 24px;display:grid;place-items:center;border-radius:20px">
      <div class="ic" style="margin:0;width:auto;height:auto;background:none;color:var(--mint)"><svg viewBox="0 0 24 24" style="width:34px;height:34px" aria-hidden="true">{I["check"]}</svg></div></div>
    <h1>Thanks, we got it</h1>
-   <p>Your message is on its way to our team. We will be in touch with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
+   <p>Your message is on its way to our team. We'll be in touch with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
    <div class="hero-cta" style="justify-content:center;margin-top:26px"><a href="index.html" class="btn btn-primary">Back to home {ARROW}</a></div>
  </div></section></main>''' + footer())
 write("thanks.html", thanks)
