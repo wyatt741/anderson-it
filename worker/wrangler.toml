@@ -1,0 +1,14 @@
+name = "anderson-chat"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# The Anthropic API key is NOT stored here. Set it as a secret:
+#   wrangler secret put ANTHROPIC_API_KEY
+#
+# OPTIONAL per-IP rate limiting: create a KV namespace and uncomment the binding.
+#   wrangler kv namespace create RATE_KV
+# then paste the returned id below and redeploy.
+#
+# [[kv_namespaces]]
+# binding = "RATE_KV"
+# id = "PASTE_KV_NAMESPACE_ID_HERE"
