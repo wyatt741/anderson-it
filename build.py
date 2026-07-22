@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=8"
+CSSV = "styles.css?v=9"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -38,7 +38,7 @@ ARROW = f'<svg viewBox="0 0 24 24" aria-hidden="true">{I["arrow"]}</svg>'
 SUN = '<svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4"/></svg>'
 MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>'
 TOGGLE = f'<button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">{SUN}{MOON}</button>'
-FOUC = '<script>(function(){try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>'
+FOUC = '<script>(function(){try{var t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>'
 
 def head(title, desc, canon, og_desc=None):
     return f'''<!DOCTYPE html>
@@ -92,7 +92,7 @@ def nav(active=""):
 </div>
 '''
 
-def cta(h="Let's get your technology working for you.", p="Tell us what you need. We reply within one business day with clear next steps, no pressure and no runaround."):
+def cta(h="Let's get your technology working for you.", p="Tell us what you need. Clear next steps, no pressure and no runaround."):
     return f'''<section class="section"><div class="wrap"><div class="cta reveal">
   <h2>{h}</h2><p>{p}</p>
   <div class="hero-cta">
@@ -126,7 +126,7 @@ def footer():
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
     <span>Arizona & California</span></div>
 </div></footer>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
@@ -219,7 +219,7 @@ home = (head(
    <div class="hero-panel reveal d2">
      <div class="row"><div class="ic">{ic("headset")}</div><div><b>Managed IT for business</b><span>Proactive support, security, and cloud</span></div></div>
      <div class="row"><div class="ic mint">{ic("wrench")}</div><div><b>Home and office help</b><span>Repairs and setup, no contract needed</span></div></div>
-     <div class="row"><div class="ic amber">{ic("clock")}</div><div><b>Reply within one business day</b><span>Clear next steps, every time</span></div></div>
+     <div class="row"><div class="ic amber">{ic("check")}</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
    </div>
  </div></section>
 
@@ -410,7 +410,7 @@ support = (head(
    </div>
    <div class="center u-mt reveal"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
  </div></section>
- {cta("Something not working? Let's fix it.","Send a quick note about what is going on. We reply within one business day with a plan and a price.")}
+ {cta("Something not working? Let's fix it.","Send a quick note about what is going on and we will get you a plan and a price.")}
  </main>''' + footer())
 write("support.html", support)
 
@@ -440,7 +440,7 @@ team = [
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
     if m.get("img"):
-        inner, cls = f'<img src="assets/{m["img"]}?v=2" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
+        inner, cls = f'<img src="assets/{m["img"]}?v=3" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
     else:
         inner, cls = f'<span>{initials}</span>', "team-av mono"
     return f'<div class="team-card reveal"><div class="{cls}">{inner}</div><h3>{m["name"]}</h3><p>{m["role"]}</p></div>'
@@ -455,7 +455,7 @@ contact = (head(
  <section class="page-hero" style="padding-bottom:6px"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
    <h1 class="reveal d1">Tell us what you need</h1>
-   <p class="reveal d2">Fill out the quick form below and we will reply within one business day. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
+   <p class="reveal d2">Fill out the quick form below and we will be in touch. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
  </div></section>
 
  <section class="section" id="form" style="padding-top:26px"><div class="wrap">
@@ -550,13 +550,13 @@ ai = (head(
 write("ai.html", ai)
 
 # ============================ THANKS ============================
-thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We will reply within one business day.","thanks.html")
+thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We will be in touch soon.","thanks.html")
  + nav()
  + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
    <div class="svc" style="width:64px;height:64px;margin:0 auto 24px;display:grid;place-items:center;border-radius:20px">
      <div class="ic" style="margin:0;width:auto;height:auto;background:none;color:var(--mint)"><svg viewBox="0 0 24 24" style="width:34px;height:34px" aria-hidden="true">{I["check"]}</svg></div></div>
    <h1>Thanks, we got it</h1>
-   <p>Your message is on its way to our team. We reply within one business day with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
+   <p>Your message is on its way to our team. We will be in touch with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
    <div class="hero-cta" style="justify-content:center;margin-top:26px"><a href="index.html" class="btn btn-primary">Back to home {ARROW}</a></div>
  </div></section></main>''' + footer())
 write("thanks.html", thanks)

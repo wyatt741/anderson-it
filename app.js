@@ -77,11 +77,29 @@ document.querySelectorAll('.theme-toggle').forEach(btn => {
       try { ok = /thanks/i.test(iframe.contentWindow.location.pathname); }
       catch (err) { ok = true; }          // cross-origin = FormSubmit queued it (pre-activation or its own thanks page)
       if (ok){
-        show('Thanks. Your message is on its way and we reply within one business day. Prefer to talk now? Call (480) 287-4190.', false);
+        show('Thanks. Your message is on its way. Prefer to talk now? Call (480) 287-4190.', false);
         form.reset();
       } else {
         show('Something went wrong sending that. Please email Info@AndersonTechSupport.com or call (480) 287-4190.', true);
       }
     });
   }
+})();
+
+// mailto links: copy the address + show a toast (many desktops have no mail handler, so a click does nothing otherwise)
+(function(){
+  function toast(msg){
+    var t=document.getElementById('toast');
+    if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);}
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove('show');},1900);
+  }
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var addr=a.getAttribute('href').replace(/^mailto:/,'');
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(addr).then(function(){toast('Email copied: '+addr);}).catch(function(){});
+      }
+    });
+  });
 })();
