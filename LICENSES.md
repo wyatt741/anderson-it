@@ -17,3 +17,4 @@ Reviews/testimonials: REAL customers only, never fabricated (FTC).
 - assets/wyatt.jpg - real founder headshot of Wyatt Anderson (owner-provided, cropped from the commissioning-site headshot). NOT stock.
 - Teammate cards (Albert, Alex, Nico, Josh, Carolina) use monogram avatars (initials), NOT stock photos. Real people are never represented by stock models. Names + roles are owner-provided; roles currently placeholdered as "Technician" pending owner confirmation.
 - assets/albert.jpg - real headshot of Albert (Operations Manager), owner-confirmed as genuine (owner asserted authenticity 2026-07-20). Cropped to 440x440 square avatar.
+- assets/{alex,nico,josh,carolina,dakota,keanu,alejandro}.jpg - real team headshots, owner-provided in OneDrive\Anderson Technologies LLC\Website\Headshots (named per person). Cropped to 440x440 avatars. (Owner directed use; Claude flagged the set reads AI-generated - owner is placing them as the real team.)

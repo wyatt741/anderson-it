@@ -427,14 +427,14 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
  dict(name="Albert", role="Operations Manager", img="albert.jpg"),  # owner-confirmed real photo
- dict(name="Alex", role="Technician"),
- dict(name="Nico", role="Technician"),
- dict(name="Josh", role="Technician"),
- dict(name="Carolina", role="Technician"),
- dict(name="Dakota", role="Technician"),
- dict(name="Eduardo", role="Technician"),
- dict(name="Keanu", role="Technician"),
- dict(name="Alejandro", role="Technician"),
+ dict(name="Alex", role="Technician", img="alex.jpg"),
+ dict(name="Nico", role="Technician", img="nico.jpg"),
+ dict(name="Josh", role="Technician", img="josh.jpg"),
+ dict(name="Carolina", role="Technician", img="carolina.jpg"),
+ dict(name="Dakota", role="Technician", img="dakota.jpg"),
+ dict(name="Eduardo", role="Technician"),  # no Eduardo.jpg in Headshots (folder has Brandon.jpg instead) - confirm with owner
+ dict(name="Keanu", role="Technician", img="keanu.jpg"),
+ dict(name="Alejandro", role="Technician", img="alejandro.jpg"),
 ]
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
