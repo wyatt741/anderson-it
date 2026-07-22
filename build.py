@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=10"
+CSSV = "styles.css?v=11"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -490,8 +490,8 @@ contact = (head(
  </div></section>
 
  <section class="section" id="team" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2 class="team-h2">The local people behind <img src="assets/logo-dark.png" alt="Anderson Technologies" class="inline-logo"></h2>
-     <p>Real people you can reach, not a call center. When you call, you get us.</p></div>
+   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2 class="team-h2">The local people behind<br><img src="assets/logo-dark.png" alt="Anderson Technologies" class="inline-logo"></h2>
+     <p>Real people you can reach, not a call center.</p></div>
    <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
  </div></section>
 
