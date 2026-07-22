@@ -113,7 +113,7 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="contact.html#about">About</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
@@ -417,10 +417,10 @@ write("support.html", support)
 # ============================ ABOUT -> folded into Contact ============================
 # Keep about.html as a redirect so old links/bookmarks do not 404.
 write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url={SITE}/contact.html#about">
-<link rel="canonical" href="{SITE}/contact.html#about">
+<meta http-equiv="refresh" content="0; url={SITE}/contact.html#team">
+<link rel="canonical" href="{SITE}/contact.html#team">
 <meta name="robots" content="noindex"><title>About | Anderson Technologies</title></head>
-<body>Redirecting to <a href="{SITE}/contact.html#about">our About section</a>.</body></html>''')
+<body>Redirecting to <a href="{SITE}/contact.html#team">our team</a>.</body></html>''')
 
 # Meet the team. Wyatt has a real photo; teammates are name + role cards (monogram avatars)
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
@@ -455,7 +455,7 @@ contact = (head(
  <section class="page-hero" style="padding-bottom:6px"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
    <h1 class="reveal d1">Tell us what you need</h1>
-   <p class="reveal d2">Fill out the quick form below and we will reply within one business day. Prefer to talk? Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
+   <p class="reveal d2">Fill out the quick form below and we will reply within one business day. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
  </div></section>
 
  <section class="section" id="form" style="padding-top:26px"><div class="wrap">
@@ -497,23 +497,7 @@ contact = (head(
    </div>
  </div></section>
 
- <section class="section" id="about" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head reveal"><span class="eyebrow">About us</span><h2>Local IT you can actually reach</h2></div>
-   <div class="about-body reveal">
-     <div class="about-photo"><img src="assets/it-about.jpg" alt="A local customer getting help with their technology" loading="lazy" width="1200" height="800"></div>
-     <p class="lead" style="color:var(--body);margin:22px 0">Technology should make your day easier, not harder. Too often it does the opposite: slow computers, confusing setups, and support lines that leave you on hold and none the wiser.</p>
-     <p style="margin-bottom:18px">We started Anderson Technologies to be the opposite of that. We are a local team that picks up the phone, explains things in everyday terms, and treats your time and budget with respect. Whether you are a growing business that needs a real IT partner or a household that just wants the Wi-Fi to work, we handle it.</p>
-     <p>No pressure. No surprise fees. No runaround. Just honest, responsive help from people who live and work where you do.</p>
-   </div>
-   <div class="feat u-mt" style="margin-top:44px">
-     <div class="f reveal"><div class="n">{ic("pin")}Local</div><p>Serving Arizona and Southern California with people who know the area.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}Straightforward</div><p>We explain the what and the why, so you stay in control of your technology.</p></div>
-     <div class="f reveal d2"><div class="n">{ic("check")}Honest</div><p>Clear quotes, fair pricing, and advice that puts your needs first.</p></div>
-     <div class="f reveal d3"><div class="n">{ic("bolt")}Responsive</div><p>We reply within one business day and move quickly when it counts.</p></div>
-   </div>
- </div></section>
-
- <section class="section" id="team"><div class="wrap">
+ <section class="section" id="team" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2>The local people behind Anderson Technologies</h2>
      <p>Real people you can reach, not a call center. When you call, you get us.</p></div>
    <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
