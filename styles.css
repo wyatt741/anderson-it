@@ -401,3 +401,29 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 /* Mobile-only "Contact us" button beside the hamburger */
 .nav-cta-m{display:none}
 @media (max-width:600px){.nav-in{gap:12px}.nav-logo{height:25px}.nav .nav-cta-m{display:inline-flex;margin-left:auto;padding:8px 13px;font-size:.8rem;white-space:nowrap;flex-shrink:0}.nav-cta-m + .burger{margin-left:2px;flex-shrink:0}}
+
+/* ===== Motion & animation polish ===== */
+@keyframes bgdrift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2.5%,-2%,0) scale(1.08)}}
+@media (prefers-reduced-motion: no-preference){
+  /* slow drifting hero/background glow */
+  body::before{will-change:transform;animation:bgdrift 28s ease-in-out infinite}
+  /* button arrow glides on hover; press springs */
+  .btn svg{transition:transform .3s var(--ease)}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn:active{transform:scale(.97)}
+  /* reveals get a soft blur-in */
+  .reveal{transition:opacity .75s var(--ease),transform .75s var(--ease),filter .75s var(--ease);filter:blur(8px)}
+  .reveal.in{filter:blur(0)}
+  /* card hover: brand-tinted glow on top of the existing lift */
+  .svc:hover,.track:hover,.review:hover,.plan:hover{box-shadow:0 24px 46px -20px rgba(37,99,235,.42)}
+  /* team avatar zooms with a brand ring on hover */
+  .team-av{transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+  .team-card:hover .team-av{transform:scale(1.06);box-shadow:0 0 0 4px var(--brand-050),0 16px 30px -14px rgba(37,99,235,.55)}
+  /* nav links: underline sweeps in from the left */
+  .nav-links a:not(.btn){position:relative}
+  .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--brand);border-radius:2px;transition:right .3s var(--ease)}
+  .nav-links a:not(.btn):hover::after,.nav-links a:not(.btn).active::after{right:0}
+  /* contact info cards lift subtly */
+  .info-card{transition:transform .3s var(--ease),border-color .3s var(--ease)}
+  .info-card:hover{transform:translateY(-2px);border-color:var(--brand)}
+}
