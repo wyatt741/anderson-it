@@ -259,7 +259,7 @@ home = (head(
          <li>{ic("check")}Virus removal and cleanup</li>
          <li>{ic("check")}Data recovery and smart home</li>
        </ul>
-       <a href="support.html" class="btn btn-ghost">Explore home and office {ARROW}</a>
+       <a href="support.html" class="btn btn-primary">Explore home and office {ARROW}</a>
      </div>
    </div>
  </div></section>
@@ -274,25 +274,6 @@ home = (head(
  </div></section>
 
  <section class="section"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Why Anderson</span>
-     <h2>Support that treats you like a person</h2></div>
-   <div class="feat">
-     <div class="f reveal"><div class="n">{ic("pin")}Local & responsive</div><p>Based in Arizona and California, so you get real people who know your area and answer quickly.</p></div>
-     <div class="f reveal d1"><div class="n">{ic("chat")}Easy to understand</div><p>We explain what we are doing and why, without the acronyms and without talking down to you.</p></div>
-     <div class="f reveal d2"><div class="n">{ic("users")}Right-sized</div><p>From a single laptop to a whole office network, we scale the help to fit what you actually need.</p></div>
-     <div class="f reveal d3"><div class="n">{ic("check")}Honest pricing</div><p>Clear quotes and no surprise fees. You always know what you are paying for before we start.</p></div>
-   </div>
- </div></section>
-
- <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Getting help is simple</h2></div>
-   <div class="steps">
-     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what is going on in your own words.</p></div>
-     <div class="step reveal d1"><h3>We assess</h3><p>We figure out the real problem and give you a clear plan and an honest quote.</p></div>
-     <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
-   </div>
- </div></section>
- <section class="section"><div class="wrap">
    <div class="ai-band reveal">
      <div>
        <span class="eyebrow">We specialize in AI</span>
@@ -306,6 +287,15 @@ home = (head(
        <a href="ai.html" class="btn btn-primary">Explore AI solutions {ARROW}</a>
      </div>
      <div class="ai-media"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div>
+   </div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Getting help is simple</h2></div>
+   <div class="steps">
+     <div class="step reveal"><h3>Reach out</h3><p>Call, email, or send the form. Tell us what is going on in your own words.</p></div>
+     <div class="step reveal d1"><h3>We assess</h3><p>We figure out the real problem and give you a clear plan and an honest quote.</p></div>
+     <div class="step reveal d2"><h3>We handle it</h3><p>Remote or on-site, we fix it and make sure it stays fixed. You get back to work.</p></div>
    </div>
  </div></section>
  {reviews_section(3, see_all=True)}
@@ -425,22 +415,22 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 # Meet the team. Wyatt has a real photo; teammates are name + role cards (monogram avatars)
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
 team = [
- dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
- dict(name="Albert", role="Operations Manager", img="albert.jpg"),  # owner-confirmed real photo
- dict(name="Alex", role="Technician", img="alex.jpg"),
- dict(name="Nico", role="Technician", img="nico.jpg"),
- dict(name="Josh", role="Technician", img="josh.jpg"),
- dict(name="Carolina", role="Technician", img="carolina.jpg"),
- dict(name="Dakota", role="Technician", img="dakota.jpg"),
- dict(name="Eduardo", role="Technician"),  # no Eduardo.jpg in Headshots (folder has Brandon.jpg instead) - confirm with owner
- dict(name="Keanu", role="Technician", img="keanu.jpg"),
- dict(name="Alejandro", role="Technician", img="alejandro.jpg"),
- dict(name="Brandon", role="Technician", img="brandon.jpg"),
+ dict(name="Wyatt Anderson", role="Owner & CEO", img="wyatt.jpg"),
+ dict(name="Albert", role="Operations Director", img="albert.jpg"),
+ dict(name="Dakota", role="Business Development & Sales", img="dakota.jpg"),
+ dict(name="Josh", role="Professional Services", img="josh.jpg"),
+ dict(name="Brandon", role="Managed IT Services Manager", img="brandon.jpg"),
+ dict(name="Nico", role="Network & Infrastructure Manager", img="nico.jpg"),
+ dict(name="Carolina", role="Client Experience Manager", img="carolina.jpg"),
+ dict(name="Eduardo", role="Cybersecurity Manager"),  # no photo yet (monogram)
+ dict(name="Alex", role="Residential & Break/Fix Manager", img="alex.jpg"),
+ dict(name="Alejandro", role="Procurement & Logistics", img="alejandro.jpg"),
+ dict(name="Keanu", role="Finance & Administration", img="keanu.jpg"),
 ]
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
     if m.get("img"):
-        inner, cls = f'<img src="assets/{m["img"]}?v=3" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
+        inner, cls = f'<img src="assets/{m["img"]}?v=4" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
     else:
         inner, cls = f'<span>{initials}</span>', "team-av mono"
     return f'<div class="team-card reveal"><div class="{cls}">{inner}</div><h3>{m["name"]}</h3><p>{m["role"]}</p></div>'
