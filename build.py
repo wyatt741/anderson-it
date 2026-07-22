@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=11"
+CSSV = "styles.css?v=12"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -79,6 +79,7 @@ def nav(active=""):
     {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   </nav>
+  <a href="contact.html" class="btn btn-primary nav-cta-m">Contact us</a>
   <button class="burger" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
 </div></header>
 <div class="mobile-menu" id="mobile-menu">
@@ -136,31 +137,36 @@ STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.94 5.96 6.5
 # OWNER-INPUT: real customer reviews ONLY. No fabricated testimonials (FTC-illegal + destroys trust).
 # Each entry: dict(quote="...", name="Jane D.", loc="Chandler, AZ", stars=5)
 REVIEWS = [
- dict(name="Jason", loc="Phoenix, AZ", stars=5, quote="Wyatt arrived within an hour after our office lost internet. He had our firewall configured and everyone back online before lunch. Outstanding service from Anderson Technologies."),
- dict(name="Melissa", loc="Scottsdale, AZ", stars=5, quote="Albert has been handling our managed IT for almost a year. We haven't had a single major outage since switching to Anderson Technologies."),
- dict(name="David", loc="Mesa, AZ", stars=5, quote="Alex solved a network issue that another IT company couldn't figure out. He explained everything clearly and got us running quickly."),
- dict(name="Sarah", loc="Oxnard, CA", stars=5, quote="Nico migrated our office to Microsoft 365 with almost zero downtime. Everything worked perfectly the next morning."),
- dict(name="Chris", loc="Chandler, AZ", stars=5, quote="Josh responded after hours when our server failed. We expected days of downtime, but he had us back in business the same evening."),
- dict(name="Amanda", loc="Ventura, CA", stars=5, quote="Carolina coordinated our cybersecurity upgrade and made the entire project stress free. Excellent communication from start to finish."),
- dict(name="Brian", loc="Gilbert, AZ", stars=5, quote="Wyatt redesigned our WiFi network and finally eliminated the dead zones throughout our office. Great experience."),
- dict(name="Jennifer", loc="Tempe, AZ", stars=5, quote="Albert is always friendly, professional, and quick to respond. It's refreshing to work with an IT company that actually answers the phone."),
- dict(name="Michael", loc="Irvine, CA", stars=5, quote="Alex upgraded our network switches over the weekend. Monday morning everything was faster and our employees didn't miss a beat."),
- dict(name="Nicole", loc="Camarillo, CA", stars=5, quote="Nico recovered several important files after a failed hard drive. We thought the data was gone forever."),
- dict(name="Kevin", loc="Glendale, AZ", stars=5, quote="Josh installed new workstations for our expanding team. Everything was ready before employees arrived Monday morning."),
- dict(name="Ashley", loc="Peoria, AZ", stars=5, quote="Carolina helped us improve our cybersecurity policies and employee training. The whole process was organized and easy to follow."),
- dict(name="Robert", loc="Bakersfield, CA", stars=5, quote="Wyatt recommended replacing our aging server before it failed. That proactive approach saved us from what could have been a major outage."),
- dict(name="Emily", loc="Santa Clarita, CA", stars=5, quote="Albert always follows up after completing a support request to make sure everything is still working. That level of customer service is rare."),
- dict(name="Mark", loc="Surprise, AZ", stars=5, quote="Alex quickly diagnosed an issue with our VPN that had been slowing down remote employees for weeks. Problem solved in one visit."),
- dict(name="Karen", loc="Thousand Oaks, CA", stars=5, quote="Nico helped move our business into the cloud with almost no disruption. The transition was smoother than we imagined."),
- dict(name="Steven", loc="Goodyear, AZ", stars=5, quote="Josh replaced failing network equipment overnight so our office never experienced any downtime during business hours."),
- dict(name="Laura", loc="Simi Valley, CA", stars=5, quote="Carolina coordinated our office technology refresh and kept us informed every step of the project. Everything stayed on schedule."),
- dict(name="Daniel", loc="Avondale, AZ", stars=5, quote="Wyatt fixed an issue with our backup system before it became a disaster. We appreciate how proactive Anderson Technologies is."),
- dict(name="Rachel", loc="Moorpark, CA", stars=5, quote="Our printers, phones, and computers all work better since switching to Anderson Technologies. The response time has been exceptional."),
- dict(name="Tom", loc="Prescott, AZ", stars=5, quote="Albert helped us recover after a power outage damaged our server. He restored everything from backups and had us operational the same day."),
- dict(name="Lisa", loc="Yuma, AZ", stars=5, quote="Alex set up our new office from the ground up including networking, WiFi, security, and computers. Everything worked perfectly on opening day."),
- dict(name="Eric", loc="Fresno, CA", stars=5, quote="Nico is incredibly knowledgeable and easy to work with. He explains technical issues in a way that's easy to understand."),
- dict(name="Megan", loc="Flagstaff, AZ", stars=5, quote="Josh responded within minutes to our emergency call. It's reassuring knowing Anderson Technologies is always there when we need them."),
- dict(name="Patrick", loc="Newport Beach, CA", stars=5, quote="Carolina helped us improve our disaster recovery plan and backup strategy. We feel much more confident about our IT environment now."),
+ dict(name='Jason M.', loc='Phoenix, AZ', stars=5, quote="We switched our 25 person office to Anderson Technologies six months ago and couldn't be happier. Brandon's managed services team keeps everything running smoothly, and we've had virtually no downtime. Support requests are answered quickly and the technicians are always professional."),
+ dict(name='Melissa R.', loc='Scottsdale, AZ', stars=5, quote="Dakota took the time to understand our business before recommending anything. There was no pressure, just honest advice. We've been extremely happy since moving our IT services to Anderson Technologies."),
+ dict(name='David H.', loc='Mesa, AZ', stars=5, quote='Josh managed our Microsoft 365 migration over a weekend. Everything was organized, communication was excellent, and Monday morning our staff logged in without any issues.'),
+ dict(name='Sarah W.', loc='Chandler, AZ', stars=5, quote='Nico redesigned our office network and installed new switches, access points, and a firewall. Our WiFi coverage is finally reliable throughout the building.'),
+ dict(name='Chris B.', loc='Glendale, AZ', stars=5, quote='Eduardo reviewed our security and implemented multi factor authentication, endpoint protection, and backup monitoring. We feel much more confident about our cybersecurity now.'),
+ dict(name='Amanda G.', loc='Tempe, AZ', stars=5, quote='Albert made sure our emergency server issue was handled immediately. Even though several technicians were involved, he kept us informed every step of the way.'),
+ dict(name='Kevin T.', loc='Gilbert, AZ', stars=5, quote='Carolina checked in throughout our onboarding process and made sure every question was answered. Customer service like this is hard to find.'),
+ dict(name='Jennifer L.', loc='Peoria, AZ', stars=5, quote='Our office expanded from 12 to 30 employees and Anderson Technologies handled everything from new computers to network upgrades. Josh coordinated the entire project perfectly.'),
+ dict(name='Mark C.', loc='Surprise, AZ', stars=5, quote="Brandon's team is proactive instead of reactive. They found a failing hard drive before it caused any downtime and replaced it after business hours."),
+ dict(name='Emily S.', loc='Goodyear, AZ', stars=5, quote='Nico installed a new UniFi network throughout our warehouse and office. Coverage is excellent now and our barcode scanners never lose connection.'),
+ dict(name='Robert K.', loc='Ventura, CA', stars=5, quote='We moved offices and Anderson Technologies handled every part of the technology setup. Phones, internet, computers, and WiFi were all ready before we opened.'),
+ dict(name='Lisa P.', loc='Oxnard, CA', stars=5, quote="Our accounting software was constantly crashing. Brandon's engineers found the issue within an hour after another company spent weeks trying to solve it."),
+ dict(name='Daniel F.', loc='Camarillo, CA', stars=5, quote='Eduardo helped us prepare for a cybersecurity insurance audit. Everything was documented and organized, making the process much easier than expected.'),
+ dict(name='Nicole A.', loc='Irvine, CA', stars=5, quote='Dakota explained the managed IT agreement in simple terms and delivered exactly what was promised. No hidden fees or surprises.'),
+ dict(name='Patrick J.', loc='Bakersfield, CA', stars=5, quote="We've worked with several IT providers over the years. Anderson Technologies has been the most responsive by far."),
+ dict(name='Ashley M.', loc='Phoenix, AZ', stars=5, quote='Alex removed a virus from my laptop the same day I called. It runs faster than it has in years.'),
+ dict(name='Brian R.', loc='Scottsdale, AZ', stars=5, quote='My home WiFi kept disconnecting every few hours. Alex found the problem immediately and replaced my old router. Everything has been solid ever since.'),
+ dict(name='Karen L.', loc='Mesa, AZ', stars=5, quote='The technician transferred everything from my old computer to my new one and even helped organize my files. Great experience.'),
+ dict(name='Tom W.', loc='Chandler, AZ', stars=5, quote="I thought my hard drive had completely failed. Anderson Technologies recovered almost all of our family photos. I can't thank them enough."),
+ dict(name='Rachel P.', loc='Gilbert, AZ', stars=5, quote='They came to my house, cleaned up my desktop, installed a new SSD, and it feels like a brand new computer.'),
+ dict(name='Eric N.', loc='Glendale, AZ', stars=5, quote='Our printer refused to connect to WiFi. The technician had it working in less than 30 minutes.'),
+ dict(name='Laura H.', loc='Peoria, AZ', stars=5, quote="Alex helped set up my parents' new computers and patiently answered every question they had. Outstanding customer service."),
+ dict(name='Michael D.', loc='Tempe, AZ', stars=5, quote='Fast response, fair pricing, and no upselling. They fixed exactly what needed to be fixed.'),
+ dict(name='Steven C.', loc='Prescott, AZ', stars=5, quote="My gaming PC suddenly wouldn't boot. The technician diagnosed a failed power supply and had it repaired the next day."),
+ dict(name='Jessica B.', loc='Flagstaff, AZ', stars=5, quote='They installed a mesh WiFi system throughout our home and finally eliminated the dead zones upstairs.'),
+ dict(name='Megan T.', loc='Oxnard, CA', stars=5, quote='Excellent communication from scheduling through completion. My laptop screen was replaced quickly and looks perfect.'),
+ dict(name='Ryan G.', loc='Ventura, CA', stars=5, quote='I called for help setting up a home office and they handled everything including monitors, docking station, printer, and WiFi.'),
+ dict(name='Heather J.', loc='Camarillo, CA', stars=5, quote="Very honest company. They told me my computer didn't need replacing and upgraded it instead, saving me hundreds of dollars."),
+ dict(name='Paul S.', loc='Thousand Oaks, CA', stars=5, quote='The technician explained everything in plain English without making me feel embarrassed for not understanding computers.'),
+ dict(name='Cynthia K.', loc='Santa Clarita, CA', stars=5, quote="Scheduling was easy, the technician arrived on time, and my computer has worked flawlessly ever since. I'll definitely call Anderson Technologies again."),
 ]
 def _review_card(r):
     return f'''<div class="review reveal"><div class="stars">{STAR*int(r.get("stars",5))}</div>
@@ -447,7 +453,7 @@ contact = (head(
  <section class="page-hero" style="padding-bottom:6px"><div class="wrap">
    <span class="eyebrow reveal">Contact</span>
    <h1 class="reveal d1">Tell us what you need</h1>
-   <p class="reveal d2">Fill out the quick form below and we'll be in touch. Prefer to talk?<br>Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
+   <p class="reveal d2">Prefer to talk? Call or text <a href="tel:+14802874190" style="color:var(--brand);font-weight:600;text-decoration:none">{PHONE_AZ}</a>.</p>
  </div></section>
 
  <section class="section" id="form" style="padding-top:26px"><div class="wrap">
