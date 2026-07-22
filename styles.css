@@ -392,3 +392,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
   opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:200}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 [data-theme="dark"] .toast{background:#f8fafc;color:#0f172a}
+
+/* Inline logo inside a heading (Meet the team) */
+.inline-logo{height:1.55em;width:auto;vertical-align:middle;margin:0 .06em .18em;display:inline-block}
+[data-theme="dark"] .inline-logo{filter:brightness(0) invert(1)}
