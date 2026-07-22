@@ -440,7 +440,7 @@ team = [
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
     if m.get("img"):
-        inner, cls = f'<img src="assets/{m["img"]}" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
+        inner, cls = f'<img src="assets/{m["img"]}?v=2" alt="{m["name"]}" loading="lazy" width="440" height="440">', "team-av"
     else:
         inner, cls = f'<span>{initials}</span>', "team-av mono"
     return f'<div class="team-card reveal"><div class="{cls}">{inner}</div><h3>{m["name"]}</h3><p>{m["role"]}</p></div>'
