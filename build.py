@@ -714,6 +714,8 @@ careers_certs = [
  ("Fortinet","NSE / Fortinet Certified Professional"),
  ("Ubiquiti","UniFi training and certifications"),
  ("VMware","VCP"),("Veeam","VMCE"),
+ ("Apple","Apple Certified Mac Technician (ACMT)"),
+ ("AWS","Cloud Practitioner, Solutions Architect (SAA)"),
  ("More","ITIL Foundation, Certified Ethical Hacker (CEH), CISSP for senior security roles"),
 ]
 import re
