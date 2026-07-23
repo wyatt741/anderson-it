@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=21"
+CSSV = "styles.css?v=22"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -653,37 +653,38 @@ faq_page = (head("FAQ | Anderson Technologies IT Support",
 write("faq.html", faq_page)
 
 # ============================ Careers page ============================
-# roles carry a location: "az" (Arizona), "ca" (California), or "both" (AZ + CA). Field/on-site roles split by state; remote-capable roles are both.
+# location: "az" / "ca" (on-site in that state), "both" (on-site across AZ + CA), "remote" (desk/knowledge work).
+# Field/on-site roles are state-bound; engineering, security, and back-office roles are remote.
 careers_roles = [
  ("Technical", [
    ("IT Apprentice","$40,000 to $55,000","az"),("Bench Repair Technician","$42,000 to $58,000","az"),
    ("Residential IT Technician","$45,000 to $65,000","ca"),("Field Service Technician I","$50,000 to $70,000","az"),
    ("Field Service Technician II","$60,000 to $80,000","ca"),("Senior Field Technician","$75,000 to $95,000","both"),
-   ("Help Desk Technician I","$45,000 to $60,000","az"),("Help Desk Technician II","$55,000 to $75,000","both"),
-   ("Help Desk Technician III","$70,000 to $90,000","both"),("Systems Administrator","$75,000 to $105,000","both"),
-   ("Systems Engineer","$90,000 to $130,000","az"),("Senior Systems Engineer","$120,000 to $160,000","both"),
-   ("Network Engineer","$90,000 to $130,000","ca"),("Senior Network Engineer","$120,000 to $165,000","both"),
-   ("Cloud Engineer","$105,000 to $145,000","both"),("Azure Engineer","$110,000 to $155,000","both"),
-   ("Microsoft 365 Engineer","$85,000 to $125,000","both"),("Cybersecurity Analyst","$80,000 to $120,000","az"),
-   ("Security Engineer","$110,000 to $160,000","both"),("SOC Analyst","$75,000 to $115,000","both"),
-   ("Compliance Specialist","$80,000 to $120,000","ca"),("Project Engineer","$90,000 to $130,000","az"),
-   ("Project Manager","$90,000 to $140,000","both"),("Cabling Technician","$45,000 to $70,000","ca"),
+   ("Help Desk Technician I","$45,000 to $60,000","az"),("Help Desk Technician II","$55,000 to $75,000","remote"),
+   ("Help Desk Technician III","$70,000 to $90,000","remote"),("Systems Administrator","$75,000 to $105,000","remote"),
+   ("Systems Engineer","$90,000 to $130,000","remote"),("Senior Systems Engineer","$120,000 to $160,000","remote"),
+   ("Network Engineer","$90,000 to $130,000","both"),("Senior Network Engineer","$120,000 to $165,000","remote"),
+   ("Cloud Engineer","$105,000 to $145,000","remote"),("Azure Engineer","$110,000 to $155,000","remote"),
+   ("Microsoft 365 Engineer","$85,000 to $125,000","remote"),("Cybersecurity Analyst","$80,000 to $120,000","remote"),
+   ("Security Engineer","$110,000 to $160,000","remote"),("SOC Analyst","$75,000 to $115,000","remote"),
+   ("Compliance Specialist","$80,000 to $120,000","remote"),("Project Engineer","$90,000 to $130,000","both"),
+   ("Project Manager","$90,000 to $140,000","remote"),("Cabling Technician","$45,000 to $70,000","ca"),
    ("Low Voltage Installer","$50,000 to $75,000","az"),
  ]),
  ("Leadership", [
    ("Service Manager","$90,000 to $130,000","az"),("Operations Manager","$95,000 to $140,000","az"),
-   ("IT Director","$130,000 to $180,000","both"),("Cybersecurity Manager","$120,000 to $170,000","both"),
-   ("Engineering Manager","$125,000 to $175,000","both"),("Client Success Manager","$80,000 to $120,000","ca"),
+   ("IT Director","$130,000 to $180,000","both"),("Cybersecurity Manager","$120,000 to $170,000","remote"),
+   ("Engineering Manager","$125,000 to $175,000","remote"),("Client Success Manager","$80,000 to $120,000","ca"),
    ("Dispatch Manager","$60,000 to $90,000","az"),
  ]),
  ("Sales & customer service", [
-   ("Customer Service Representative","$40,000 to $55,000","az"),("Dispatcher","$45,000 to $65,000","az"),
-   ("Account Manager","$65,000 to $100,000 plus commission","ca"),("Business Development Representative","$55,000 to $75,000 plus commission","az"),
+   ("Customer Service Representative","$40,000 to $55,000","remote"),("Dispatcher","$45,000 to $65,000","az"),
+   ("Account Manager","$65,000 to $100,000 plus commission","both"),("Business Development Representative","$55,000 to $75,000 plus commission","remote"),
    ("Sales Executive","$70,000 to $110,000 plus commission","ca"),("Sales Director","$120,000 to $200,000 plus bonuses","both"),
  ]),
  ("Administration", [
-   ("Office Administrator","$45,000 to $65,000","az"),("HR Coordinator","$55,000 to $75,000","az"),
-   ("Payroll & Billing Specialist","$50,000 to $70,000","az"),("Bookkeeper","$55,000 to $80,000","both"),
+   ("Office Administrator","$45,000 to $65,000","az"),("HR Coordinator","$55,000 to $75,000","remote"),
+   ("Payroll & Billing Specialist","$50,000 to $70,000","remote"),("Bookkeeper","$55,000 to $80,000","remote"),
    ("Purchasing & Inventory Coordinator","$50,000 to $75,000","az"),
  ]),
 ]
@@ -702,7 +703,7 @@ careers_certs = [
  ("More","ITIL Foundation, Certified Ethical Hacker (CEH), CISSP for senior security roles"),
 ]
 import re
-_LOC = {"az":"AZ","ca":"CA","both":"AZ + CA"}
+_LOC = {"az":"AZ","ca":"CA","both":"AZ + CA","remote":"Remote"}
 def _loc(l): return f'<span class="loc loc-{l}">{_LOC[l]}</span>'
 def _salkey(s):
     m=re.search(r'\$([\d,]+)', s)
@@ -727,7 +728,7 @@ careers = (head("Careers | Anderson Technologies",
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Roles & pay</span>
      <h2>Where you might fit</h2>
-     <p>Typical salary ranges across our team, sorted low to high. Actual pay depends on experience and certifications. Roles are tagged <span class="loc loc-az">AZ</span> Arizona, <span class="loc loc-ca">CA</span> California, or <span class="loc loc-both">AZ + CA</span> for both. Don't see a perfect match? Reach out anyway, good people are worth making room for.</p></div>
+     <p>Typical salary ranges across our team, sorted low to high. Actual pay depends on experience and certifications. Roles are tagged <span class="loc loc-az">AZ</span> Arizona, <span class="loc loc-ca">CA</span> California, <span class="loc loc-both">AZ + CA</span> for both, or <span class="loc loc-remote">Remote</span> for desk and engineering work. Don't see a perfect match? Reach out anyway, good people are worth making room for.</p></div>
    <div class="sal-layout">
      <div>{_sal_table(*careers_roles[0])}</div>
      <div class="sal-right">{"".join(_sal_table(c,rows) for c,rows in careers_roles[1:])}</div>
