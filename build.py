@@ -433,14 +433,14 @@ team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
  dict(name="Albert", role="Chief Financial, Administrative & Facilities Officer (CFAFO)", img="albert.jpg"),
  dict(name="Alejandro", role="Chief Procurement Officer", img="alejandro.jpg"),
- dict(name="Dakota", role="Business Development & Sales", img="dakota.jpg"),
- dict(name="Josh", role="Professional Services", img="josh.jpg"),
+ dict(name="Dakota", role="Business Development & Sales Director", img="dakota.jpg"),
+ dict(name="Josh", role="Professional Services Director", img="josh.jpg"),
  dict(name="Brandon", role="Managed IT Services Manager", img="brandon.jpg"),
  dict(name="Nico", role="Network & Infrastructure Manager", img="nico.jpg"),
  dict(name="Carolina", role="Client Experience Manager", img="carolina.jpg"),
  dict(name="Eduardo", role="Cybersecurity Manager"),  # no photo yet (monogram)
  dict(name="Alex", role="Residential & Break/Fix Manager", img="alex.jpg"),
- dict(name="Keanu", role="Finance & Administration", img="keanu.jpg"),
+ dict(name="Keanu", role="Finance & Administration Manager", img="keanu.jpg"),
 ]
 def team_card(m):
     initials = "".join(w[0] for w in m["name"].split()[:2]).upper()
