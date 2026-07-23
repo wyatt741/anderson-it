@@ -431,7 +431,7 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
- dict(name="Albert", role="CFAFO", img="albert.jpg"),
+ dict(name="Albert", role="Chief Financial, Administrative & Facilities Officer (CFAFO)", img="albert.jpg"),
  dict(name="Alejandro", role="Chief Procurement Officer", img="alejandro.jpg"),
  dict(name="Dakota", role="Business Development & Sales", img="dakota.jpg"),
  dict(name="Josh", role="Professional Services", img="josh.jpg"),
