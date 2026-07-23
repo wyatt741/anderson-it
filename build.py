@@ -564,7 +564,7 @@ ai = (head(
    </div>
    <div class="center u-mt reveal"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
  </div></section>
- {cta("Curious where AI could help you?","Tell us what your team spends too much time on. We'll show you honestly where AI fits, and where it doesn't.")}
+ {cta("Curious where AI could help you?","Tell us what your team spends too much time on.<br>We'll show you honestly where AI fits, and where it doesn't.")}
  </main>''' + footer())
 write("ai.html", ai)
 
