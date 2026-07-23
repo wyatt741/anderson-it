@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=22"
+CSSV = "styles.css?v=23"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -155,7 +155,7 @@ def footer():
     <span>Arizona & California</span></div>
 </div></footer>
 {chat_widget()}
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 <script src="chat.js?v=2"></script>
 </body></html>'''
 
@@ -708,9 +708,13 @@ def _loc(l): return f'<span class="loc loc-{l}">{_LOC[l]}</span>'
 def _salkey(s):
     m=re.search(r'\$([\d,]+)', s)
     return int(m.group(1).replace(',','')) if m else 0
+import urllib.parse
 def _sal_table(cat, rows):
     rows=sorted(rows, key=lambda r:_salkey(r[1]))   # sort low to high by starting salary
-    trs="".join(f'<tr><td>{p}</td><td>{_loc(loc)}</td><td class="sal-pay">{s}</td></tr>' for p,s,loc in rows)
+    def _row(p,s,loc):
+        u="contact.html?job="+urllib.parse.quote(p)   # clicking the row -> contact form prefilled with this role
+        return f'<tr class="job-row" data-href="{u}"><td><a class="job-link" href="{u}">{p}</a></td><td>{_loc(loc)}</td><td class="sal-pay">{s}</td></tr>'
+    trs="".join(_row(p,s,loc) for p,s,loc in rows)
     return f'<div class="sal-group reveal"><h3>{cat}</h3><div class="sal-wrap"><table class="sal"><thead><tr><th>Position</th><th>Loc</th><th>Typical salary</th></tr></thead><tbody>{trs}</tbody></table></div></div>'
 def _ladder(name, steps):
     return f'<div class="ladder reveal"><h4>{name}</h4><ol class="rungs">{"".join(f"<li>{s}</li>" for s in steps)}</ol></div>'
