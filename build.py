@@ -79,7 +79,7 @@ def nav(active=""):
     {a("faq.html","FAQ")}
     {a("careers.html","Careers")}
     {TOGGLE}
-    <a href="contact.html" class="btn btn-primary">Get a free quote</a>
+    <a href="contact.html" class="btn btn-primary">Contact us</a>
   </nav>
   <a href="contact.html" class="btn btn-primary nav-cta-m">Contact us</a>
   <button class="burger" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
@@ -92,7 +92,7 @@ def nav(active=""):
   <a href="faq.html">FAQ</a>
   <a href="careers.html">Careers</a>
   <a href="contact.html">Contact</a>
-  <a href="contact.html" class="btn btn-primary">Get a free quote</a>
+  <a href="contact.html" class="btn btn-primary">Contact us</a>
   {TOGGLE}
 </div>
 '''
@@ -642,7 +642,7 @@ faq_page = (head("FAQ | Anderson Technologies IT Support",
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow reveal">FAQ</span>
    <h1 class="reveal d1">Frequently asked questions</h1>
-   <p class="reveal d2">Quick answers about our services, pricing, and how we work. Still have a question? We're a call or message away.</p>
+   <p class="reveal d2">Quick answers about our services, pricing, and how we work.<br>Still have a question? We're a call or message away.</p>
  </div></section>
  <section class="section" style="padding-top:0"><div class="wrap faq-wrap">
    {faq_body}
@@ -726,13 +726,13 @@ careers = (head("Careers | Anderson Technologies",
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow reveal">Careers</span>
    <h1 class="reveal d1">Grow with Anderson Technologies</h1>
-   <p class="lead reveal d2">We're a growing IT and technology company serving businesses and households across Arizona and California, and we invest in our people with clear career paths, real training, and honest pay. Whether you're just starting out or you're a senior engineer, there's room to grow here.</p>
+   <p class="lead reveal d2">A growing IT team across Arizona and California. Real career paths, honest pay.</p>
  </div></section>
 
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Roles & pay</span>
-     <h2>Where you might fit</h2>
-     <p>Typical salary ranges across our team, sorted low to high. Actual pay depends on experience and certifications. Roles are tagged <span class="loc loc-az">AZ</span> Arizona, <span class="loc loc-ca">CA</span> California, <span class="loc loc-both">AZ + CA</span> for both, or <span class="loc loc-remote">Remote</span> for desk and engineering work. Don't see a perfect match? Reach out anyway, good people are worth making room for.</p></div>
+     <h2>Roles & typical pay</h2>
+     <p>Sorted low to high. <span class="loc loc-az">AZ</span> <span class="loc loc-ca">CA</span> <span class="loc loc-both">AZ + CA</span> <span class="loc loc-remote">Remote</span></p></div>
    <div class="sal-layout">
      <div>{_sal_table(*careers_roles[0])}</div>
      <div class="sal-right">{"".join(_sal_table(c,rows) for c,rows in careers_roles[1:])}</div>
@@ -741,22 +741,20 @@ careers = (head("Careers | Anderson Technologies",
 
  <section class="section"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Career progression</span>
-     <h2>A clear path to grow</h2>
-     <p>We promote from within. Here's how careers tend to move up at Anderson Technologies.</p></div>
+     <h2>Career paths</h2></div>
    <div class="ladders">{"".join(_ladder(n,s) for n,s in careers_ladders)}</div>
  </div></section>
 
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Certifications</span>
-     <h2>Certifications we value</h2>
-     <p>Certified candidates often command higher pay. If you hold any of these, or you're working toward them, we'd love to hear from you.</p></div>
+     <h2>Certifications we value</h2></div>
    <div class="cert-grid">{"".join(f'<div class="cert reveal"><strong>{v}</strong><span>{c}</span></div>' for v,c in careers_certs)}</div>
  </div></section>
 
  <section class="section"><div class="wrap"><div class="reveal" style="max-width:680px;margin-inline:auto;text-align:center">
    <span class="eyebrow">How to apply</span>
-   <h2 style="margin:14px 0 12px">Tell us about yourself</h2>
-   <p class="lead">Email your resume to <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" style="color:var(--brand);font-weight:600;text-decoration:none">{EMAIL_DISPLAY}</a> with "Careers" in the subject, or reach out through our contact form. Tell us what you're great at, any certifications you hold, and where you're based.</p>
+   <h2 style="margin:14px 0 12px">Apply</h2>
+   <p class="lead">Email your resume to <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" style="color:var(--brand);font-weight:600;text-decoration:none">{EMAIL_DISPLAY}</a>, or use the contact form.</p>
    <div class="hero-cta" style="justify-content:center;margin-top:1.8rem">
      <a href="contact.html" class="btn btn-primary">Get in touch {ARROW}</a>
      <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" class="btn btn-ghost">Email your resume</a>
