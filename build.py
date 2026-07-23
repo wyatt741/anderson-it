@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=17"
+CSSV = "styles.css?v=18"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -137,7 +137,7 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="faq.html">FAQ</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
@@ -427,7 +427,8 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 # until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
- dict(name="Albert", role="Operations Director", img="albert.jpg"),
+ dict(name="Albert", role="CFAFO", img="albert.jpg"),
+ dict(name="Alejandro", role="Chief Procurement Officer", img="alejandro.jpg"),
  dict(name="Dakota", role="Business Development & Sales", img="dakota.jpg"),
  dict(name="Josh", role="Professional Services", img="josh.jpg"),
  dict(name="Brandon", role="Managed IT Services Manager", img="brandon.jpg"),
@@ -435,7 +436,6 @@ team = [
  dict(name="Carolina", role="Client Experience Manager", img="carolina.jpg"),
  dict(name="Eduardo", role="Cybersecurity Manager"),  # no photo yet (monogram)
  dict(name="Alex", role="Residential & Break/Fix Manager", img="alex.jpg"),
- dict(name="Alejandro", role="Procurement & Logistics", img="alejandro.jpg"),
  dict(name="Keanu", role="Finance & Administration", img="keanu.jpg"),
 ]
 def team_card(m):
@@ -588,7 +588,67 @@ reviews_page = (head("Reviews | Anderson Technologies IT Support",
  </main>''' + footer())
 write("reviews.html", reviews_page)
 
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("contact.html","0.8"),("reviews.html","0.7")]
+# ============================ FAQ page ============================
+import json
+faq = [
+ ("Pricing & plans", [
+   ("How much does managed IT cost?", "Our managed IT is priced per user, per month, and custom-quoted to your team and needs, so there's no one-size flat rate. Tell us about your setup and we'll put together a free quote."),
+   ("Is there a contract?", "You can go month-to-month, or save with an annual agreement. Whatever fits how you like to work."),
+   ("Is there a minimum company size?", "No minimum. We help everyone from a single person to a larger team."),
+   ("Is helpdesk support unlimited?", "Yes. Our managed helpdesk is unlimited, with no per-ticket charges."),
+   ("Can we keep our current IT company and just use you for projects?", "Absolutely. We do project-only and co-managed work right alongside your existing provider."),
+   ("Do you offer free consultations and estimates?", "Yes. Consultations and quotes are always free."),
+ ]),
+ ("Business IT & security", [
+   ("Can you protect us from ransomware?", "Yes. We layer antivirus and endpoint protection, firewalls, email filtering, multi-factor authentication, security training, and tested backups, plus incident response if something ever gets through."),
+   ("Do you set up multi-factor authentication (MFA)?", "Yes, MFA is a standard part of how we secure your accounts and systems."),
+   ("Can you migrate us to Microsoft 365?", "Yes, including migrations from Google Workspace. We handle email, Teams, SharePoint, and day-to-day management."),
+   ("Do you support HIPAA or PCI compliance?", "Yes. We help you meet security and compliance requirements, including HIPAA, PCI, and cyber-insurance requirements."),
+   ("What's your response time, and can I get help after hours?", "Urgent issues get same-day attention, and managed clients have on-call support. For anything urgent, just call and we'll jump on it."),
+   ("Do you provide on-site and remote support?", "Both. We can remote in for many issues, and we come on-site too, with on-site visits included on our Complete plan."),
+   ("Can you handle servers, firewalls, cabling, and networks?", "Yes. Servers, firewall replacement, VLANs, structured cabling, network racks, Wi-Fi, and conference-room AV are all in our wheelhouse."),
+ ]),
+ ("Home & office support", [
+   ("My computer is slow, crashing, or has a virus. Can you help?", "Yes. We do PC and Mac diagnostics, repair, tune-ups, and virus and malware removal to get things running right again."),
+   ("Can you recover my files or photos?", "Yes. We handle data recovery for lost files, deleted photos, and failing or dead drives."),
+   ("Can you fix my Wi-Fi or install mesh?", "Yes. We set up and improve home Wi-Fi, including mesh systems, so you get solid coverage everywhere."),
+   ("Can you set up a new computer and move my files over?", "Yes. New-computer setup, file transfer, Office install, and monitor setup are all part of what we do."),
+   ("Can you build a custom or gaming PC?", "Yes, we build custom and gaming PCs to fit what you need."),
+   ("Can you set up smart home devices?", "Yes. Cameras, doorbells, thermostats, TVs, Alexa, and other smart devices, installed and connected."),
+   ("Can you help with my email (Gmail or Outlook)?", "Yes. We help set up, transfer, and troubleshoot personal email."),
+ ]),
+ ("The basics", [
+   ("What areas do you serve?", "Arizona and California, with remote support available for many issues."),
+   ("Do you support both Mac and Windows?", "Yes, we work on PC, Mac, and Windows."),
+   ("Are you insured, and are your technicians background-checked?", "Yes to both. We're insured and our technicians are background-checked."),
+   ("Do you sell computers and hardware?", "Yes. We sell and supply computers and hardware, and we'll recommend the right gear for the job."),
+   ("Can I text you? What are your numbers?", "Yes, text or call us anytime. Arizona is (480) 287-4190 and California is (805) 340-8055."),
+   ("How do I schedule or get a quote?", "Call or text us, or fill out the contact form, and we'll get you set up with a free quote."),
+ ]),
+]
+def _faq_items(group):
+    return "".join(f'<details class="faq-item reveal"><summary class="faq-q">{q}</summary><div class="faq-a"><p>{a}</p></div></details>' for q,a in group)
+faq_body = "".join(f'<div class="faq-group reveal"><h2>{t}</h2>{_faq_items(items)}</div>' for t,items in faq)
+faq_ld = json.dumps({"@context":"https://schema.org","@type":"FAQPage",
+  "mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for _,items in faq for q,a in items]}, ensure_ascii=False)
+faq_page = (head("FAQ | Anderson Technologies IT Support",
+ "Answers to common questions about Anderson Technologies managed IT, home and office tech support, pricing, security, and service areas across Arizona and California.",
+ "faq.html")
+ + nav() + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">FAQ</span>
+   <h1 class="reveal d1">Frequently asked questions</h1>
+   <p class="reveal d2">Quick answers about our services, pricing, and how we work. Still have a question? We're a call or message away.</p>
+ </div></section>
+ <section class="section" style="padding-top:0"><div class="wrap faq-wrap">
+   {faq_body}
+ </div></section>
+ {cta()}
+ </main>
+ <script type="application/ld+json">{faq_ld}</script>''' + footer())
+write("faq.html", faq_page)
+
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("faq.html","0.8"),("contact.html","0.8"),("reviews.html","0.7")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'

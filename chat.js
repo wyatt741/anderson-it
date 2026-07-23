@@ -25,6 +25,7 @@
 
   var history = [];       // {role, content} for the AI
   var mode = "menu";      // menu | chat | wizard
+  var audience = "";      // "business" | "home" (from the opening split)
   var started = false;
   var busy = false;
 
@@ -77,19 +78,35 @@
   // ---------- menu ----------
   function showMenu() {
     mode = "menu";
-    addMsg("bot", "Hi! I'm the Anderson Technologies assistant. I can answer questions about our services, or help you start a free quote.");
+    addMsg("bot", "Hi! How can we help you today?");
     chips([
-      { label: "Ask a question", act: function () { mode = "chat"; setInput(true); addMsg("bot", "Sure, what would you like to know?"); input.focus(); } },
-      { label: "Get a quote", act: startWizard },
+      { label: "🏢 I'm a Business", act: function () { pickAudience("business"); } },
+      { label: "🏠 I'm a Home User", act: function () { pickAudience("home"); } },
     ]);
-    setInput(true, "Type a message, or pick an option");
+    setInput(true, "Or just type your question");
+  }
+  function pickAudience(a) {
+    audience = a; mode = "chat";
+    addMsg("user", a === "business" ? "I'm a business" : "I'm a home user");
+    addMsg("bot", a === "business"
+      ? "Great. I can help with managed IT, cybersecurity, Microsoft 365, networks, servers, and AI, or start a quote. What's going on?"
+      : "Great. I can help with computer repair, Wi-Fi, printers, data recovery, smart home, and more, or start a quote. What's going on?");
+    chips([
+      { label: "Get a quote", act: startWizard },
+      { label: "Talk to us", act: talkToUs },
+    ]);
+    setInput(true, "Type your question...");
+    input.focus();
+  }
+  function talkToUs() {
+    addMsg("bot", "You can reach us anytime, Arizona (480) 287-4190 and California (805) 340-8055, both take calls and texts. For anything urgent, calling is fastest. Prefer email? info@andersontechsupport.com or the contact form at https://andersontechsupport.com/contact.html");
   }
 
   // ---------- AI chat ----------
   function sendChat(text) {
     history.push({ role: "user", content: text });
     busy = true; setInput(false, "..."); var t = typing();
-    fetch(WORKER_URL + "/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: history }) })
+    fetch(WORKER_URL + "/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: history, audience: audience }) })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         t.remove();
@@ -114,7 +131,11 @@
   ];
   var answers = {}, step = 0, skipWrap = null;
 
-  function startWizard() { mode = "wizard"; answers = {}; step = 0; runStep(); }
+  function startWizard() {
+    mode = "wizard"; answers = {}; step = 0;
+    if (audience) { answers.audience = audience === "business" ? "Business" : "Home & Office"; step = 1; }  // skip the audience question if we already know
+    runStep();
+  }
   function runStep() {
     if (step >= STEPS.length) return submitQuote();
     var s = STEPS[step];
