@@ -44,8 +44,8 @@ img{max-width:100%;display:block}
 .nav{pointer-events:auto;display:flex;align-items:center;gap:26px;padding:8px 8px 8px 20px;max-width:calc(100vw - 40px);
   background:rgba(14,16,24,.6);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
   border:1px solid var(--line);border-radius:100px;box-shadow:0 20px 60px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.07)}
-.nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;letter-spacing:-.02em;font-size:1.02rem}
-.nav-brand img{width:30px;height:30px;border-radius:8px}
+.nav-brand{display:flex;align-items:center}
+.nav-brand img{height:22px;width:auto;filter:brightness(0) invert(1)}
 .nav-links{display:flex;gap:22px}
 .nav-links a{font-size:.9rem;color:var(--muted);position:relative;transition:color .3s var(--ease);white-space:nowrap}
 .nav-links a:hover{color:var(--ink)}
@@ -143,8 +143,8 @@ img{max-width:100%;display:block}
 /* footer */
 footer{border-top:1px solid var(--line-2);margin-top:40px;padding:64px 0 40px}
 .foot-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.1fr;gap:34px;padding-bottom:40px;border-bottom:1px solid var(--line-2)}
-.foot-brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700;margin-bottom:14px}
-.foot-brand img{width:30px;height:30px;border-radius:8px}
+.foot-brand{display:flex;align-items:center;margin-bottom:16px}
+.foot-brand img{height:28px;width:auto;filter:brightness(0) invert(1)}
 .foot-col p{color:var(--muted);font-size:.92rem;max-width:32ch}
 .foot-col h5{font-family:var(--disp);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
 .foot-col a{display:block;color:var(--muted);font-size:.92rem;padding:5px 0;transition:color .25s}
@@ -170,7 +170,7 @@ footer{border-top:1px solid var(--line-2);margin-top:40px;padding:64px 0 40px}
 <body>
 
 <div class="nav-shell"><nav class="nav">
-  <a class="nav-brand" href="index-v2.html"><img src="assets/favicon.png?v=3" alt=""> Anderson</a>
+  <a class="nav-brand" href="index-v2.html"><img src="assets/logo-dark.png" alt="Anderson Technologies"></a>
   <div class="nav-links">
     <a href="business.html">Business IT</a><a href="support.html">Home &amp; Office</a>
     <a href="ai.html">AI</a><a href="faq.html">FAQ</a><a href="careers.html">Careers</a>
@@ -282,7 +282,7 @@ footer{border-top:1px solid var(--line-2);margin-top:40px;padding:64px 0 40px}
 <footer><div class="wrap">
   <div class="foot-cols">
     <div class="foot-col">
-      <div class="foot-brand"><img src="assets/favicon.png?v=3" alt=""> Anderson Technologies</div>
+      <div class="foot-brand"><img src="assets/logo-dark.png" alt="Anderson Technologies"></div>
       <p>Managed IT and as-needed tech support for businesses and households across Arizona and California.</p>
     </div>
     <div class="foot-col"><h5>For Business</h5>
