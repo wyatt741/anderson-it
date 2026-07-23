@@ -744,7 +744,7 @@ careers = (head("Careers | Anderson Technologies",
  </div></section>
 
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Roles & pay</span>
+   <div class="sec-head center reveal"><span class="eyebrow">Career Opportunities</span>
      <h2>Roles & typical pay</h2>
      <p><span class="loc loc-az">AZ</span> <span class="loc loc-ca">CA</span> <span class="loc loc-both">AZ + CA</span> <span class="loc loc-remote">Remote</span></p></div>
    <div class="sal-layout">
