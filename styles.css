@@ -554,3 +554,5 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 [data-theme="dark"] .loc-az{background:rgba(245,158,11,.16);color:#fbbf24;border-color:rgba(245,158,11,.35)}
 [data-theme="dark"] .loc-ca{background:rgba(76,141,255,.16);color:#9cc0ff;border-color:rgba(76,141,255,.35)}
 [data-theme="dark"] .loc-both{background:rgba(13,148,136,.18);color:#5eead4;border-color:rgba(13,148,136,.4)}
+.loc-remote{background:#eef2ff;color:#4f46e5;border:1px solid #c7d2fe}
+[data-theme="dark"] .loc-remote{background:rgba(99,102,241,.17);color:#a5b4fc;border-color:rgba(99,102,241,.38)}
