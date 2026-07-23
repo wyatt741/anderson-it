@@ -261,14 +261,22 @@ home = (head(
  <div class="trust"><div class="trust-track">
    <div class="trust-seq">
      <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
-     <span class="trust-item">{ic("chat")}Helpful support</span>
+     <span class="trust-item">{ic("headset")}Unlimited helpdesk</span>
+     <span class="trust-item">{ic("shield")}Insured & background-checked</span>
+     <span class="trust-item">{ic("check")}Free consultations</span>
+     <span class="trust-item">{ic("clock")}Same-day for urgent</span>
      <span class="trust-item">{ic("users")}Business & home</span>
+     <span class="trust-item">{ic("wrench")}Mac & PC</span>
      <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
    </div>
    <div class="trust-seq" aria-hidden="true">
      <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
-     <span class="trust-item">{ic("chat")}Helpful support</span>
+     <span class="trust-item">{ic("headset")}Unlimited helpdesk</span>
+     <span class="trust-item">{ic("shield")}Insured & background-checked</span>
+     <span class="trust-item">{ic("check")}Free consultations</span>
+     <span class="trust-item">{ic("clock")}Same-day for urgent</span>
      <span class="trust-item">{ic("users")}Business & home</span>
+     <span class="trust-item">{ic("wrench")}Mac & PC</span>
      <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
    </div>
  </div></div>
