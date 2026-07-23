@@ -439,7 +439,6 @@ team = [
  dict(name="Nico", role="Network & Infrastructure Manager", img="nico.jpg"),
  dict(name="Carolina", role="Client Experience Manager", img="carolina.jpg"),
  dict(name="Eduardo", role="Cybersecurity Manager"),  # no photo yet (monogram)
- dict(name="Alex", role="Residential & Break/Fix Manager", img="alex.jpg"),
  dict(name="Keanu", role="Finance & Administration Manager", img="keanu.jpg"),
 ]
 def team_card(m):
