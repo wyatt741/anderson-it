@@ -559,3 +559,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .job-row{cursor:pointer}
 .job-link{color:inherit;text-decoration:none}
 .sal tbody tr.job-row:hover .job-link{color:var(--brand)}
+
+/* avoid orphan words on the last wrapped line (widows/orphans) */
+p{text-wrap:pretty}
+.faq-q,.rungs li,.sal td,.cert span{text-wrap:pretty}
