@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=29"
+CSSV = "styles.css?v=30"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -256,6 +256,8 @@ home = (head(
      <div class="row"><div class="ic">{ic("pin")}</div><div><b>Local team, not a call center</b><span>Real people who show up, by phone or in person</span></div></div>
      <div class="row"><div class="ic mint">{ic("shield")}</div><div><b>Insured & background-checked</b><span>Techs you can trust in your home or office</span></div></div>
      <div class="row"><div class="ic amber">{ic("check")}</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
+     <div class="row"><div class="ic">{ic("clock")}</div><div><b>Same-day when it's urgent</b><span>Call or text anytime, we'll answer</span></div></div>
+     <div class="row"><div class="ic mint">{ic("chat")}</div><div><b>Free consultations</b><span>Tell us what's going on, no pressure</span></div></div>
    </div>
  </div></section>
 
