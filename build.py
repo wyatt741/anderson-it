@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=25"
+CSSV = "styles.css?v=26"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -258,11 +258,19 @@ home = (head(
    </div>
  </div></section>
 
- <div class="trust"><div class="wrap trust-in">
-   <div class="trust-item">{ic("pin")}Local to AZ & CA</div>
-   <div class="trust-item">{ic("chat")}Helpful support</div>
-   <div class="trust-item">{ic("users")}Business & home</div>
-   <div class="trust-item">{ic("check")}Honest, upfront pricing</div>
+ <div class="trust"><div class="trust-track">
+   <div class="trust-seq">
+     <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
+     <span class="trust-item">{ic("chat")}Helpful support</span>
+     <span class="trust-item">{ic("users")}Business & home</span>
+     <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
+   </div>
+   <div class="trust-seq" aria-hidden="true">
+     <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
+     <span class="trust-item">{ic("chat")}Helpful support</span>
+     <span class="trust-item">{ic("users")}Business & home</span>
+     <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
+   </div>
  </div></div>
 
  <section class="section" id="what"><div class="wrap">
