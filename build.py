@@ -652,7 +652,7 @@ faq_ld = json.dumps({"@context":"https://schema.org","@type":"FAQPage",
 faq_page = (head("FAQ | Anderson Technologies IT Support",
  "Answers to common questions about Anderson Technologies managed IT, home and office tech support, pricing, security, and service areas across Arizona and California.",
  "faq.html")
- + nav() + f'''<main id="main">
+ + nav("FAQ") + f'''<main id="main">
  <section class="page-hero"><div class="wrap">
    <span class="eyebrow reveal">FAQ</span>
    <h1 class="reveal d1">Frequently asked questions</h1>
