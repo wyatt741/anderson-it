@@ -30,6 +30,7 @@ I = {
  "clock":'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
  "pin":'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
  "bolt":'<path d="M13 3L4 14h6l-1 7 9-11h-6l1-7Z"/>',
+ "star":'<path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.77l-5.2 2.74.99-5.79-4.21-4.1 5.82-.85z"/>',
  "chat":'<path d="M4 5h16v11H9l-4 3v-3H4V5Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/>',
  "users":'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 6a3 3 0 0 1 0 6M15 20a6 6 0 0 0-1-3.4"/>',
 }
@@ -253,7 +254,7 @@ home = (head(
      </div>
    </div>
    <div class="hero-panel reveal d2">
-     <div class="row"><div class="ic">{ic("pin")}</div><div><b>Local team, not a call center</b><span>Real people who show up, by phone or in person</span></div></div>
+     <div class="row"><div class="ic">{ic("star")}</div><div><b>5-star rated</b><span>Trusted by 500+ local clients</span></div></div>
      <div class="row"><div class="ic mint">{ic("shield")}</div><div><b>Insured & background-checked</b><span>Techs you can trust in your home or office</span></div></div>
      <div class="row"><div class="ic amber">{ic("check")}</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
      <div class="row"><div class="ic">{ic("clock")}</div><div><b>Same-day when it's urgent</b><span>Call or text anytime, we'll answer</span></div></div>
