@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=26"
+CSSV = "styles.css?v=27"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -141,13 +141,17 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="faq.html">FAQ</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a><a href="careers.html">Careers</a>
+      <a href="support.html#smart">Smart Home & Office</a>
+    </div>
+    <div class="foot-col"><h5>Company</h5>
+      <a href="contact.html#team">About</a><a href="careers.html">Careers</a>
+      <a href="reviews.html">Reviews</a><a href="faq.html">FAQ</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
-      <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
-      <a href="tel:+18053408055">California {PHONE_CA}</a>
-      <a href="sms:+14802874190">Text Arizona {PHONE_AZ}</a>
-      <a href="sms:+18053408055">Text California {PHONE_CA}</a>
+      <a href="tel:+14802874190">Call Arizona {PHONE_AZ}</a>
+      <a href="tel:+18053408055">Call California {PHONE_CA}</a>
+      <a href="sms:+14802874190">Text Arizona</a>
+      <a href="sms:+18053408055">Text California</a>
       <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a>
     </div>
   </div>
