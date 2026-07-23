@@ -26,6 +26,23 @@ if (svc) {
   if (sel) [...sel.options].forEach(o => { if (o.value.toLowerCase() === svc.toLowerCase()) sel.value = o.value; });
 }
 
+// Careers: salary-table rows link through to the contact form
+document.querySelectorAll('.sal tbody tr[data-href]').forEach(tr => {
+  tr.addEventListener('click', e => { if (!e.target.closest('a')) location.href = tr.getAttribute('data-href'); });
+});
+
+// Contact form: prefill when arriving from a job listing (?job=Role)
+(function () {
+  const job = new URLSearchParams(location.search).get('job');
+  if (!job) return;
+  const msg = document.getElementById('message');
+  if (msg && !msg.value.trim()) msg.value = "I'd like to apply for the " + job + " position. Here's a bit about me:\n\n";
+  const sel = document.getElementById('service');
+  if (sel) { const o = document.createElement('option'); o.value = "Careers: " + job; o.textContent = "Careers: " + job; o.selected = true; sel.appendChild(o); }
+  const form = document.getElementById('contact-form');
+  if (form) try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+})();
+
 // Theme toggle (light default; respects OS on first visit, then persists)
 document.querySelectorAll('.theme-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
