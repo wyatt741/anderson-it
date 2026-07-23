@@ -487,10 +487,8 @@ contact = (head(
        <div class="field"><label for="service">What do you need? (optional)</label>
          <select id="service" name="service">
            <option value="">Not sure yet, just point me the right way</option>
-           <option>Managed IT</option><option>AI Solutions</option><option>Home & Office Support</option>
-           <option>Computer Repair</option><option>Cybersecurity</option>
-           <option>Networks & Wi-Fi</option><option>Smart Home & Office</option>
-           <option>Something else</option>
+           <option>Managed IT</option><option>Home &amp; Office support</option>
+           <option>AI solutions</option><option>Something else</option>
          </select></div>
        <div class="field"><label for="photos">Add photos (optional)</label>
          <input id="photos" type="file" name="attachment" accept="image/*" multiple>
