@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anderson Technologies — concept</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.ico?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507; --bg2:#0a0b12; --card:rgba(255,255,255,.032); --core:rgba(12,14,22,.72);
+  --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.06);
+  --ink:#f5f6f9; --muted:#9aa1af; --faint:#6a7180;
+  --brand:#4c8dff; --brand-2:#2563eb; --mint:#2dd4bf; --amber:#f5b83d;
+  --disp:'Space Grotesk',system-ui,sans-serif; --body:'Plus Jakarta Sans',system-ui,sans-serif;
+  --wrap:1200px;
+  --ease:cubic-bezier(.32,.72,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* mesh orb backdrop */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+   radial-gradient(680px 520px at 12% -6%,rgba(76,141,255,.18),transparent 60%),
+   radial-gradient(600px 520px at 100% 4%,rgba(45,212,191,.10),transparent 58%),
+   radial-gradient(700px 700px at 80% 100%,rgba(76,141,255,.08),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.018) 1px,transparent 1px);background-size:3px 3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 26px}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:-.03em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;font-size:.66rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+  padding:8px 14px;border-radius:100px;border:1px solid var(--line);background:var(--card)}
+.eyebrow .dot{width:6px;height:6px;border-radius:100px;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+
+/* ---------- fluid-island glass nav ---------- */
+.nav-shell{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:22px 20px;pointer-events:none}
+.nav{pointer-events:auto;display:flex;align-items:center;gap:28px;padding:9px 9px 9px 22px;
+  background:rgba(14,16,24,.6);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
+  border:1px solid var(--line);border-radius:100px;box-shadow:0 20px 60px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.07)}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;letter-spacing:-.02em;font-size:1.02rem}
+.nav-brand img{width:30px;height:30px;border-radius:8px}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-size:.9rem;color:var(--muted);position:relative;transition:color .3s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1.5px;background:var(--brand);border-radius:2px;transition:right .35s var(--ease)}
+.nav-links a:hover::after{right:0}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* ---------- buttons (button-in-button) ---------- */
+.btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:600;font-size:.96rem;
+  padding:11px 12px 11px 24px;border-radius:100px;cursor:pointer;border:1px solid transparent;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),background .3s}
+.btn-ic{display:grid;place-items:center;width:30px;height:30px;border-radius:100px;font-size:.95rem;
+  transition:transform .5s var(--spring)}
+.btn-primary{background:var(--brand);color:#04070f;box-shadow:0 16px 40px -14px rgba(76,141,255,.6)}
+.btn-primary .btn-ic{background:rgba(4,7,15,.16)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 24px 52px -14px rgba(76,141,255,.75)}
+.btn-primary:hover .btn-ic{transform:translate(4px,-1px) scale(1.06)}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--ink);border-color:var(--line);padding:11px 22px}
+.btn-ghost:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.btn-lg{font-size:1.05rem;padding:14px 14px 14px 28px}
+.btn-lg .btn-ic{width:34px;height:34px}
+
+/* ---------- double-bezel card ---------- */
+.bezel{padding:7px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:30px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.bezel-core{background:var(--core);border:1px solid var(--line-2);border-radius:24px;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.05);overflow:hidden}
+
+/* ---------- hero (editorial split) ---------- */
+.hero{padding:190px 0 90px}
+.hero-in{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center}
+.hero h1{font-size:clamp(2.9rem,6.4vw,5rem);margin:24px 0 22px}
+.hero h1 .g{background:linear-gradient(100deg,var(--brand),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:1.18rem;color:var(--muted);max-width:40ch}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin:34px 0 28px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:9px}
+.hero-chips span{font-family:var(--disp);font-weight:500;font-size:.8rem;color:var(--muted);
+  padding:7px 14px;border-radius:100px;border:1px solid var(--line);background:var(--card)}
+/* hero trust stack card */
+.stack{display:flex;flex-direction:column;gap:2px;padding:10px}
+.srow{display:flex;align-items:center;gap:16px;padding:18px;border-radius:16px;transition:background .4s var(--ease)}
+.srow:hover{background:rgba(255,255,255,.03)}
+.srow+.srow{border-top:1px solid var(--line-2)}
+.sic{flex:none;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:1.2rem;
+  background:rgba(76,141,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.sic.mint{background:rgba(45,212,191,.14)}.sic.amber{background:rgba(245,184,61,.15)}
+.srow b{font-family:var(--disp);font-weight:600;font-size:1rem;display:block}
+.srow span{font-size:.9rem;color:var(--muted)}
+
+/* ---------- sections ---------- */
+.section{padding:100px 0}
+.sec-head{max-width:640px;margin-bottom:56px}
+.sec-head.center{margin-inline:auto;text-align:center}
+.sec-head h2{font-size:clamp(2.1rem,4.6vw,3.3rem);margin:20px 0 14px}
+.sec-head p{color:var(--muted);font-size:1.1rem}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.tile{padding:6px}
+.tile-core{height:100%;padding:34px;display:flex;flex-direction:column;gap:12px;position:relative}
+.tile.lg{grid-column:span 4}.tile.sm{grid-column:span 2}
+.tile-glow{position:absolute;inset:0;opacity:.5;background:radial-gradient(340px 220px at 20% 0%,rgba(76,141,255,.16),transparent 60%);pointer-events:none}
+.tile.mint .tile-glow{background:radial-gradient(340px 220px at 20% 0%,rgba(45,212,191,.16),transparent 60%)}
+.tile.amber .tile-glow{background:radial-gradient(340px 220px at 20% 0%,rgba(245,184,61,.14),transparent 60%)}
+.tile-ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:1.5rem;
+  background:rgba(76,141,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);margin-bottom:6px}
+.tile.mint .tile-ic{background:rgba(45,212,191,.14)}.tile.amber .tile-ic{background:rgba(245,184,61,.15)}
+.tile h3{font-size:1.5rem}
+.tile p{color:var(--muted);font-size:1rem}
+.tile-more{margin-top:auto;font-family:var(--disp);font-weight:600;font-size:.9rem;color:var(--brand);padding-top:14px}
+.tile.mint .tile-more{color:var(--mint)}.tile.amber .tile-more{color:var(--amber)}
+.tile ul{list-style:none;display:grid;gap:8px;margin-top:4px}
+.tile li{font-size:.92rem;color:var(--muted);padding-left:20px;position:relative}
+.tile li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:100px;background:var(--brand)}
+.tile.mint li::before{background:var(--mint)}.tile.amber li::before{background:var(--amber)}
+
+/* proof strip */
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.proof div{background:var(--bg2);padding:34px 24px;text-align:center}
+.proof b{font-family:var(--disp);font-weight:700;font-size:2rem;display:block;letter-spacing:-.02em}
+.proof span{color:var(--muted);font-size:.9rem}
+
+/* reviews */
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rev{padding:6px}
+.rev-core{padding:32px}
+.stars{color:var(--amber);letter-spacing:3px;margin-bottom:16px;font-size:.9rem}
+.rev p{font-size:1.08rem;margin-bottom:20px}
+.rev cite{font-family:var(--disp);font-weight:600;font-style:normal;display:flex;flex-direction:column}
+.rev cite span{color:var(--faint);font-weight:400;font-size:.86rem}
+
+/* cta */
+.cta{padding:8px;text-align:center}
+.cta-core{padding:76px 40px;position:relative;overflow:hidden}
+.cta-core::before{content:"";position:absolute;inset:0;opacity:.6;pointer-events:none;
+  background:radial-gradient(500px 300px at 50% 0%,rgba(76,141,255,.2),transparent 60%)}
+.cta h2{font-size:clamp(2.2rem,5vw,3.4rem);position:relative}
+.cta p{color:var(--muted);font-size:1.15rem;margin:16px auto 30px;max-width:46ch;position:relative}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* footer */
+footer{padding:70px 0 40px;border-top:1px solid var(--line-2);margin-top:60px}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700}
+.foot-brand img{width:30px;height:30px;border-radius:8px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{color:var(--muted);font-size:.92rem}.foot-links a:hover{color:var(--ink)}
+.legal{color:var(--faint);font-size:.82rem;margin-top:26px}
+
+/* motion */
+.reveal{opacity:0;transform:translateY(28px);filter:blur(10px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.reveal.in{opacity:1;transform:none;filter:blur(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;filter:none;transition:none}}
+
+/* responsive */
+@media(max-width:900px){
+  .hero-in{grid-template-columns:1fr;gap:40px}
+  .bento{grid-template-columns:1fr}.tile.lg,.tile.sm{grid-column:span 1}
+  .proof{grid-template-columns:1fr 1fr}
+  .rev-grid{grid-template-columns:1fr}
+  .hero{padding:150px 0 60px}
+}
+</style>
+</head>
+<body>
+
+<div class="nav-shell"><nav class="nav">
+  <a class="nav-brand" href="index-v2.html"><img src="assets/favicon.png?v=3" alt=""> Anderson</a>
+  <div class="nav-links"><a href="#services">Services</a><a href="#why">Why us</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
+  <a class="btn btn-primary" href="contact.html">Get a quote<span class="btn-ic">→</span></a>
+</nav></div>
+
+<header class="hero"><div class="wrap hero-in">
+  <div class="hero-copy reveal">
+    <span class="eyebrow"><span class="dot"></span>Managed IT · Home &amp; Office · AI</span>
+    <h1>Technology that<br><span class="g">just works.</span></h1>
+    <p class="hero-sub">Anderson Technologies keeps businesses and households across the valley running smoothly — proactive IT, fast on-site help, and AI that earns its keep.</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary btn-lg" href="contact.html">Get a free quote<span class="btn-ic">→</span></a>
+      <a class="btn btn-ghost btn-lg" href="#services">See what we do</a>
+    </div>
+    <div class="hero-chips"><span>📍 Phoenix, AZ + Ventura, CA</span><span>⭐ 5-star rated</span><span>🛡 Insured &amp; background-checked</span></div>
+  </div>
+  <div class="hero-art reveal d2"><div class="bezel"><div class="bezel-core"><div class="stack">
+    <div class="srow"><div class="sic">⭐</div><div><b>5-star rated</b><span>Trusted by 500+ local clients</span></div></div>
+    <div class="srow"><div class="sic mint">🛡</div><div><b>Insured &amp; background-checked</b><span>Techs you can trust in your space</span></div></div>
+    <div class="srow"><div class="sic amber">✓</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
+    <div class="srow"><div class="sic">🕐</div><div><b>Same-day when it's urgent</b><span>Call or text anytime, we'll answer</span></div></div>
+    <div class="srow"><div class="sic mint">💬</div><div><b>Free consultations</b><span>Tell us what's going on, no pressure</span></div></div>
+  </div></div></div></div>
+</div></header>
+
+<section class="section" id="services"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow">What we do</span>
+    <h2>Everything your technology needs</h2>
+    <p>Managed IT, home &amp; office support, and AI — all from one local team.</p></div>
+  <div class="bento">
+    <div class="tile lg reveal"><div class="bezel" style="height:100%"><div class="bezel-core" style="height:100%"><div class="tile-core"><div class="tile-glow"></div>
+      <div class="tile-ic">🖥️</div><h3>Business IT</h3>
+      <p>Fully managed, proactively maintained. We keep your systems secure, updated, and out of your way.</p>
+      <ul><li>Helpdesk &amp; support</li><li>Cybersecurity &amp; backups</li><li>Cloud &amp; Microsoft 365</li><li>Networks &amp; servers</li></ul>
+      <span class="tile-more">Explore business IT →</span>
+    </div></div></div></div>
+    <div class="tile sm mint reveal d1"><div class="bezel" style="height:100%"><div class="bezel-core" style="height:100%"><div class="tile-core"><div class="tile-glow"></div>
+      <div class="tile-ic">🔧</div><h3>Home &amp; Office</h3>
+      <p>As-needed help when something breaks. No contract required.</p>
+      <span class="tile-more">Get support →</span>
+    </div></div></div></div>
+    <div class="tile sm amber reveal"><div class="bezel" style="height:100%"><div class="bezel-core" style="height:100%"><div class="tile-core"><div class="tile-glow"></div>
+      <div class="tile-ic">✨</div><h3>AI Solutions</h3>
+      <p>Practical AI that saves real time — and honesty about where it doesn't fit.</p>
+      <span class="tile-more">Put AI to work →</span>
+    </div></div></div></div>
+    <div class="tile lg reveal d1"><div class="bezel" style="height:100%"><div class="bezel-core" style="height:100%"><div class="tile-core"><div class="tile-glow"></div>
+      <div class="tile-ic mint" style="background:rgba(45,212,191,.14)">🤝</div><h3>One team for all of it</h3>
+      <p>Your office and your home, your Mac and your PC, your network and your smart devices — handled by people you can actually reach.</p>
+      <span class="tile-more" style="color:var(--mint)">Meet the team →</span>
+    </div></div></div></div>
+  </div>
+</div></section>
+
+<section class="section" id="why"><div class="wrap reveal">
+  <div class="proof">
+    <div><b>5.0★</b><span>Average client rating</span></div>
+    <div><b>500+</b><span>Local clients served</span></div>
+    <div><b>Same-day</b><span>Urgent response</span></div>
+    <div><b>Mac + PC</b><span>Both, no judgment</span></div>
+  </div>
+</div></section>
+
+<section class="section" id="reviews"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow">Kind words</span><h2>Locals who trust us</h2></div>
+  <div class="rev-grid">
+    <div class="rev reveal"><div class="bezel"><div class="bezel-core"><div class="rev-core">
+      <div class="stars">★★★★★</div>
+      <p>“We switched our 25-person office to Anderson six months ago and couldn't be happier. Virtually no downtime, and support requests are answered quickly.”</p>
+      <cite>Jason M.<span>Phoenix, AZ</span></cite>
+    </div></div></div></div>
+    <div class="rev reveal d1"><div class="bezel"><div class="bezel-core"><div class="rev-core">
+      <div class="stars">★★★★★</div>
+      <p>“They took the time to understand our business before recommending anything. No pressure, just honest advice. Extremely happy since moving our IT here.”</p>
+      <cite>Melissa R.<span>Scottsdale, AZ</span></cite>
+    </div></div></div></div>
+  </div>
+</div></section>
+
+<section class="section" id="contact"><div class="wrap cta reveal"><div class="bezel"><div class="bezel-core"><div class="cta-core">
+  <h2>Let's get your technology working for you.</h2>
+  <p>Tell us what you need. Clear next steps, no pressure, no runaround.</p>
+  <div class="cta-btns">
+    <a class="btn btn-primary btn-lg" href="contact.html">Get a free quote<span class="btn-ic">→</span></a>
+    <a class="btn btn-ghost btn-lg" href="tel:+14802874190">Call (480) 287-4190</a>
+  </div>
+</div></div></div></div></section>
+
+<footer><div class="wrap">
+  <div class="foot-in">
+    <div class="foot-brand"><img src="assets/favicon.png?v=3" alt=""> Anderson Technologies</div>
+    <div class="foot-links"><a href="business.html">Business IT</a><a href="support.html">Home &amp; Office</a><a href="ai.html">AI</a><a href="faq.html">FAQ</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></div>
+  </div>
+  <div class="legal">© 2026 Anderson Technologies LLC · Concept design — not the live site.</div>
+</div></footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// light magnetic pull on primary CTAs
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+ document.querySelectorAll('.btn-primary').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)/6}px,${(e.clientY-r.top-r.height/2)/5 - 2}px)`});
+  b.addEventListener('mouseleave',()=>b.style.transform='');
+ });
+}
+</script>
+</body>
+</html>
