@@ -153,8 +153,7 @@ def footer():
       <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a>
     </div>
   </div>
-  <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span>
-    <span>Arizona & California</span></div>
+  <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span></div>
 </div></footer>
 {chat_widget()}
 <script src="app.js?v=4"></script>
