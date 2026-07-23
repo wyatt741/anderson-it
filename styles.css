@@ -425,7 +425,26 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
   /* contact info cards lift subtly */
   .info-card{transition:transform .3s var(--ease),border-color .3s var(--ease)}
   .info-card:hover{transform:translateY(-2px);border-color:var(--brand)}
+  /* hero panel rows cascade up on load, then nudge + glow on hover */
+  .hero-panel .row{animation:heroRow .6s var(--ease) both;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+  .hero-panel .row:nth-child(1){animation-delay:.20s}
+  .hero-panel .row:nth-child(2){animation-delay:.35s}
+  .hero-panel .row:nth-child(3){animation-delay:.50s}
+  .hero-panel .row:hover{transform:translateX(5px);border-color:var(--brand);box-shadow:0 14px 28px -18px rgba(37,99,235,.5)}
+  .hero-panel .row .ic{transition:transform .3s var(--ease)}
+  .hero-panel .row:hover .ic{transform:scale(1.09)}
+  /* trust bar items cascade in, then lift on hover */
+  .trust-item{animation:trustIn .55s var(--ease) both;transition:transform .3s var(--ease)}
+  .trust-item:nth-child(1){animation-delay:.15s}
+  .trust-item:nth-child(2){animation-delay:.28s}
+  .trust-item:nth-child(3){animation-delay:.41s}
+  .trust-item:nth-child(4){animation-delay:.54s}
+  .trust-item:hover{transform:translateY(-2px)}
+  .trust-item svg{transition:transform .3s var(--ease)}
+  .trust-item:hover svg{transform:scale(1.15)}
 }
+@keyframes heroRow{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes trustIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* ===== AI chat + quote widget ===== */
 .cw{display:none}
