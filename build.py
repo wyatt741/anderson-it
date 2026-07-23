@@ -732,7 +732,7 @@ careers = (head("Careers | Anderson Technologies",
  <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
    <div class="sec-head center reveal"><span class="eyebrow">Roles & pay</span>
      <h2>Roles & typical pay</h2>
-     <p>Sorted low to high. <span class="loc loc-az">AZ</span> <span class="loc loc-ca">CA</span> <span class="loc loc-both">AZ + CA</span> <span class="loc loc-remote">Remote</span></p></div>
+     <p><span class="loc loc-az">AZ</span> <span class="loc loc-ca">CA</span> <span class="loc loc-both">AZ + CA</span> <span class="loc loc-remote">Remote</span></p></div>
    <div class="sal-layout">
      <div>{_sal_table(*careers_roles[0])}</div>
      <div class="sal-right">{"".join(_sal_table(c,rows) for c,rows in careers_roles[1:])}</div>
