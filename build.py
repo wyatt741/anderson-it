@@ -488,7 +488,7 @@ contact = (head(
          <a href="sms:+14802874190">Arizona {PHONE_AZ}</a><br><a href="sms:+18053408055">California {PHONE_CA}</a></div></div>
        <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a></div></div>
        <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
-       <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Phoenix, AZ and Southern California, remote support nationwide</span></div></div>
+       <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Phoenix, AZ and Ventura, CA, remote support nationwide</span></div></div>
      </div>
      <form action="https://formsubmit.co/{EMAIL}" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
        <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
