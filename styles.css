@@ -436,7 +436,6 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
   .hero-panel .row:hover .ic{transform:scale(1.09)}
   /* trust bar: text ticker travels right-to-left, pauses on hover */
   .trust-track{animation:trustMarquee 34s linear infinite}
-  .trust:hover .trust-track{animation-play-state:paused}
   /* blue pulse sweeps left-to-right across the bar */
   .trust::before{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;z-index:1;pointer-events:none;
     background:linear-gradient(90deg,transparent,rgba(76,141,255,.18),transparent);
