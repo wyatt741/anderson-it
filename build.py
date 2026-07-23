@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=28"
+CSSV = "styles.css?v=29"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -283,9 +283,9 @@ home = (head(
  </div></div>
 
  <section class="section" id="what"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">How we help</span>
-     <h2>Everything your technology needs</h2>
-     <p>Managed IT, home and office support, and AI, all from one local team.</p></div>
+   <div class="sec-head center oneline reveal"><span class="eyebrow">How we help</span>
+     <h2>Everything your technology needs.</h2>
+     <p>Managed IT, Home Office Support, and AI Solutions, all from one local team.</p></div>
    <div class="tracks">
      <div class="track reveal">
        <div class="track-media"><img src="assets/it-business.jpg" alt="Technician managing network and server hardware" loading="lazy" width="1200" height="800"></div>
