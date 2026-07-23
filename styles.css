@@ -430,12 +430,12 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 /* ===== AI chat + quote widget ===== */
 .cw{display:none}
 .cw--ready{display:block}
-.cw-bubble{position:fixed;right:20px;bottom:20px;z-index:120;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;
+.cw-bubble{position:fixed;right:20px;bottom:20px;z-index:120;width:50px;height:50px;border-radius:50%;border:0;cursor:pointer;
   background:var(--brand);color:#fff;box-shadow:0 12px 30px -8px rgba(37,99,235,.6);display:grid;place-items:center;
   transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .cw-bubble:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 18px 36px -10px rgba(37,99,235,.7)}
 .cw-bubble:active{transform:scale(.96)}
-.cw-i{width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;grid-area:1/1;transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.cw-i{width:23px;height:23px;stroke:currentColor;stroke-width:2;fill:none;grid-area:1/1;transition:opacity .25s var(--ease),transform .25s var(--ease)}
 .cw-i-x{opacity:0;transform:rotate(-90deg) scale(.6)}
 .cw--open .cw-i-chat{opacity:0;transform:rotate(90deg) scale(.6)}
 .cw--open .cw-i-x{opacity:1;transform:none}
@@ -486,7 +486,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 [data-theme="dark"] .cw-chip:hover{background:rgba(76,141,255,.24)}
 
 @media (max-width:600px){
-  .cw-bubble{right:16px;bottom:16px;width:54px;height:54px}
+  .cw-bubble{right:16px;bottom:16px;width:46px;height:46px}
   .cw-panel{right:8px;left:8px;bottom:80px;width:auto;max-height:76vh}
 }
 @media (prefers-reduced-motion:reduce){
@@ -507,3 +507,11 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .faq-q:hover{color:var(--brand)}
 .faq-a{padding:0 22px 20px;color:var(--body)}
 .faq-a p{margin:0;line-height:1.65}
+
+/* chat bubble: small + gentle attention pulse (not intrusive) */
+.cw-bubble::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--brand);opacity:0;pointer-events:none}
+@keyframes cwPulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.75);opacity:0}100%{transform:scale(1.75);opacity:0}}
+.cw--ready:not(.cw--open) .cw-bubble::after{animation:cwPulse 2.8s ease-out infinite}
+@media (prefers-reduced-motion:reduce){.cw--ready .cw-bubble::after{animation:none}}
+
+.cw-panel[hidden]{display:none}
