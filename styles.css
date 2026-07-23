@@ -204,7 +204,7 @@ form .btn{width:100%;justify-content:center}
 
 /* ===== Footer ===== */
 footer{background:#0f172a;color:#cbd5e1;padding-block:clamp(3rem,6vw,4.5rem) 2rem;margin-top:clamp(3rem,7vw,6rem)}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:36px}
 .foot-brand img{height:30px;margin-bottom:16px}
 .foot-brand p{color:#94a3b8;font-size:.95rem;max-width:34ch}
 footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
