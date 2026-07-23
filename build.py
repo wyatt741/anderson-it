@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=19"
+CSSV = "styles.css?v=20"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -76,6 +76,8 @@ def nav(active=""):
     {a("business.html","Business IT")}
     {a("support.html","Home & Office")}
     {a("ai.html","AI")}
+    {a("faq.html","FAQ")}
+    {a("careers.html","Careers")}
     {TOGGLE}
     <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   </nav>
@@ -87,6 +89,8 @@ def nav(active=""):
   <a href="business.html">Business IT</a>
   <a href="support.html">Home & Office Support</a>
   <a href="ai.html">AI</a>
+  <a href="faq.html">FAQ</a>
+  <a href="careers.html">Careers</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Get a free quote</a>
   {TOGGLE}
@@ -137,7 +141,7 @@ def footer():
     </div>
     <div class="foot-col"><h5>Home & Office</h5>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
-      <a href="support.html#smart">Smart Home & Office</a><a href="faq.html">FAQ</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a>
+      <a href="support.html#smart">Smart Home & Office</a><a href="faq.html">FAQ</a><a href="reviews.html">Reviews</a><a href="contact.html#team">About</a><a href="careers.html">Careers</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
@@ -648,7 +652,104 @@ faq_page = (head("FAQ | Anderson Technologies IT Support",
  <script type="application/ld+json">{faq_ld}</script>''' + footer())
 write("faq.html", faq_page)
 
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("faq.html","0.8"),("contact.html","0.8"),("reviews.html","0.7")]
+# ============================ Careers page ============================
+careers_roles = [
+ ("Technical", [
+   ("IT Apprentice","$40,000 to $55,000"),("Bench Repair Technician","$42,000 to $58,000"),
+   ("Residential IT Technician","$45,000 to $65,000"),("Field Service Technician I","$50,000 to $70,000"),
+   ("Field Service Technician II","$60,000 to $80,000"),("Senior Field Technician","$75,000 to $95,000"),
+   ("Help Desk Technician I","$45,000 to $60,000"),("Help Desk Technician II","$55,000 to $75,000"),
+   ("Help Desk Technician III","$70,000 to $90,000"),("Systems Administrator","$75,000 to $105,000"),
+   ("Systems Engineer","$90,000 to $130,000"),("Senior Systems Engineer","$120,000 to $160,000"),
+   ("Network Engineer","$90,000 to $130,000"),("Senior Network Engineer","$120,000 to $165,000"),
+   ("Cloud Engineer","$105,000 to $145,000"),("Azure Engineer","$110,000 to $155,000"),
+   ("Microsoft 365 Engineer","$85,000 to $125,000"),("Cybersecurity Analyst","$80,000 to $120,000"),
+   ("Security Engineer","$110,000 to $160,000"),("SOC Analyst","$75,000 to $115,000"),
+   ("Compliance Specialist","$80,000 to $120,000"),("Project Engineer","$90,000 to $130,000"),
+   ("Project Manager","$90,000 to $140,000"),("Cabling Technician","$45,000 to $70,000"),
+   ("Low Voltage Installer","$50,000 to $75,000"),
+ ]),
+ ("Leadership", [
+   ("Service Manager","$90,000 to $130,000"),("Operations Manager","$95,000 to $140,000"),
+   ("IT Director","$130,000 to $180,000"),("Cybersecurity Manager","$120,000 to $170,000"),
+   ("Engineering Manager","$125,000 to $175,000"),("Client Success Manager","$80,000 to $120,000"),
+   ("Dispatch Manager","$60,000 to $90,000"),
+ ]),
+ ("Sales & customer service", [
+   ("Customer Service Representative","$40,000 to $55,000"),("Dispatcher","$45,000 to $65,000"),
+   ("Account Manager","$65,000 to $100,000 plus commission"),("Business Development Representative","$55,000 to $75,000 plus commission"),
+   ("Sales Executive","$70,000 to $110,000 plus commission"),("Sales Director","$120,000 to $200,000 plus bonuses"),
+ ]),
+ ("Administration", [
+   ("Office Administrator","$45,000 to $65,000"),("HR Coordinator","$55,000 to $75,000"),
+   ("Payroll & Billing Specialist","$50,000 to $70,000"),("Bookkeeper","$55,000 to $80,000"),
+   ("Purchasing & Inventory Coordinator","$50,000 to $75,000"),
+ ]),
+]
+careers_ladders = [
+ ("Technical path", ["IT Apprentice","Help Desk I","Help Desk II","Help Desk III","Systems Administrator","Systems Engineer","Senior Systems Engineer","Engineering Manager","IT Director"]),
+ ("Field services path", ["Residential Technician","Field Technician I","Field Technician II","Senior Field Technician","Field Supervisor","Service Manager","Operations Manager"]),
+ ("Sales path", ["Sales Development Rep","Account Executive","Senior Account Executive","Sales Manager","Sales Director"]),
+]
+careers_certs = [
+ ("CompTIA","A+, Network+, Security+, Server+"),
+ ("Microsoft","Microsoft 365 Certified, Azure Administrator (AZ-104), Azure Solutions Architect (AZ-305)"),
+ ("Cisco","CCNA, CCNP"),
+ ("Fortinet","NSE / Fortinet Certified Professional"),
+ ("Ubiquiti","UniFi training and certifications"),
+ ("VMware","VCP"),("Veeam","VMCE"),
+ ("More","ITIL Foundation, Certified Ethical Hacker (CEH), CISSP for senior security roles"),
+]
+def _sal_table(cat, rows):
+    trs="".join(f'<tr><td>{p}</td><td>{s}</td></tr>' for p,s in rows)
+    return f'<div class="sal-group reveal"><h3>{cat}</h3><div class="sal-wrap"><table class="sal"><thead><tr><th>Position</th><th>Typical salary</th></tr></thead><tbody>{trs}</tbody></table></div></div>'
+def _ladder(name, steps):
+    return f'<div class="ladder reveal"><h4>{name}</h4><ol class="rungs">{"".join(f"<li>{s}</li>" for s in steps)}</ol></div>'
+careers = (head("Careers | Anderson Technologies",
+ "Join Anderson Technologies, a growing IT and tech-support team across Arizona and California. Roles, salary ranges, career paths, and how to apply.",
+ "careers.html")
+ + nav("Careers")
+ + f'''<main id="main">
+ <section class="page-hero"><div class="wrap">
+   <span class="eyebrow reveal">Careers</span>
+   <h1 class="reveal d1">Grow with Anderson Technologies</h1>
+   <p class="lead reveal d2">We're a growing IT and technology company serving businesses and households across Arizona and California, and we invest in our people with clear career paths, real training, and honest pay. Whether you're just starting out or you're a senior engineer, there's room to grow here.</p>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Roles & pay</span>
+     <h2>Where you might fit</h2>
+     <p>Typical salary ranges across our team. Actual pay depends on experience, certifications, and the role. Don't see a perfect match? Reach out anyway, good people are worth making room for.</p></div>
+   <div class="sal-grid">{"".join(_sal_table(c,rows) for c,rows in careers_roles)}</div>
+ </div></section>
+
+ <section class="section"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Career progression</span>
+     <h2>A clear path to grow</h2>
+     <p>We promote from within. Here's how careers tend to move up at Anderson Technologies.</p></div>
+   <div class="ladders">{"".join(_ladder(n,s) for n,s in careers_ladders)}</div>
+ </div></section>
+
+ <section class="section" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+   <div class="sec-head center reveal"><span class="eyebrow">Certifications</span>
+     <h2>Certifications we value</h2>
+     <p>Certified candidates often command higher pay. If you hold any of these, or you're working toward them, we'd love to hear from you.</p></div>
+   <div class="cert-grid">{"".join(f'<div class="cert reveal"><strong>{v}</strong><span>{c}</span></div>' for v,c in careers_certs)}</div>
+ </div></section>
+
+ <section class="section"><div class="wrap"><div class="reveal" style="max-width:680px;margin-inline:auto;text-align:center">
+   <span class="eyebrow">How to apply</span>
+   <h2 style="margin:14px 0 12px">Tell us about yourself</h2>
+   <p class="lead">Email your resume to <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" style="color:var(--brand);font-weight:600;text-decoration:none">{EMAIL_DISPLAY}</a> with "Careers" in the subject, or reach out through our contact form. Tell us what you're great at, any certifications you hold, and where you're based.</p>
+   <div class="hero-cta" style="justify-content:center;margin-top:1.8rem">
+     <a href="contact.html" class="btn btn-primary">Get in touch {ARROW}</a>
+     <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" class="btn btn-ghost">Email your resume</a>
+   </div>
+ </div></div></section>
+ </main>''' + footer())
+write("careers.html", careers)
+
+pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("faq.html","0.8"),("careers.html","0.7"),("contact.html","0.8"),("reviews.html","0.7")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'
