@@ -475,7 +475,7 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .cw-x-btn:hover{background:var(--surface-2);color:var(--ink)}
 .cw-x-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
 
-.cw-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.cw-log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
 .cw-msg{max-width:84%;padding:10px 14px;border-radius:16px;font-size:.92rem;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
 .cw-bot{align-self:flex-start;background:var(--surface);border:1px solid var(--line);color:var(--body);border-bottom-left-radius:5px}
 .cw-user{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:5px}
