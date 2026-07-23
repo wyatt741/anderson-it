@@ -411,7 +411,7 @@ support = (head(
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-repair.jpg" alt="Repairing and setting up a computer" loading="lazy" width="1200" height="800"></div></div>
 
  <section class="section"><div class="wrap">
-   <div class="sec-head reveal"><span class="eyebrow mint">What we fix</span><h2>One call for whatever is going wrong</h2></div>
+   <div class="sec-head oneline reveal"><span class="eyebrow mint">What we fix</span><h2>One call for whatever is going wrong</h2></div>
    <div class="grid-svc">
      {"".join(svc_card(*s) for s in demand_services[:3])}
      <div class="svc reveal" id="recovery"><div class="ic">{ic("drive")}</div><h3>Data Recovery</h3><p>Lost files, failing drives, or accidental deletions. We work to recover what matters most to you.</p></div>
