@@ -148,10 +148,8 @@ def footer():
       <a href="reviews.html">Reviews</a><a href="faq.html">FAQ</a>
     </div>
     <div class="foot-col"><h5>Contact</h5>
-      <a href="tel:+14802874190">Call Arizona {PHONE_AZ}</a>
-      <a href="tel:+18053408055">Call California {PHONE_CA}</a>
-      <a href="sms:+14802874190">Text Arizona</a>
-      <a href="sms:+18053408055">Text California</a>
+      <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
+      <a href="tel:+18053408055">California {PHONE_CA}</a>
       <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a>
     </div>
   </div>
