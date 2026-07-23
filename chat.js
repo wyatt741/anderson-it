@@ -6,7 +6,7 @@
   // CONFIG: after you deploy the Cloudflare Worker (see worker/README.md),
   // paste its URL here (no trailing slash), bump chat.js?v= in build.py, rebuild.
   // Until this is set to a real URL, the widget stays hidden.
-  var WORKER_URL = "https://anderson-chat.YOURSUBDOMAIN.workers.dev";
+  var WORKER_URL = "https://anderson-chat.andersontech.workers.dev";
   // ==========================================================================
 
   var root = document.getElementById("cw");
