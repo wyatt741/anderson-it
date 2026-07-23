@@ -55,7 +55,7 @@ def head(title, desc, canon, og_desc=None):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{og_desc or desc}">
 <meta name="theme-color" content="#2563eb">
-<link rel="icon" href="assets/favicon.ico">
+<link rel="icon" href="assets/favicon.ico?v=2"><link rel="icon" type="image/png" href="assets/favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -238,7 +238,7 @@ demand_services = [
 ]
 
 home = (head(
- "Managed IT & Computer Support | Anderson Technologies",
+ "Anderson Technologies | Managed IT & Computer Support",
  "Anderson Technologies provides managed IT for businesses and as-needed computer support for homes and small offices across Arizona and California. Local, responsive, and easy to work with.",
  "index.html")
  + nav("Home")
