@@ -7,3 +7,6 @@ Backups/
 __pv_*.html
 __s_*.html
 __shot_*.html
+
+# wrangler local cache/state (never commit)
+worker/.wrangler/
