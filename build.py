@@ -152,7 +152,7 @@ def footer():
 </div></footer>
 {chat_widget()}
 <script src="app.js?v=3"></script>
-<script src="chat.js?v=1"></script>
+<script src="chat.js?v=2"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
