@@ -102,19 +102,47 @@
     addMsg("bot", "You can reach us anytime, Arizona (480) 287-4190 and California (805) 340-8055, both take calls and texts. For anything urgent, calling is fastest. Prefer email? info@andersontechsupport.com or the contact form at https://andersontechsupport.com/contact.html");
   }
 
-  // ---------- AI chat ----------
+  // ---------- offline fallback: keyword answers from real site facts ----------
+  // Used when the Worker/API is unreachable or errors, so the bot still helps.
+  var CALL = "Arizona (480) 287-4190 or California (805) 340-8055 (both take calls and texts)";
+  function localAnswer(text) {
+    var q = (" " + (text || "").toLowerCase() + " ");
+    function has() { for (var i = 0; i < arguments.length; i++) if (q.indexOf(arguments[i]) > -1) return true; return false; }
+    if (has("price", "cost", "how much", "rate", "quote", "estimate", "charge", "pricing", "$"))
+      return "Pricing depends on your setup, so we don't post numbers online, but a free quote is quick. Grab one at " + CONTACT + " or call " + CALL + ".";
+    if (has("emergency", "urgent", "outage", "hacked", "ransomware", "down ", "data loss", "lost my", "can't access", "cant access"))
+      return "That sounds time-sensitive, and calling is fastest: " + CALL + ". We take urgent calls anytime and get you same-day attention.";
+    if (has("hour", "open", "close", "what time", "when are you"))
+      return "We're open Monday to Friday for appointments and quotes, and for anything urgent (home or business) you can call anytime: " + CALL + ".";
+    if (has("where", "area", "location", "near me", "do you cover", "service area", "come to", "region"))
+      return "We're on-site around Phoenix, AZ and Ventura, CA, and we handle many issues remotely beyond that. Not sure you're covered? A quick call sorts it out: " + CALL + ".";
+    if (has("contact", "phone", "call", "email", "reach", "talk to", "speak to", "get in touch"))
+      return "You can reach us at " + CALL + ", email info@andersontechsupport.com, or the contact form at " + CONTACT + ".";
+    if (has("ai ", "automation", "copilot", "chatbot", "machine learning"))
+      return "We help businesses put AI to work: strategy, workflow automation, Microsoft Copilot, and secure custom integrations. A free consult is the best start: " + CONTACT + " or " + CALL + ".";
+    if (has("managed", "network", "server", "microsoft 365", "office 365", "cybersecurity", "security", "cloud", "backup", "helpdesk", "business"))
+      return "For businesses we do managed IT: unlimited helpdesk, networks and Wi-Fi, cybersecurity, Microsoft 365, servers, backups, and AI. Want a free quote? " + CONTACT + " or " + CALL + ".";
+    if (has("repair", "fix", "slow", "broken", "wifi", "wi-fi", "printer", "recover", "data", "smart home", "camera", "doorbell", "build", "gaming", "virus", "malware"))
+      return "For home and office we handle computer repair, Wi-Fi, printers, data recovery, virus removal, smart-home setup, and custom/gaming builds, no contract needed. Tell us what's going on: " + CALL + " or " + CONTACT + ".";
+    if (has(" hi ", " hey ", "hello", " help "))
+      return "Hi! I can tell you about our IT and tech services or get you a free quote. What do you need help with? You can also call " + CALL + ".";
+    return "Happy to point you the right way. For anything specific, the fastest path is a free quote at " + CONTACT + " or a call to " + CALL + ". You can also tap the “Get a quote” button above.";
+  }
+
+  // ---------- AI chat (hybrid: Worker-backed AI, local fallback if it fails) ----------
   function sendChat(text) {
     history.push({ role: "user", content: text });
     busy = true; setInput(false, "..."); var t = typing();
+    function offline() { var r = localAnswer(text); history.push({ role: "assistant", content: r }); addMsg("bot", r); }
     fetch(WORKER_URL + "/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: history, audience: audience }) })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         t.remove();
-        var reply = (d && d.reply) ? d.reply : ("Sorry, I had trouble there. You can reach us at " + PHONE + " or " + CONTACT);
-        history.push({ role: "assistant", content: reply });
-        addMsg("bot", reply);
+        var reply = (d && d.reply) ? d.reply : "";
+        if (!reply || /^sorry, i had trouble/i.test(reply)) offline();   // API failed server-side -> answer locally
+        else { history.push({ role: "assistant", content: reply }); addMsg("bot", reply); }
       })
-      .catch(function () { t.remove(); addMsg("bot", "Sorry, I couldn't connect. Please call " + PHONE + " or use " + CONTACT); })
+      .catch(function () { t.remove(); offline(); })                     // Worker unreachable -> answer locally
       .finally(function () { busy = false; setInput(true); input.focus(); });
   }
 
