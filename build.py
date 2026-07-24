@@ -267,7 +267,7 @@ home = (head(
      </div>
    </div>
    <div class="hero-panel reveal d2">
-     <div class="row"><div class="ic">{ic("star")}</div><div><b>5-star rated</b><span>Trusted by 500+ local clients</span></div></div>
+     <div class="row"><div class="ic">{ic("star")}</div><div><b>5-star rated</b><span>Trusted by 500+ clients</span></div></div>
      <div class="row"><div class="ic mint">{ic("shield")}</div><div><b>Insured & background-checked</b><span>Techs you can trust in your home or office</span></div></div>
      <div class="row"><div class="ic amber">{ic("check")}</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
      <div class="row"><div class="ic">{ic("clock")}</div><div><b>Same-day when it's urgent</b><span>Call or text anytime, we'll answer</span></div></div>
