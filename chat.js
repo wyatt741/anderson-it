@@ -87,9 +87,9 @@
     var kill = function () { n.classList.remove("in"); setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 350); };
     msg.addEventListener("click", function () { kill(); open(); });
     x.addEventListener("click", function (e) { e.stopPropagation(); kill(); });
-    setTimeout(function () { if (panel.hidden) kill(); }, 5000);
+    setTimeout(function () { if (panel.hidden) kill(); }, 3000);
   }
-  setTimeout(showNudge, 5000);
+  setTimeout(showNudge, 20000);
   window.addEventListener("scroll", function onScroll() { if (window.scrollY > 700) { showNudge(); window.removeEventListener("scroll", onScroll); } }, { passive: true });
 
   // ---------- menu ----------
