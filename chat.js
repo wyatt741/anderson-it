@@ -113,7 +113,11 @@
     if (has("emergency", "urgent", "outage", "hacked", "ransomware", "down ", "data loss", "lost my", "can't access", "cant access"))
       return "That sounds time-sensitive, and calling is fastest: " + CALL + ". We take urgent calls anytime and get you same-day attention.";
     if (has("hour", "open", "close", "what time", "when are you"))
-      return "We're open Monday to Friday for appointments and quotes, and for anything urgent (home or business) you can call anytime: " + CALL + ".";
+      return "We're open Monday to Friday, 8am to 5pm, and for anything urgent (home or business) you can call anytime: " + CALL + ".";
+    if (has("pay", "credit card", "invoice", "financing", "ach", "check", "billing"))
+      return "We accept credit and debit cards, ACH and bank transfer, and we invoice businesses (net terms). The team can set that up when you reach out: " + CALL + ".";
+    if (has("warranty", "guarantee", "back your work", "stand behind"))
+      return "Yes, we back our repair and installation work. The team can confirm the specifics for your job, just call " + CALL + " or grab a free quote at " + CONTACT + ".";
     if (has("where", "area", "location", "near me", "do you cover", "service area", "come to", "region"))
       return "We're on-site around Phoenix, AZ and Ventura, CA, and we handle many issues remotely beyond that. Not sure you're covered? A quick call sorts it out: " + CALL + ".";
     if (has("contact", "phone", "call", "email", "reach", "talk to", "speak to", "get in touch"))
