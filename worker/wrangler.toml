@@ -2,6 +2,12 @@ name = "anderson-chat"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
+# Serve the bot on our own domain, not the workers.dev subdomain.
+workers_dev = false
+routes = [
+  { pattern = "chat.andersontechsupport.com", custom_domain = true }
+]
+
 # The Anthropic API key is NOT stored here. Set it as a secret:
 #   wrangler secret put ANTHROPIC_API_KEY
 #
