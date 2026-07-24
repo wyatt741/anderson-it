@@ -573,6 +573,9 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 .loc-ca{background:var(--brand-050);color:var(--brand);border:1px solid #dbe6ff}
 .loc-both{background:#effcf9;color:var(--mint);border:1px solid #c7f0e8}
 .sal td:nth-child(2){white-space:nowrap;width:1%}
+/* mobile: keep salary tables inside the viewport. min-width:0 lets .sal-wrap's overflow-x:auto engage instead of stretching the whole page. */
+.sal-layout>div,.sal-right,.sal-group,.sal-wrap{min-width:0}
+@media(max-width:600px){.sal{font-size:.82rem}.sal th,.sal td{padding:9px 10px}.sal td:first-child{white-space:normal}}
 [data-theme="dark"] .loc-az{background:rgba(245,158,11,.16);color:#fbbf24;border-color:rgba(245,158,11,.35)}
 [data-theme="dark"] .loc-ca{background:rgba(76,141,255,.16);color:#9cc0ff;border-color:rgba(76,141,255,.35)}
 [data-theme="dark"] .loc-both{background:rgba(13,148,136,.18);color:#5eead4;border-color:rgba(13,148,136,.4)}

@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=32"
+CSSV = "styles.css?v=33"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -41,6 +41,11 @@ MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14
 TOGGLE = f'<button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">{SUN}{MOON}</button>'
 FOUC = '<script>(function(){try{var t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>'
 
+# LocalBusiness structured data (real facts only) — site-wide for local SEO / rich results.
+LD_ORG = '''<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Anderson Technologies","legalName":"Anderson Technologies LLC","url":"https://andersontechsupport.com","logo":"https://andersontechsupport.com/assets/favicon.png?v=3","image":"https://andersontechsupport.com/assets/og-image.png","description":"Managed IT for businesses and as-needed computer support for homes and small offices across Phoenix, Arizona and Ventura, California.","email":"info@andersontechsupport.com","telephone":"+1-480-287-4190","areaServed":[{"@type":"City","name":"Phoenix, Arizona"},{"@type":"City","name":"Ventura, California"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}],"contactPoint":[{"@type":"ContactPoint","telephone":"+1-480-287-4190","contactType":"customer service","areaServed":"US-AZ"},{"@type":"ContactPoint","telephone":"+1-805-340-8055","contactType":"customer service","areaServed":"US-CA"}],"knowsAbout":["Managed IT","Cybersecurity","Microsoft 365","Computer Repair","Networking","AI Solutions"]}
+</script>'''
+
 def head(title, desc, canon, og_desc=None):
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -54,6 +59,13 @@ def head(title, desc, canon, og_desc=None):
 <meta property="og:url" content="{SITE}/{canon}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{og_desc or desc}">
+<meta property="og:image" content="{SITE}/assets/og-image.png">
+<meta property="og:site_name" content="Anderson Technologies">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{og_desc or desc}">
+<meta name="twitter:image" content="{SITE}/assets/og-image.png">
 <meta name="theme-color" content="#2563eb">
 <link rel="icon" href="assets/favicon.ico?v=3"><link rel="icon" type="image/png" href="assets/favicon.png?v=3"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,6 +73,7 @@ def head(title, desc, canon, og_desc=None):
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{CSSV}">
 {FOUC}
+{LD_ORG}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
