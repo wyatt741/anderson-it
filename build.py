@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=35"
+CSSV = "styles.css?v=36"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -169,10 +169,6 @@ def footer():
   </div>
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span></div>
 </div></footer>
-<div class="callbar" aria-label="Call or text us">
-  <a href="tel:+14802874190">{ic("phone")}<span><b>Arizona</b><small>Call or text</small></span></a>
-  <a href="tel:+18053408055">{ic("phone")}<span><b>California</b><small>Call or text</small></span></a>
-</div>
 {chat_widget()}
 <script src="app.js?v=4"></script>
 <script src="chat.js?v=6"></script>
