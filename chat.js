@@ -75,6 +75,23 @@
   closeB.addEventListener("click", close);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
 
+  // ---------- proactive nudge (once per session, tasteful, dismissible) ----------
+  function showNudge() {
+    if (started || !panel.hidden) return;
+    try { if (sessionStorage.getItem("cw-nudged")) return; sessionStorage.setItem("cw-nudged", "1"); } catch (e) {}
+    var n = el("div", "cw-nudge");
+    var msg = el("button", "cw-nudge-msg", "Questions? I can help 👋"); msg.type = "button";
+    var x = el("button", "cw-nudge-x"); x.type = "button"; x.setAttribute("aria-label", "Dismiss"); x.textContent = "×";
+    n.appendChild(msg); n.appendChild(x); root.appendChild(n);
+    requestAnimationFrame(function () { n.classList.add("in"); });
+    var kill = function () { n.classList.remove("in"); setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 350); };
+    msg.addEventListener("click", function () { kill(); open(); });
+    x.addEventListener("click", function (e) { e.stopPropagation(); kill(); });
+    setTimeout(function () { if (panel.hidden) kill(); }, 9000);
+  }
+  setTimeout(showNudge, 20000);
+  window.addEventListener("scroll", function onScroll() { if (window.scrollY > 700) { showNudge(); window.removeEventListener("scroll", onScroll); } }, { passive: true });
+
   // ---------- menu ----------
   function showMenu() {
     mode = "menu";
@@ -135,7 +152,7 @@
 
   // ---------- AI chat (hybrid: Worker-backed AI, local fallback if it fails) ----------
   function sendChat(text) {
-    history.push({ role: "user", content: text });
+    history.push({ role: "user", content: text }); asked++;
     busy = true; setInput(false, "..."); var t = typing();
     function offline() { var r = localAnswer(text); history.push({ role: "assistant", content: r }); addMsg("bot", r); }
     fetch(WORKER_URL + "/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: history, audience: audience }) })
@@ -147,7 +164,7 @@
         else { history.push({ role: "assistant", content: reply }); addMsg("bot", reply); }
       })
       .catch(function () { t.remove(); offline(); })                     // Worker unreachable -> answer locally
-      .finally(function () { busy = false; setInput(true); input.focus(); });
+      .finally(function () { busy = false; setInput(true); input.focus(); maybeOfferFollowup(); });
   }
 
   // ---------- quote wizard (deterministic, no AI) ----------
@@ -189,6 +206,7 @@
   }
   function submitQuote() {
     setInput(false, "Sending..."); var t = typing();
+    answers.transcript = transcript();   // give the team the free-text Q&A too, not just the wizard fields
     fetch(WORKER_URL + "/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(answers) })
       .then(function (r) { return r.json(); })
       .then(function (d) {
@@ -200,12 +218,48 @@
       .finally(function () { mode = "chat"; setInput(true, "Ask anything else..."); });
   }
 
+  // ---------- transcript + soft follow-up capture (for chatters who skip the wizard) ----------
+  function transcript() {
+    return history.map(function (m) { return (m.role === "user" ? "Visitor: " : "Assistant: ") + m.content; }).join("\n");
+  }
+  var asked = 0, followOffered = false, fu = {}, fuStep = 0;
+  var FU = [{ key: "name", q: "Sure. What's your name?" }, { key: "email", q: "And the best email to reach you?", email: true }];
+  function maybeOfferFollowup() {
+    if (followOffered || asked < 2 || mode !== "chat") return;   // only after a couple of real questions, never on close
+    followOffered = true;
+    addMsg("bot", "Want the team to follow up with you? I can pass along what you've asked.");
+    chips([
+      { label: "Yes, follow up", act: startFollowup },
+      { label: "No thanks", ghost: true, act: function () { addMsg("bot", "No problem, ask away. You can also reach us anytime at " + PHONE + "."); } },
+    ]);
+  }
+  function startFollowup() { mode = "followup"; fu = {}; fuStep = 0; runFu(); }
+  function runFu() {
+    if (fuStep >= FU.length) return submitFollowup();
+    addMsg("bot", FU[fuStep].q); setInput(true, "Type your answer..."); input.focus();
+  }
+  function fuText(text) {
+    var s = FU[fuStep];
+    if (s.email && !/.+@.+\..+/.test(text)) { addMsg("bot", "Hmm, that doesn't look like an email. Mind trying again?"); input.focus(); return; }
+    addMsg("user", text); fu[s.key] = text; fuStep++; runFu();
+  }
+  function submitFollowup() {
+    setInput(false, "Sending..."); var t = typing();
+    fetch(WORKER_URL + "/lead", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name: fu.name, email: fu.email, audience: audience, needs: "Chat follow-up (skipped the quote wizard)", details: "Visitor chatted and asked to be followed up with.", transcript: transcript() }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { t.remove(); addMsg("bot", (d && d.ok) ? ("Got it" + (fu.name ? ", " + fu.name : "") + ". We'll be in touch soon. Anything else I can help with?") : ("I couldn't send that just now. Please call " + PHONE + " or use " + CONTACT + ".")); })
+      .catch(function () { t.remove(); addMsg("bot", "I couldn't connect to send that. Please call " + PHONE + " or use " + CONTACT); })
+      .finally(function () { mode = "chat"; setInput(true, "Ask anything else..."); });
+  }
+
   // ---------- input routes by mode ----------
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var text = input.value.trim();
     if (!text || busy) return;
     input.value = "";
+    if (mode === "followup") { fuText(text); return; }
     if (mode === "wizard" && STEPS[step] && STEPS[step].text) { wizardText(text); return; }
     mode = "chat"; addMsg("user", text); sendChat(text);
   });

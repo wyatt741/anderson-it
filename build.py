@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=33"
+CSSV = "styles.css?v=34"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -171,7 +171,7 @@ def footer():
 </div></footer>
 {chat_widget()}
 <script src="app.js?v=4"></script>
-<script src="chat.js?v=5"></script>
+<script src="chat.js?v=6"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
