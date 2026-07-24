@@ -116,7 +116,7 @@ def cta(h="Let's get your technology working for you.", p="Tell us what you need
   <h2>{h}</h2><p>{p}</p>
   <div class="hero-cta">
     <a href="contact.html" class="btn btn-white">Get a free quote {ARROW}</a>
-    <a href="tel:+14802874190" class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">Call {PHONE_AZ}</a>
+    <a href="contact.html#form" class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)">Call or text us {ARROW}</a>
   </div></div></div></section>'''
 
 def chat_widget():
@@ -386,7 +386,7 @@ business = (head(
    <span class="eyebrow reveal">For business</span>
    <h1 class="reveal d1">Your outsourced IT department</h1>
    <p class="reveal d2">Proactive, secure, and always a call away. We handle the technology so your team can focus on running the business, with predictable support and no surprises.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Managed IT" class="btn btn-primary">Get a free assessment {ARROW}</a></div>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Managed IT" class="btn btn-primary">Get a free assessment {ARROW}</a><a href="contact.html#form" class="btn btn-ghost">Call or text us</a></div>
  </div></section>
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-business.jpg" alt="Managing business networks and server hardware" loading="lazy" width="1200" height="800"></div></div>
 
@@ -427,7 +427,7 @@ support = (head(
    <span class="eyebrow mint reveal">For home & small office</span>
    <h1 class="reveal d1">Help when you need it, no contract</h1>
    <p class="reveal d2">Broken, slow, or confusing technology is stressful. Get honest, expert help you can book as you need it, at home or at the office.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a><a href="contact.html#form" class="btn btn-ghost">Call or text us</a></div>
  </div></section>
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-repair.jpg" alt="Repairing and setting up a computer" loading="lazy" width="1200" height="800"></div></div>
 
@@ -567,7 +567,7 @@ ai = (head(
    <span class="eyebrow reveal">AI Solutions</span>
    <h1 class="reveal d1">Put AI to work, without the hype</h1>
    <p class="reveal d2">Everyone is talking about AI. We help you actually use it, in ways that save your business real time and money, and we're honest about where it isn't worth the trouble.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a></div>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=AI Solutions" class="btn btn-primary">Talk to us about AI {ARROW}</a><a href="contact.html#form" class="btn btn-ghost">Call or text us</a></div>
  </div></section>
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-ai.jpg" alt="Building an AI automation" loading="lazy" width="800" height="1200"></div></div>
 
