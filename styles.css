@@ -537,6 +537,19 @@ footer h5{color:#fff;font-family:var(--disp);font-size:.85rem;letter-spacing:.08
 @media (prefers-reduced-motion:reduce){.cw--ready .cw-bubble::after{animation:none}}
 
 .cw-panel[hidden]{display:none}
+/* proactive nudge bubble (over the chat icon, once per session) */
+.cw-nudge{position:fixed;right:20px;bottom:82px;z-index:119;display:flex;align-items:flex-end;gap:3px;
+  opacity:0;transform:translateY(8px) scale(.97);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none}
+.cw-nudge.in{opacity:1;transform:none;pointer-events:auto}
+.cw-nudge-msg{font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:14px 14px 4px 14px;padding:10px 14px;cursor:pointer;max-width:210px;text-align:left;line-height:1.3;
+  box-shadow:0 12px 30px -12px rgba(15,23,42,.45)}
+.cw-nudge-msg:hover{border-color:var(--brand)}
+.cw-nudge-x{width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  font-size:14px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.cw-nudge-x:hover{color:var(--ink);border-color:var(--muted)}
+@media(max-width:600px){.cw-nudge-msg{max-width:190px}}
+@media(prefers-reduced-motion:reduce){.cw-nudge{transition:none}}
 
 /* ===== Careers ===== */
 .sal-layout{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;align-items:start}

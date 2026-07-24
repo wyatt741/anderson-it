@@ -192,7 +192,8 @@ async function handleLead(body, h) {
     "Devices": s(body.devices),
     "People": s(body.people),
     "Details": s(body.details, 1500) || "(none)",
-    source: "AI chat widget quote wizard",
+    "Chat transcript": s(body.transcript, 5000) || "(none)",
+    source: "AI chat widget",
   };
 
   try {
