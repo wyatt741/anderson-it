@@ -5,7 +5,7 @@ No em dashes. No fabricated stats/testimonials/certifications/pricing.
 OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=34"
+CSSV = "styles.css?v=35"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
@@ -169,6 +169,10 @@ def footer():
   </div>
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span></div>
 </div></footer>
+<div class="callbar" aria-label="Call or text us">
+  <a href="tel:+14802874190">{ic("phone")}<span><b>Arizona</b><small>Call or text</small></span></a>
+  <a href="tel:+18053408055">{ic("phone")}<span><b>California</b><small>Call or text</small></span></a>
+</div>
 {chat_widget()}
 <script src="app.js?v=4"></script>
 <script src="chat.js?v=6"></script>
@@ -262,9 +266,10 @@ home = (head(
      <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
      <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly easy to deal with.</p>
      <div class="hero-cta reveal d3">
-       <a href="tel:+14802874190" class="btn btn-primary">Call or text {PHONE_AZ}</a>
-       <a href="contact.html" class="btn btn-ghost">Get a free quote {ARROW}</a>
+       <a href="tel:+14802874190" class="btn btn-primary">Arizona {PHONE_AZ}</a>
+       <a href="tel:+18053408055" class="btn btn-primary">California {PHONE_CA}</a>
      </div>
+     <p class="hero-callnote reveal d3">Call or text either line, or <a href="contact.html">get a free quote {ARROW}</a>.</p>
    </div>
    <div class="hero-panel reveal d2">
      <div class="row"><div class="ic">{ic("star")}</div><div><b>5-star rated</b><span>Trusted by 500+ clients</span></div></div>
