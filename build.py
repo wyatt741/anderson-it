@@ -538,8 +538,7 @@ contact = (head(
  </div></section>
 
  <section class="section" id="team" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
-   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2 class="team-h2">The local people behind<br><img src="assets/logo-dark.png" alt="Anderson Technologies" class="inline-logo"></h2>
-     <p>Real people you can reach, not a call center.</p></div>
+   <div class="sec-head center reveal"><span class="eyebrow">Meet the team</span><h2 class="team-h2">The people behind<br><img src="assets/logo-dark.png" alt="Anderson Technologies" class="inline-logo"></h2></div>
    <div class="team-grid">{"".join(team_card(m) for m in team)}</div>
  </div></section>
 
