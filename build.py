@@ -262,8 +262,8 @@ home = (head(
      <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
      <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly easy to deal with.</p>
      <div class="hero-cta reveal d3">
-       <a href="contact.html" class="btn btn-primary">Get a free quote {ARROW}</a>
-       <a href="#what" class="btn btn-ghost">See what we do</a>
+       <a href="tel:+14802874190" class="btn btn-primary">Call or text {PHONE_AZ}</a>
+       <a href="contact.html" class="btn btn-ghost">Get a free quote {ARROW}</a>
      </div>
    </div>
    <div class="hero-panel reveal d2">
