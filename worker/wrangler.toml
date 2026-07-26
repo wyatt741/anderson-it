@@ -11,10 +11,9 @@ routes = [
 # The Anthropic API key is NOT stored here. Set it as a secret:
 #   wrangler secret put ANTHROPIC_API_KEY
 #
-# OPTIONAL per-IP rate limiting: create a KV namespace and uncomment the binding.
-#   wrangler kv namespace create RATE_KV
-# then paste the returned id below and redeploy.
-#
-# [[kv_namespaces]]
-# binding = "RATE_KV"
-# id = "PASTE_KV_NAMESPACE_ID_HERE"
+# Per-IP rate limiting (25 req / 60s): activated 2026-07-24 for API cost-abuse defense.
+# Native binding — consistent + burst-safe (KV was not, so it was replaced). worker.js gates on env.RL.
+[[ratelimits]]
+name = "RL"
+namespace_id = "1001"
+simple = { limit = 25, period = 60 }

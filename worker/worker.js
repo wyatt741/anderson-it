@@ -13,8 +13,9 @@ const MODEL = "claude-haiku-4-5";   // cheapest current model; right tier for an
 const MAX_TOKENS = 400;
 const MAX_TURNS = 16;               // cap conversation length (bounds token spend / abuse)
 const MAX_MSG_LEN = 1500;           // cap each inbound message
-const RATE_LIMIT = 25;              // messages per IP per window (only enforced if RATE_KV is bound)
-const RATE_WINDOW_S = 600;          // 10 minutes
+// Per-IP rate limit lives in wrangler.toml ([[ratelimits]] -> env.RL). Native binding is
+// consistent + burst-safe; the old KV limiter let fast single-IP bursts through (eventual
+// consistency + 1-write/sec/key), so it was replaced 2026-07-24.
 
 const LEAD_EMAIL = "info@andersontechsupport.com";  // lowercase = FormSubmit endpoint identity; do NOT change
 
@@ -107,16 +108,6 @@ function json(obj, status, headers) {
   return new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", ...headers } });
 }
 
-// Simple fixed-window per-IP limiter. ponytail: coarse (window resets on first hit),
-// but it's an abuse cap, not billing accounting. Only runs if a RATE_KV namespace is bound.
-async function underLimit(kv, ip) {
-  const k = "rl:" + ip;
-  const n = parseInt((await kv.get(k)) || "0", 10);
-  if (n >= RATE_LIMIT) return false;
-  await kv.put(k, String(n + 1), { expirationTtl: RATE_WINDOW_S });
-  return true;
-}
-
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -125,9 +116,10 @@ export default {
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, h);
     if (!ALLOWED.includes(origin)) return json({ error: "Forbidden" }, 403, h);   // cheap gate (Origin is spoofable; pair with a spend cap)
 
-    if (env.RATE_KV) {
+    if (env.RL) {   // native per-IP rate limit (config in wrangler.toml); guarded so local dev without the binding still runs
       const ip = request.headers.get("CF-Connecting-IP") || "0.0.0.0";
-      if (!(await underLimit(env.RATE_KV, ip)))
+      const { success } = await env.RL.limit({ key: ip });
+      if (!success)
         return json({ ok: false, reply: "You're sending messages a bit fast. Give it a minute, or call (480) 287-4190." }, 200, h);
     }
 
