@@ -32,7 +32,7 @@ npx wrangler deploy
 
 ## Recommended safety (do these)
 - **Anthropic Console → set a monthly spend limit + billing alert.** This is the hard backstop: even if the endpoint is abused, the bill can't exceed the number you pick. With the dedicated key, this only caps the bot.
-- **Optional per-IP rate limiting:** `npx wrangler kv namespace create RATE_KV`, paste the returned id into `wrangler.toml` (uncomment the block), `npx wrangler deploy`. Without it, the spend cap above is still your backstop.
+- **Per-IP rate limiting is already ON** (activated 2026-07-24): a native `[[ratelimits]]` binding (`RL`, 25 req / 60s) in `wrangler.toml`; `worker.js` gates on `env.RL`. This replaced the old KV approach (KV rate-limiting is eventually-consistent and leaks bursts). No KV namespace needed. The spend cap above is still the hard backstop.
 
 ## Notes
 - Model is `claude-haiku-4-5` (cheapest, right tier for FAQ). Change `MODEL` in `worker.js` to switch.
