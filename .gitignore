@@ -10,3 +10,6 @@ __shot_*.html
 
 # wrangler local cache/state (never commit)
 worker/.wrangler/
+
+# Claude Code local config (per-machine ECC trim)
+.claude/
