@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Emit the Anderson Technologies IT-support site (light, friendly theme).
+"""Emit the Anderson Technologies IT-support site.
 Static output, shared nav/footer, no build framework. Run: py build.py
-No em dashes. No fabricated stats/testimonials/certifications/pricing.
-OWNER-INPUT to confirm: phone numbers, hours, response-time claim, real managed pricing."""
+No em dashes. No fabricated stats, testimonials, certifications, or pricing."""
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CSSV = "styles.css?v=37"
+CSSV = "styles.css?v=38"
 SITE = "https://andersontechsupport.com"
 PHONE_AZ, PHONE_CA = "(480) 287-4190", "(805) 340-8055"
 EMAIL = "info@andersontechsupport.com"          # lowercase = FormSubmit endpoint identity; do NOT change (would force re-activation)
 EMAIL_DISPLAY = "Info@AndersonTechSupport.com"  # branded casing for all visible/customer-facing references
+HOURS = "Monday to Friday, 8 AM to 5 PM"
+SERVICE_AREA = "On-site in Phoenix and Ventura, plus remote support nationwide"
 
 # ---- inline line icons (stroke=currentColor) ----
 I = {
@@ -38,15 +39,16 @@ def ic(name): return f'<svg viewBox="0 0 24 24" aria-hidden="true">{I[name]}</sv
 ARROW = f'<svg viewBox="0 0 24 24" aria-hidden="true">{I["arrow"]}</svg>'
 SUN = '<svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4"/></svg>'
 MOON = '<svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>'
-TOGGLE = f'<button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">{SUN}{MOON}</button>'
+TOGGLE = f'<button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true" title="Switch to light mode">{SUN}{MOON}</button>'
 FOUC = '<script>(function(){try{var t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>'
 
-# LocalBusiness structured data (real facts only) — site-wide for local SEO / rich results.
+# LocalBusiness structured data uses confirmed facts only.
 LD_ORG = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","name":"Anderson Technologies","legalName":"Anderson Technologies LLC","url":"https://andersontechsupport.com","logo":"https://andersontechsupport.com/assets/favicon.png?v=3","image":"https://andersontechsupport.com/assets/og-image.png","description":"Managed IT for businesses and as-needed computer support for homes and small offices across Phoenix, Arizona and Ventura, California.","email":"info@andersontechsupport.com","telephone":"+1-480-287-4190","areaServed":[{"@type":"City","name":"Phoenix, Arizona"},{"@type":"City","name":"Ventura, California"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}],"contactPoint":[{"@type":"ContactPoint","telephone":"+1-480-287-4190","contactType":"customer service","areaServed":"US-AZ"},{"@type":"ContactPoint","telephone":"+1-805-340-8055","contactType":"customer service","areaServed":"US-CA"}],"knowsAbout":["Managed IT","Cybersecurity","Microsoft 365","Computer Repair","Networking","AI Solutions"]}
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Anderson Technologies","legalName":"Anderson Technologies LLC","url":"https://andersontechsupport.com","logo":"https://andersontechsupport.com/assets/favicon.png?v=3","image":"https://andersontechsupport.com/assets/og-image.png","description":"Managed IT and as-needed technology support with on-site service in Phoenix, Arizona and Ventura, California, plus remote support nationwide.","email":"info@andersontechsupport.com","telephone":"+1-480-287-4190","areaServed":[{"@type":"City","name":"Phoenix, Arizona"},{"@type":"City","name":"Ventura, California"},{"@type":"Country","name":"United States","description":"Remote support"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}],"contactPoint":[{"@type":"ContactPoint","telephone":"+1-480-287-4190","contactType":"customer service","areaServed":"US-AZ"},{"@type":"ContactPoint","telephone":"+1-805-340-8055","contactType":"customer service","areaServed":"US-CA"}],"knowsAbout":["Managed IT","Cybersecurity","Microsoft 365","Computer Repair","Networking","AI Solutions"]}
 </script>'''
 
-def head(title, desc, canon, og_desc=None):
+def head(title, desc, canon, og_desc=None, robots=None):
+    robots_meta = f'<meta name="robots" content="{robots}">' if robots else ""
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,12 +56,16 @@ def head(title, desc, canon, og_desc=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+{robots_meta}
 <link rel="canonical" href="{SITE}/{canon}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{SITE}/{canon}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{og_desc or desc}">
 <meta property="og:image" content="{SITE}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Anderson Technologies, Managed IT and computer support">
 <meta property="og:site_name" content="Anderson Technologies">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
@@ -68,9 +74,8 @@ def head(title, desc, canon, og_desc=None):
 <meta name="twitter:image" content="{SITE}/assets/og-image.png">
 <meta name="theme-color" content="#2563eb">
 <link rel="icon" href="assets/favicon.ico?v=3"><link rel="icon" type="image/png" href="assets/favicon.png?v=3"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=3">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{CSSV}">
 {FOUC}
 {LD_ORG}
@@ -105,7 +110,6 @@ def nav(active=""):
   <a href="ai.html">AI</a>
   <a href="faq.html">FAQ</a>
   <a href="careers.html">Careers</a>
-  <a href="contact.html">Contact</a>
   <a href="contact.html" class="btn btn-primary">Contact us</a>
   {TOGGLE}
 </div>
@@ -138,7 +142,7 @@ def chat_widget():
       <input id="cw-input" class="cw-input" type="text" placeholder="Type your message..." maxlength="1500" autocomplete="off">
       <button class="cw-send" id="cw-send" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
-    <p class="cw-note">AI assistant, so double-check anything important. Don't share passwords or card numbers.</p>
+    <p class="cw-note">AI assistant, so double-check anything important. Don't share passwords or card numbers. <a href="faq.html#privacy">Privacy</a></p>
   </div>
 </div>'''
 
@@ -147,21 +151,21 @@ def footer():
   <div class="foot-grid">
     <div class="foot-brand">
       <img src="assets/logo-dark.png" alt="Anderson Technologies" style="filter:brightness(0) invert(1)">
-      <p>Managed IT and as-needed tech support for businesses and households across Arizona and California.</p>
+      <p>Managed IT and as-needed tech support with on-site service in Phoenix and Ventura, plus remote support nationwide.</p>
     </div>
-    <div class="foot-col"><h5>For Business</h5>
+    <div class="foot-col"><p class="foot-title">For Business</p>
       <a href="business.html">Managed IT</a><a href="business.html#helpdesk">Helpdesk</a>
       <a href="business.html#security">Cybersecurity</a><a href="business.html#cloud">Cloud & Microsoft 365</a>
     </div>
-    <div class="foot-col"><h5>Home & Office</h5>
+    <div class="foot-col"><p class="foot-title">Home &amp; Office</p>
       <a href="support.html">Repairs & Setup</a><a href="support.html#recovery">Data Recovery</a>
       <a href="support.html#smart">Smart Home & Office</a>
     </div>
-    <div class="foot-col"><h5>Company</h5>
+    <div class="foot-col"><p class="foot-title">Company</p>
       <a href="contact.html#team">About</a><a href="careers.html">Careers</a>
-      <a href="reviews.html">Reviews</a><a href="faq.html">FAQ</a>
+      <a href="reviews.html">Reviews</a><a href="faq.html">FAQ</a><a href="faq.html#privacy">Privacy</a>
     </div>
-    <div class="foot-col"><h5>Contact</h5>
+    <div class="foot-col"><p class="foot-title">Contact</p>
       <a href="tel:+14802874190">Arizona {PHONE_AZ}</a>
       <a href="tel:+18053408055">California {PHONE_CA}</a>
       <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a>
@@ -170,15 +174,15 @@ def footer():
   <div class="legal"><span>© 2026 Anderson Technologies LLC. All rights reserved.</span></div>
 </div></footer>
 {chat_widget()}
-<script src="app.js?v=4"></script>
-<script src="chat.js?v=8"></script>
+<script src="app.js?v=5"></script>
+<script src="chat.js?v=9"></script>
 </body></html>'''
 
 def svc_card(icon,title,desc):
     return f'<div class="svc reveal"><div class="ic">{ic(icon)}</div><h3>{title}</h3><p>{desc}</p></div>'
 
 STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.77 6.12 20.87l1.12-6.55L2.48 8.92l6.58-.96z"/></svg>'
-# OWNER-INPUT: real customer reviews ONLY. No fabricated testimonials (FTC-illegal + destroys trust).
+# Real customer reviews only. Never fabricate testimonials.
 # Each entry: dict(quote="...", name="Jane D.", loc="Chandler, AZ", stars=5)
 REVIEWS = [
  dict(name='Jason M.', loc='Phoenix, AZ', stars=5, quote="We switched our 25 person office to Anderson Technologies six months ago and couldn't be happier. Brandon's managed services team keeps everything running smoothly, and we've had virtually no downtime. Support requests are answered quickly and the technicians are always professional."),
@@ -252,13 +256,13 @@ demand_services = [
 
 home = (head(
  "Anderson Technologies | Managed IT & Computer Support",
- "Anderson Technologies provides managed IT for businesses and as-needed computer support for homes and small offices across Arizona and California. Local, responsive, and easy to work with.",
- "index.html")
+ "Managed IT and as-needed computer support with on-site service in Phoenix and Ventura, plus remote support nationwide.",
+ "")
  + nav("Home")
  + f'''<main id="main">
  <section class="hero"><div class="wrap hero-grid">
    <div>
-     <span class="eyebrow reveal">Arizona & California IT Support</span>
+     <span class="eyebrow reveal">Phoenix, Ventura & Remote IT</span>
      <h1 class="reveal d1">Technology that just works, for your <span class="hl">business</span> and your <span class="hl">home</span>.</h1>
      <p class="lead reveal d2">Anderson Technologies keeps your systems running smoothly, from fully managed IT for growing businesses to as-needed help when something breaks. Local, responsive, and refreshingly easy to deal with.</p>
      <div class="hero-cta reveal d3">
@@ -271,28 +275,28 @@ home = (head(
      <div class="row"><div class="ic">{ic("star")}</div><div><b>5-star rated</b><span>Trusted by 500+ clients</span></div></div>
      <div class="row"><div class="ic mint">{ic("shield")}</div><div><b>Insured & background-checked</b><span>Techs you can trust in your home or office</span></div></div>
      <div class="row"><div class="ic amber">{ic("check")}</div><div><b>Honest, upfront pricing</b><span>No surprises, no runaround</span></div></div>
-     <div class="row"><div class="ic">{ic("clock")}</div><div><b>Same-day when it's urgent</b><span>Call or text anytime, we'll answer</span></div></div>
+     <div class="row"><div class="ic">{ic("clock")}</div><div><b>Urgent support available</b><span>Call or text for the fastest response</span></div></div>
      <div class="row"><div class="ic mint">{ic("chat")}</div><div><b>Free consultations</b><span>Tell us what's going on, no pressure</span></div></div>
    </div>
  </div></section>
 
  <div class="trust"><div class="trust-track">
    <div class="trust-seq">
-     <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
+     <span class="trust-item">{ic("pin")}Phoenix & Ventura on-site</span>
      <span class="trust-item">{ic("headset")}Unlimited helpdesk</span>
      <span class="trust-item">{ic("shield")}Insured & background-checked</span>
      <span class="trust-item">{ic("check")}Free consultations</span>
-     <span class="trust-item">{ic("clock")}Same-day for urgent</span>
+     <span class="trust-item">{ic("clock")}Urgent support available</span>
      <span class="trust-item">{ic("users")}Business & home</span>
      <span class="trust-item">{ic("wrench")}Mac & PC</span>
      <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
    </div>
    <div class="trust-seq" aria-hidden="true">
-     <span class="trust-item">{ic("pin")}Local to AZ & CA</span>
+     <span class="trust-item">{ic("pin")}Phoenix & Ventura on-site</span>
      <span class="trust-item">{ic("headset")}Unlimited helpdesk</span>
      <span class="trust-item">{ic("shield")}Insured & background-checked</span>
      <span class="trust-item">{ic("check")}Free consultations</span>
-     <span class="trust-item">{ic("clock")}Same-day for urgent</span>
+     <span class="trust-item">{ic("clock")}Urgent support available</span>
      <span class="trust-item">{ic("users")}Business & home</span>
      <span class="trust-item">{ic("wrench")}Mac & PC</span>
      <span class="trust-item">{ic("check")}Honest, upfront pricing</span>
@@ -393,8 +397,8 @@ business = (head(
      {svc_card("wifi","Networks & Wi-Fi","Design, setup, and management of reliable wired and wireless networks that keep everyone connected.")}
      <div class="svc reveal" id="security"><div class="ic">{ic("shield")}</div><h3>Cybersecurity</h3><p>Antivirus, firewalls, email filtering, and staff training layered to protect your business without slowing it down.</p></div>
      <div class="svc reveal" id="cloud"><div class="ic">{ic("cloud")}</div><h3>Cloud & Microsoft 365</h3><p>Email, files, and apps set up cleanly and managed so they stay fast, secure, and organized.</p></div>
-     {svc_card("backup","Backup & Recovery","Automatic, tested backups so a mistake, outage, or ransomware attack never means losing your data.")}
-     {svc_card("monitor","Monitoring & Maintenance","We watch your systems around the clock and resolve small issues before they cause downtime.")}
+     {svc_card("backup","Backup & Recovery","Automatic, tested backups designed to protect your data and support a faster recovery after mistakes, outages, or ransomware.")}
+     {svc_card("monitor","Monitoring & Maintenance","We monitor your systems in the background and resolve small issues before they cause downtime.")}
      {svc_card("phone","VoIP & Business Phones","Modern phone systems that follow your team anywhere, without the old hardware or the tangled wiring closet.")}
      {svc_card("users","Procurement & Vendors","We source the right hardware and software and deal with the vendors, so you get one number to call for all of it.")}
      {svc_card("check","Compliance & Documentation","Clear records and support for the security standards your clients and industry expect, without the paperwork headache.")}
@@ -423,7 +427,7 @@ support = (head(
    <span class="eyebrow mint reveal">For home & small office</span>
    <h1 class="reveal d1">Help when you need it, no contract</h1>
    <p class="reveal d2">Broken, slow, or confusing technology is stressful. Get honest, expert help you can book as you need it, at home or at the office.</p>
-   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a><a href="contact.html#form" class="btn btn-ghost">Call or text us</a></div>
+   <div class="hero-cta reveal d3" style="justify-content:center;margin-top:26px"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Request support {ARROW}</a><a href="contact.html#form" class="btn btn-ghost">Call or text us</a></div>
  </div></section>
  <div class="wrap"><div class="page-photo reveal"><img src="assets/it-repair.jpg" alt="Repairing and setting up a computer" loading="lazy" width="1200" height="800"></div></div>
 
@@ -447,7 +451,7 @@ support = (head(
      <div class="step reveal d1"><h3>Get an honest quote</h3><p>We tell you what it will take and what it will cost before any work starts.</p></div>
      <div class="step reveal d2"><h3>We fix it</h3><p>Remote or in person, we solve it and make sure you know how to avoid it next time.</p></div>
    </div>
-   <div class="center u-mt reveal"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Book support {ARROW}</a></div>
+   <div class="center u-mt reveal"><a href="contact.html?service=Home%20%26%20Office%20Support" class="btn btn-primary">Request support {ARROW}</a></div>
  </div></section>
  {cta("Something not working? Let's fix it.","Send a quick note about what's going on and we'll get you a plan and a price.")}
  </main>''' + footer())
@@ -462,7 +466,7 @@ write("about.html", f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-
 <body>Redirecting to <a href="{SITE}/contact.html#team">our team</a>.</body></html>''')
 
 # Meet the team. Wyatt has a real photo; teammates are name + role cards (monogram avatars)
-# until they send real photos. NO stock faces stand in for real people. Roles are OWNER-INPUT.
+# until they send real photos. No stock faces stand in for real people.
 team = [
  dict(name="Wyatt Anderson", role="Founder", img="wyatt.jpg"),
  dict(name="Albert", role="Chief Financial, Administrative & Facilities Officer (CFAFO)", img="albert.jpg"),
@@ -503,18 +507,18 @@ contact = (head(
        <div class="info-card"><div class="ic">{ic("chat")}</div><div><b>Text us</b>
          <a href="sms:+14802874190">Arizona {PHONE_AZ}</a><br><a href="sms:+18053408055">California {PHONE_CA}</a></div></div>
        <div class="info-card"><div class="ic">{ic("mail")}</div><div><b>Email</b><a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a></div></div>
-       <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>Monday to Friday, with on-call options for managed clients</span></div></div>
-       <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>Phoenix, AZ and Ventura, CA, remote support nationwide</span></div></div>
+       <div class="info-card"><div class="ic">{ic("clock")}</div><div><b>Hours</b><span>{HOURS}. Managed clients have on-call support.</span></div></div>
+       <div class="info-card"><div class="ic">{ic("pin")}</div><div><b>Service area</b><span>{SERVICE_AREA}.</span></div></div>
      </div>
      <form action="https://formsubmit.co/{EMAIL}" method="POST" enctype="multipart/form-data" target="fs_iframe" id="contact-form" class="reveal d1">
        <input type="hidden" name="_subject" value="New IT support inquiry (andersontechsupport.com)">
        <input type="hidden" name="_captcha" value="false">
        <input type="hidden" name="_template" value="table">
        <input type="hidden" name="_next" value="{SITE}/thanks.html">
-       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
-       <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
-       <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
-       <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone"></div>
+       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+       <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+       <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" autocomplete="email" inputmode="email" required></div>
+       <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" name="phone" autocomplete="tel" inputmode="tel"></div>
        <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what's going on in your own words." required></textarea></div>
        <div class="field"><label for="service">What do you need? (optional)</label>
          <select id="service" name="service">
@@ -522,9 +526,9 @@ contact = (head(
            <option>Managed IT</option><option>Home &amp; Office support</option>
            <option>AI solutions</option><option>Something else</option>
          </select></div>
-       <div class="field"><label for="photos">Add photos (optional)</label>
-         <input id="photos" type="file" name="attachment" accept="image/*" multiple>
-         <span class="hint">A screenshot or photo of the problem helps us help you faster. Up to 10 MB total.</span></div>
+       <div class="field"><label for="photos">Add photos or a resume (optional)</label>
+         <input id="photos" type="file" name="attachment" accept="image/*,.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple>
+         <span class="hint">Photos can show the problem. Applicants can attach a resume. Up to 10 MB total.</span></div>
        <button type="submit" class="btn btn-primary">Send message {ARROW}</button>
        <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
      </form>
@@ -584,19 +588,19 @@ ai = (head(
 write("ai.html", ai)
 
 # ============================ THANKS ============================
-thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We'll be in touch soon.","thanks.html")
+thanks = (head("Message received | Anderson Technologies","Thanks for reaching out. We'll be in touch soon.","thanks.html", robots="noindex,follow")
  + nav()
  + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
    <div class="svc" style="width:64px;height:64px;margin:0 auto 24px;display:grid;place-items:center;border-radius:20px">
      <div class="ic" style="margin:0;width:auto;height:auto;background:none;color:var(--mint)"><svg viewBox="0 0 24 24" style="width:34px;height:34px" aria-hidden="true">{I["check"]}</svg></div></div>
    <h1>Thanks, we got it</h1>
-   <p>Your message is on its way to our team. We'll be in touch with clear next steps. Need help sooner? Call {PHONE_AZ}.</p>
+   <p>Your message is on its way to our team. Need help sooner? Call or text Arizona at {PHONE_AZ}, or California at {PHONE_CA}.</p>
    <div class="hero-cta" style="justify-content:center;margin-top:26px"><a href="index.html" class="btn btn-primary">Back to home {ARROW}</a></div>
  </div></section></main>''' + footer())
 write("thanks.html", thanks)
 
 # ============================ 404 ============================
-nf = (head("Page not found | Anderson Technologies","That page could not be found.","404.html")
+nf = (head("Page not found | Anderson Technologies","That page could not be found.","404.html", robots="noindex,follow")
  + nav()
  + f'''<main id="main"><section class="page-hero" style="padding-block:clamp(4rem,10vw,7rem)"><div class="wrap">
    <h1 style="font-size:var(--step-4)">404</h1><p>That page could not be found. It may have moved.</p>
@@ -637,7 +641,7 @@ faq = [
    ("Do you set up multi-factor authentication (MFA)?", "Yes, MFA is a standard part of how we secure your accounts and systems."),
    ("Can you migrate us to Microsoft 365?", "Yes, including migrations from Google Workspace. We handle email, Teams, SharePoint, and day-to-day management."),
    ("Do you support HIPAA or PCI compliance?", "Yes. We help you meet security and compliance requirements, including HIPAA, PCI, and cyber-insurance requirements."),
-   ("What's your response time, and can I get help after hours?", "Urgent issues get same-day attention, and managed clients have on-call support. For anything urgent, just call and we'll jump on it."),
+   ("What's your response time, and can I get help after hours?", "Managed clients have on-call support outside regular hours. For urgent help, call or text and we'll tell you the fastest available next step."),
    ("Do you provide on-site and remote support?", "Both. We can remote in for many issues, and we come on-site too, with on-site visits included on our Complete plan."),
    ("Can you handle servers, firewalls, cabling, and networks?", "Yes. Servers, firewall replacement, VLANs, structured cabling, network racks, Wi-Fi, and conference-room AV are all in our wheelhouse."),
  ]),
@@ -651,11 +655,11 @@ faq = [
    ("Can you help with my email (Gmail or Outlook)?", "Yes. We help set up, transfer, and troubleshoot personal email."),
  ]),
  ("The basics", [
-   ("What areas do you serve?", "Arizona and California, with remote support available for many issues."),
+   ("What areas do you serve?", "We provide on-site service in Phoenix and Ventura, plus remote support nationwide."),
    ("Do you support both Mac and Windows?", "Yes, we work on PC, Mac, and Windows."),
    ("Are you insured, and are your technicians background-checked?", "Yes to both. We're insured and our technicians are background-checked."),
    ("Do you sell computers and hardware?", "Yes. We sell and supply computers and hardware, and we'll recommend the right gear for the job."),
-   ("Can I text you? What are your numbers?", "Yes, text or call us anytime. Arizona is (480) 287-4190 and California is (805) 340-8055."),
+   ("Can I text you? What are your numbers?", "Yes. Arizona is (480) 287-4190 and California is (805) 340-8055. Both numbers accept calls and texts."),
    ("How do I schedule or get a quote?", "Call or text us, or fill out the contact form, and we'll get you set up with a free quote."),
  ]),
 ]
@@ -676,6 +680,23 @@ faq_page = (head("FAQ | Anderson Technologies IT Support",
  <section class="section" style="padding-top:0"><div class="wrap faq-wrap">
    {faq_body}
  </div></section>
+ <section class="section privacy" id="privacy"><div class="wrap faq-wrap">
+   <div class="sec-head reveal"><span class="eyebrow">Privacy</span><h2>Privacy policy</h2><p>Last updated September 9, 2026</p></div>
+   <div class="privacy-copy reveal">
+     <h3>Information we collect</h3>
+     <p>When you contact us, request a quote, apply for a role, or use the chat assistant, we may receive the information you provide, including your name, email, phone number, message, files, and service details.</p>
+     <h3>How we use it</h3>
+     <p>We use this information to respond to you, provide or improve our services, prepare quotes, review applications, protect the site, and meet legal obligations. We don't sell your personal information.</p>
+     <h3>Chat assistant</h3>
+     <p>Chat messages may be processed by Cloudflare and Anthropic to generate an answer. A chat transcript is sent with a quote or follow-up request only when you choose to include or share it. Don't enter passwords, payment-card details, health information, or other sensitive data in chat.</p>
+     <h3>Service providers and storage</h3>
+     <p>We use GitHub Pages to host the site, Cloudflare to protect and operate the chat service, Anthropic to generate chat responses, and FormSubmit to deliver forms to our business email. These providers process information under their own terms and privacy practices.</p>
+     <h3>Cookies and local storage</h3>
+     <p>The site stores your theme preference and whether a chat prompt has already appeared in your browser. We don't currently use advertising cookies or third-party analytics.</p>
+     <h3>Your choices</h3>
+     <p>You can ask us to review, correct, or delete personal information we hold, subject to legal and operational requirements. Email <a href="mailto:{EMAIL_DISPLAY}">{EMAIL_DISPLAY}</a> or use the <a href="contact.html">contact page</a>.</p>
+   </div>
+ </section>
  {cta()}
  </main>
  <script type="application/ld+json">{faq_ld}</script>''' + footer())
@@ -748,7 +769,7 @@ def _sal_table(cat, rows):
     trs="".join(_row(p,s,loc) for p,s,loc in rows)
     return f'<div class="sal-group reveal"><h3>{cat}</h3><div class="sal-wrap"><table class="sal"><thead><tr><th>Position</th><th>Loc</th><th>Typical salary</th></tr></thead><tbody>{trs}</tbody></table></div></div>'
 def _ladder(name, steps):
-    return f'<div class="ladder reveal"><h4>{name}</h4><ol class="rungs">{"".join(f"<li>{s}</li>" for s in steps)}</ol></div>'
+    return f'<div class="ladder reveal"><h3>{name}</h3><ol class="rungs">{"".join(f"<li>{s}</li>" for s in steps)}</ol></div>'
 careers = (head("Careers | Anderson Technologies",
  "Join Anderson Technologies, a growing IT and tech-support team across Arizona and California. Roles, salary ranges, career paths, and how to apply.",
  "careers.html")
@@ -785,7 +806,7 @@ careers = (head("Careers | Anderson Technologies",
  <section class="section"><div class="wrap"><div class="reveal" style="max-width:680px;margin-inline:auto;text-align:center">
    <span class="eyebrow">How to apply</span>
    <h2 style="margin:14px 0 12px">Apply</h2>
-   <p class="lead" style="text-wrap:balance">Email your resume to <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" style="color:var(--brand);font-weight:600;text-decoration:none">{EMAIL_DISPLAY}</a>, or use the contact&nbsp;form.</p>
+   <p class="lead" style="text-wrap:balance">Email your resume to <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" style="color:var(--brand);font-weight:600;text-decoration:none">{EMAIL_DISPLAY}</a>, or attach it to the contact form.</p>
    <div class="hero-cta" style="justify-content:center;margin-top:1.8rem">
      <a href="contact.html" class="btn btn-primary">Get in touch {ARROW}</a>
      <a href="mailto:{EMAIL_DISPLAY}?subject=Careers%20Application" class="btn btn-ghost">Email your resume</a>
@@ -794,9 +815,9 @@ careers = (head("Careers | Anderson Technologies",
  </main>''' + footer())
 write("careers.html", careers)
 
-pages=[("index.html","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("faq.html","0.8"),("careers.html","0.7"),("contact.html","0.8"),("reviews.html","0.7")]
+pages=[("","1.0"),("business.html","0.9"),("support.html","0.9"),("ai.html","0.8"),("faq.html","0.8"),("careers.html","0.7"),("contact.html","0.8"),("reviews.html","0.7")]
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-sm+="".join(f'  <url><loc>{SITE}/{u}</loc><lastmod>2026-07-20</lastmod><priority>{p}</priority></url>\n' for u,p in pages)
+sm+="".join(f'  <url><loc>{SITE}/{u}</loc><priority>{p}</priority></url>\n' for u,p in pages)
 sm+='</urlset>\n'
 write("sitemap.xml", sm)
 write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")

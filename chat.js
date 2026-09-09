@@ -29,8 +29,9 @@
   var started = false;
   var busy = false;
 
-  var PHONE = "(480) 287-4190";
+  var CALL = "Arizona (480) 287-4190 or California (805) 340-8055, both accept calls and texts";
   var CONTACT = "https://andersontechsupport.com/contact.html";
+  var LINK_HOSTS = { "andersontechsupport.com": true, "www.andersontechsupport.com": true };
 
   // ---------- helpers ----------
   function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
@@ -43,9 +44,16 @@
     while ((m = re.exec(text))) {
       if (m.index > last) container.appendChild(document.createTextNode(text.slice(last, m.index)));
       var a = document.createElement("a");
-      if (m[1]) { a.href = m[1]; a.target = "_blank"; a.rel = "noopener"; a.textContent = m[1].replace(/^https?:\/\//, "").replace(/\/$/, ""); }
-      else { a.href = "tel:+1" + m[2].replace(/\D/g, ""); a.textContent = m[2]; }
-      container.appendChild(a);
+      if (m[1]) {
+        var url;
+        try { url = new URL(m[1]); } catch (e) {}
+        if (url && url.protocol === "https:" && LINK_HOSTS[url.hostname]) {
+          a.href = url.href; a.target = "_blank"; a.rel = "noopener"; a.textContent = m[1].replace(/^https?:\/\//, "").replace(/\/$/, "");
+          container.appendChild(a);
+        } else container.appendChild(document.createTextNode(m[1]));
+      } else {
+        a.href = "tel:+1" + m[2].replace(/\D/g, ""); a.textContent = m[2]; container.appendChild(a);
+      }
       last = m.index + m[0].length;
     }
     if (last < text.length) container.appendChild(document.createTextNode(text.slice(last)));
@@ -74,6 +82,13 @@
   bubble.addEventListener("click", function () { panel.hidden ? open() : close(); });
   closeB.addEventListener("click", close);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
+  panel.addEventListener("wheel", function (e) {
+    var scroller = e.target.closest(".cw-log");
+    if (!scroller) { e.preventDefault(); return; }
+    var top = scroller.scrollTop <= 0 && e.deltaY < 0;
+    var bottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1 && e.deltaY > 0;
+    if (top || bottom) e.preventDefault();
+  }, { passive: false });
 
   // ---------- proactive nudge (once per session, tasteful, dismissible) ----------
   function showNudge() {
@@ -90,7 +105,6 @@
     setTimeout(function () { if (panel.hidden) kill(); }, 3000);
   }
   setTimeout(showNudge, 20000);
-  window.addEventListener("scroll", function onScroll() { if (window.scrollY > 700) { showNudge(); window.removeEventListener("scroll", onScroll); } }, { passive: true });
 
   // ---------- menu ----------
   function showMenu() {
@@ -116,21 +130,20 @@
     input.focus();
   }
   function talkToUs() {
-    addMsg("bot", "You can reach us anytime, Arizona (480) 287-4190 and California (805) 340-8055, both take calls and texts. For anything urgent, calling is fastest. Prefer email? info@andersontechsupport.com or the contact form at https://andersontechsupport.com/contact.html");
+    addMsg("bot", "Call or text Arizona at (480) 287-4190 or California at (805) 340-8055. For urgent help, calling is fastest. Prefer email? info@andersontechsupport.com or https://andersontechsupport.com/contact.html");
   }
 
   // ---------- offline fallback: keyword answers from real site facts ----------
   // Used when the Worker/API is unreachable or errors, so the bot still helps.
-  var CALL = "Arizona (480) 287-4190 or California (805) 340-8055 (both take calls and texts)";
   function localAnswer(text) {
     var q = (" " + (text || "").toLowerCase() + " ");
     function has() { for (var i = 0; i < arguments.length; i++) if (q.indexOf(arguments[i]) > -1) return true; return false; }
     if (has("price", "cost", "how much", "rate", "quote", "estimate", "charge", "pricing", "$"))
       return "Pricing depends on your setup, so we don't post numbers online, but a free quote is quick. Grab one at " + CONTACT + " or call " + CALL + ".";
     if (has("emergency", "urgent", "outage", "hacked", "ransomware", "down ", "data loss", "lost my", "can't access", "cant access"))
-      return "That sounds time-sensitive, and calling is fastest: " + CALL + ". We take urgent calls anytime and get you same-day attention.";
+      return "That sounds time-sensitive, and calling is fastest: " + CALL + ". We'll tell you the fastest available next step.";
     if (has("hour", "open", "close", "what time", "when are you"))
-      return "We're open Monday to Friday, 8am to 5pm, and for anything urgent (home or business) you can call anytime: " + CALL + ".";
+      return "We're open Monday to Friday, 8 AM to 5 PM. Managed clients have on-call support outside regular hours. For urgent help, call " + CALL + ".";
     if (has("pay", "credit card", "invoice", "financing", "ach", "check", "billing"))
       return "We accept credit and debit cards, ACH and bank transfer, and we invoice businesses (net terms). The team can set that up when you reach out: " + CALL + ".";
     if (has("warranty", "guarantee", "back your work", "stand behind"))
@@ -151,19 +164,36 @@
   }
 
   // ---------- AI chat (hybrid: Worker-backed AI, local fallback if it fails) ----------
+  function postJSON(path, payload, timeoutMs) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, timeoutMs || 12000);
+    return fetch(WORKER_URL + path, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) {
+        if (!r.ok && !data.fallback && !data.rateLimited) throw new Error("Request failed");
+        return data;
+      });
+    }).finally(function () { clearTimeout(timer); });
+  }
+
   function sendChat(text) {
     history.push({ role: "user", content: text }); asked++;
     busy = true; setInput(false, "..."); var t = typing();
     function offline() { var r = localAnswer(text); history.push({ role: "assistant", content: r }); addMsg("bot", r); }
-    fetch(WORKER_URL + "/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: history, audience: audience }) })
-      .then(function (r) { return r.json(); })
+    var userTurns = history.filter(function (m) { return m.role === "user"; });
+    postJSON("/chat", { messages: userTurns, audience: audience }, 12000)
       .then(function (d) {
         t.remove();
         var reply = (d && d.reply) ? d.reply : "";
-        if (!reply || /^sorry, i had trouble/i.test(reply)) offline();   // API failed server-side -> answer locally
+        if (d && d.rateLimited && reply) { history.push({ role: "assistant", content: reply }); addMsg("bot", reply); }
+        else if (!reply || (d && d.fallback)) offline();
         else { history.push({ role: "assistant", content: reply }); addMsg("bot", reply); }
       })
-      .catch(function () { t.remove(); offline(); })                     // Worker unreachable -> answer locally
+      .catch(function () { t.remove(); offline(); })
       .finally(function () { busy = false; setInput(true); input.focus(); maybeOfferFollowup(); });
   }
 
@@ -177,6 +207,7 @@
     { key: "name",     q: "Great. What's your name?", text: true },
     { key: "email",    q: "And the best email for your quote?", text: true, email: true },
     { key: "phone",    q: "A phone number in case we need it? Optional, type or skip.", text: true, optional: true },
+    { key: "includeTranscript", q: "Include your earlier chat with this request?", opts: ["Yes, include it", "No, just send my answers"] },
   ];
   var answers = {}, step = 0, skipWrap = null;
 
@@ -206,15 +237,15 @@
   }
   function submitQuote() {
     setInput(false, "Sending..."); var t = typing();
-    answers.transcript = transcript();   // give the team the free-text Q&A too, not just the wizard fields
-    fetch(WORKER_URL + "/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(answers) })
-      .then(function (r) { return r.json(); })
+    answers.transcript = answers.includeTranscript === "Yes, include it" ? transcript() : "";
+    delete answers.includeTranscript;
+    postJSON("/lead", answers, 12000)
       .then(function (d) {
         t.remove();
-        if (d && d.ok) addMsg("bot", "Perfect, that's everything. We'll put together a quote and get back to you soon. Need it faster? Call " + PHONE + ".");
-        else addMsg("bot", "I couldn't send that just now. Please call " + PHONE + " or use " + CONTACT + " and we'll sort your quote.");
+        if (d && d.ok) addMsg("bot", "Perfect, that's everything. We'll put together a quote and get back to you soon. Need it faster? Call " + CALL + ".");
+        else addMsg("bot", "I couldn't send that just now. Please call " + CALL + " or use " + CONTACT + " and we'll sort your quote.");
       })
-      .catch(function () { t.remove(); addMsg("bot", "I couldn't connect to send that. Please call " + PHONE + " or use " + CONTACT); })
+      .catch(function () { t.remove(); addMsg("bot", "I couldn't connect to send that. Please call " + CALL + " or use " + CONTACT); })
       .finally(function () { mode = "chat"; setInput(true, "Ask anything else..."); });
   }
 
@@ -227,10 +258,10 @@
   function maybeOfferFollowup() {
     if (followOffered || asked < 2 || mode !== "chat") return;   // only after a couple of real questions, never on close
     followOffered = true;
-    addMsg("bot", "Want the team to follow up with you? I can pass along what you've asked.");
+    addMsg("bot", "Want the team to follow up? If you say yes, I'll include this chat so they have the context.");
     chips([
       { label: "Yes, follow up", act: startFollowup },
-      { label: "No thanks", ghost: true, act: function () { addMsg("bot", "No problem, ask away. You can also reach us anytime at " + PHONE + "."); } },
+      { label: "No thanks", ghost: true, act: function () { addMsg("bot", "No problem, ask away. You can also call or text " + CALL + "."); } },
     ]);
   }
   function startFollowup() { mode = "followup"; fu = {}; fuStep = 0; runFu(); }
@@ -245,11 +276,9 @@
   }
   function submitFollowup() {
     setInput(false, "Sending..."); var t = typing();
-    fetch(WORKER_URL + "/lead", { method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ name: fu.name, email: fu.email, audience: audience, needs: "Chat follow-up (skipped the quote wizard)", details: "Visitor chatted and asked to be followed up with.", transcript: transcript() }) })
-      .then(function (r) { return r.json(); })
-      .then(function (d) { t.remove(); addMsg("bot", (d && d.ok) ? ("Got it" + (fu.name ? ", " + fu.name : "") + ". We'll be in touch soon. Anything else I can help with?") : ("I couldn't send that just now. Please call " + PHONE + " or use " + CONTACT + ".")); })
-      .catch(function () { t.remove(); addMsg("bot", "I couldn't connect to send that. Please call " + PHONE + " or use " + CONTACT); })
+    postJSON("/lead", { name: fu.name, email: fu.email, audience: audience, needs: "Chat follow-up (skipped the quote wizard)", details: "Visitor chatted and asked to be followed up with.", transcript: transcript() }, 12000)
+      .then(function (d) { t.remove(); addMsg("bot", (d && d.ok) ? ("Got it" + (fu.name ? ", " + fu.name : "") + ". We'll be in touch soon. Anything else I can help with?") : ("I couldn't send that just now. Please call " + CALL + " or use " + CONTACT + ".")); })
+      .catch(function () { t.remove(); addMsg("bot", "I couldn't connect to send that. Please call " + CALL + " or use " + CONTACT); })
       .finally(function () { mode = "chat"; setInput(true, "Ask anything else..."); });
   }
 

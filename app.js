@@ -1,23 +1,49 @@
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
 // Mobile menu
 const burger = document.querySelector('.burger');
 const menu = document.getElementById('mobile-menu');
-if (burger) {
+if (burger && menu) {
   burger.setAttribute('aria-label', 'Menu');
   burger.setAttribute('aria-expanded', 'false');
+  menu.setAttribute('aria-hidden', 'true');
+  const pageRegions = [...document.querySelectorAll('main, footer, .cw')];
+  const focusable = () => [...menu.querySelectorAll('a[href], button:not([disabled])')];
   const toggle = (open) => {
+    const wasOpen = document.body.classList.contains('menu-open');
     document.body.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    pageRegions.forEach(el => { el.inert = open; });
+    if (open) requestAnimationFrame(() => { const first = focusable()[0]; if (first) first.focus(); });
+    else if (wasOpen) burger.focus();
   };
   burger.addEventListener('click', () => toggle(!document.body.classList.contains('menu-open')));
-  menu && menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+  document.addEventListener('keydown', e => {
+    if (!document.body.classList.contains('menu-open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); toggle(false); return; }
+    if (e.key !== 'Tab') return;
+    const items = focusable();
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  window.matchMedia('(min-width: 601px)').addEventListener('change', e => { if (e.matches) toggle(false); });
 }
 
 // Scroll reveals
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+const reveals = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) reveals.forEach(el => el.classList.add('in'));
+else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  reveals.forEach(el => io.observe(el));
+}
 
 // Contact form: prefill service from ?service= query
 const svc = new URLSearchParams(location.search).get('service');
@@ -40,18 +66,30 @@ document.querySelectorAll('.sal tbody tr[data-href]').forEach(tr => {
   const sel = document.getElementById('service');
   if (sel) { const o = document.createElement('option'); o.value = "Careers: " + job; o.textContent = "Careers: " + job; o.selected = true; sel.appendChild(o); }
   const form = document.getElementById('contact-form');
-  if (form) try { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+  if (form) try { form.scrollIntoView({ behavior: scrollBehavior, block: 'start' }); } catch (e) {}
 })();
 
-// Theme toggle (light default; respects OS on first visit, then persists)
-document.querySelectorAll('.theme-toggle').forEach(btn => {
+// Theme toggle. Dark is the default; a visitor's choice persists.
+const themeButtons = document.querySelectorAll('.theme-toggle');
+function syncThemeButtons() {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  themeButtons.forEach(btn => {
+    const label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.title = label;
+  });
+}
+themeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
     const next = dark ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch(e){}
+    syncThemeButtons();
   });
 });
+syncThemeButtons();
 
 // Contact form: attach photos, stay on page (hidden-iframe target), size guard, inline status
 (function(){
@@ -63,12 +101,26 @@ document.querySelectorAll('.theme-toggle').forEach(btn => {
   var MAX = 10 * 1024 * 1024;      // FormSubmit hard cap: 10MB total
   var MARGIN = 400 * 1024;         // leave room for the text fields + encoding
   var submitting = false;
+  var confirmationTimer = null;
+  var submitButton = form.querySelector('[type="submit"]');
 
   function show(msg, isErr){
     statusEl.hidden = false;
     statusEl.textContent = msg;
     statusEl.classList.toggle('err', !!isErr);
-    try { statusEl.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e){}
+    try { statusEl.scrollIntoView({behavior:scrollBehavior, block:'center'}); } catch(e){}
+  }
+
+  function setPending(pending){
+    submitting = pending;
+    if (submitButton) submitButton.disabled = pending;
+  }
+
+  function finishSuccess(){
+    clearTimeout(confirmationTimer);
+    setPending(false);
+    show('Thanks. Your message was sent. Need help now? Call or text Arizona at (480) 287-4190 or California at (805) 340-8055.', false);
+    form.reset();
   }
 
   form.addEventListener('submit', function(e){
@@ -82,22 +134,24 @@ document.querySelectorAll('.theme-toggle').forEach(btn => {
         return;
       }
     }
-    submitting = true;
+    setPending(true);
     show('Sending your message...', false);
+    clearTimeout(confirmationTimer);
+    confirmationTimer = setTimeout(function(){
+      if (!submitting) return;
+      setPending(false);
+      show("We couldn't confirm delivery. Your message is still here, so you can try again or call or text Arizona at (480) 287-4190 or California at (805) 340-8055.", true);
+    }, 20000);
   });
 
   if (iframe){
     iframe.addEventListener('load', function(){
       if (!submitting) return;            // ignore the initial (empty) iframe load
-      submitting = false;
-      var ok = true;
-      try { ok = /thanks/i.test(iframe.contentWindow.location.pathname); }
-      catch (err) { ok = true; }          // cross-origin = FormSubmit queued it (pre-activation or its own thanks page)
-      if (ok){
-        show('Thanks. Your message is on its way. Prefer to talk now? Call (480) 287-4190.', false);
-        form.reset();
-      } else {
-        show('Something went wrong sending that. Please email Info@AndersonTechSupport.com or call (480) 287-4190.', true);
+      try {
+        var loc = iframe.contentWindow.location;
+        if (loc.origin === window.location.origin && /\/thanks\.html$/i.test(loc.pathname)) finishSuccess();
+      } catch (err) {
+        // FormSubmit is still cross-origin. Wait for the configured same-origin thanks page.
       }
     });
   }

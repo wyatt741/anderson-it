@@ -10,6 +10,16 @@ __shot_*.html
 
 # wrangler local cache/state (never commit)
 worker/.wrangler/
+worker/.dev.vars*
+worker/.env*
+
+# Python caches from local build and verification scripts
+__pycache__/
+*.pyc
+
+# Superseded per-weight copies. The two variable-font files are committed.
+assets/fonts/plus-jakarta-sans-[0-9][0-9][0-9].woff2
+assets/fonts/space-grotesk-[0-9][0-9][0-9].woff2
 
 # Claude Code local config (per-machine ECC trim)
 .claude/
